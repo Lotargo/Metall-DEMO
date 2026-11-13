@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-13",
+  "status": "passed",
+  "source_head": "eced97899e72cc197fad69315bcf74daa7628909",
+  "files": [
+    {
+      "file": "src/components/drawing/WorkspaceDrawing.tsx",
+      "source_sha256_lf": "71e163260d1b97d6c43af753a4628576c36e29c7d676db9c703dc96ff0c23099",
+      "demo_sha256_lf": "71e163260d1b97d6c43af753a4628576c36e29c7d676db9c703dc96ff0c23099",
+      "source_worktree_modified": true,
+      "matches_source": true,
+      "adaptation": null
+    },
+    {
+      "file": "src/components/route/CompactFullRoute.tsx",
+      "source_sha256_lf": "19bdc3847e2d0a775e6cb66ee3e08b8c3ff08d942ad7b2d7097df6f01478310f",
+      "demo_sha256_lf": "19bdc3847e2d0a775e6cb66ee3e08b8c3ff08d942ad7b2d7097df6f01478310f",
+      "source_worktree_modified": false,
+      "matches_source": true,
+      "adaptation": null
+    },
+    {
+      "file": "src/components/route/RunDocumentLayout.tsx",
+      "source_sha256_lf": "8d932c25c24b6d2b3bbb1ac6a35dddafc87e8b777612d2df0c812a342e5a88fe",
+      "demo_sha256_lf": "721db0a0637f129705edaf0c3217314495aebb8275ecea71f1788a7393db505f",
+      "source_worktree_modified": true,
+      "matches_source": true,
+      "adaptation": "Retain shared CSS import for direct lazy-loaded demo documents."
+    },
+    {
+      "file": "src/components/route/compact-full-route.css",
+      "source_sha256_lf": "349a2d08a1f878c92c550e6d692ae50c03452095c330da78808da7e068a79fbd",
+      "demo_sha256_lf": "349a2d08a1f878c92c550e6d692ae50c03452095c330da78808da7e068a79fbd",
+      "source_worktree_modified": false,
+      "matches_source": true,
+      "adaptation": null
+    },
+    {
+      "file": "src/index.css",
+      "source_sha256_lf": "fa2d7593f75e5db5c6d5469f33d381d841d16eba05fe8c4bfe39e5f302b6be28",
+      "demo_sha256_lf": "fa2d7593f75e5db5c6d5469f33d381d841d16eba05fe8c4bfe39e5f302b6be28",
+      "source_worktree_modified": true,
+      "matches_source": true,
+      "adaptation": null
+    }
+  ],
+  "saved_state_revision": 20,
+  "unchanged_artifact_count": 18,
+  "public_and_viewer_unchanged": true,
+  "browser_check_count": 8,
+  "no_api_server_writes_during_checks": true
+}

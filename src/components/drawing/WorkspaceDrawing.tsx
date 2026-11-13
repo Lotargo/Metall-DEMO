@@ -108,7 +108,7 @@ export function WorkspaceDrawing({ artifactId, pending, tabs, inlineTarget, tab,
     const viewport = tabs?.closest('.app-main');
     const button = opener.current;
     if (button && viewport && button.getBoundingClientRect().top >= viewport.getBoundingClientRect().top) button.focus({ preventScroll: true });
-    else tabs?.querySelector<HTMLElement>('[aria-selected="true"]')?.focus({ preventScroll: true });
+    else tabs?.querySelector<HTMLElement>('[aria-selected="true"], [aria-current="page"]')?.focus({ preventScroll: true });
   }
 
   return <>

@@ -38,6 +38,23 @@ function dimensionText(item: Transition['dimensions'][number]) {
   return item.literal + unit;
 }
 
+function dimensionSource(item: Transition['dimensions'][number]) {
+  return estimateOperatorText(publicSourceText(item.source, ''));
+}
+
+function TransitionDimensions({ dimensions }: { dimensions: Transition['dimensions'] }) {
+  return <dl className="route-dimensions" aria-label="Размеры по чертежу">
+    {dimensions.map((item, index) => <div className="route-dimension-row" key={`${item.row_index}:${index}`}>
+      <dt>{dimensionSource(item) || 'Место на чертеже не указано'}</dt>
+      <dd>
+        <p className="route-dimension-value">{dimensionText(item)}</p>
+        {item.tolerance && <p className="route-dimension-detail">Допуск · {item.tolerance}</p>}
+        {item.roughness && <p className="route-dimension-detail">{item.roughness}</p>}
+      </dd>
+    </div>)}
+  </dl>;
+}
+
 function TransitionRows({ operation, transitions, narrow, inspection = false }: { operation: number; transitions: Transition[]; narrow: boolean; inspection?: boolean }) {
   const showSizes = !narrow && !inspection;
   const regimeRequired = transitions.some(work => work.regime_state !== 'not_required');
@@ -51,8 +68,9 @@ function TransitionRows({ operation, transitions, narrow, inspection = false }: 
       <th scope="col">Время</th>
     </tr></thead>
     <tbody>{transitions.map(work => {
-      const sizes = work.dimensions.map(item => [dimensionText(item), item.tolerance, item.roughness].filter(Boolean).join(' · ')).join('; ');
-      const sources = [...new Set([...work.dimensions.map(item => item.source), ...work.sources].map(source => estimateOperatorText(publicSourceText(source, ''))).filter(Boolean))];
+      const dimensionSources = new Set(work.dimensions.map(dimensionSource).filter(Boolean));
+      const sourceValues = inspection ? [...work.dimensions.map(item => item.source), ...work.sources] : work.sources;
+      const sources = [...new Set(sourceValues.map(source => estimateOperatorText(publicSourceText(source, ''))).filter(source => source && (inspection || !dimensionSources.has(source))))];
       const quantity = work.quantity == null ? '' : formatNumber(work.quantity);
       const regime = work.regime.map(item => item.replace(/(: (?:≈ )?)([-\d.]+) /, (_, prefix: string, value: string) => `${prefix}${formatNumber(value)} `)).join(' · ');
       const regimeLabel = work.regime_state === 'not_required' ? 'Не требуется' : work.regime_state === 'not_applicable' ? 'Нет применимого режима' : 'Не назначен';
@@ -64,7 +82,7 @@ function TransitionRows({ operation, transitions, narrow, inspection = false }: 
           {work.selection === 'conditional' && <p className="text-xs font-normal text-warning">Условный переход</p>}
           {work.reason && <p className="mt-1 text-xs font-normal text-muted">{publicSourceText(work.reason, 'Условия работы требуют уточнения')}</p>}
           {narrow && !inspection && <div className="mt-1 space-y-1 text-xs font-normal text-muted">
-            {sizes && <p>По чертежу · {sizes}</p>}
+            {work.dimensions.length > 0 && <TransitionDimensions dimensions={work.dimensions} />}
             {quantity && <p>Количество · {quantity}</p>}
             {regimeRequired && <div>Режим · {regimeContent}</div>}
             <RemovedVolume volume={work.removed_volume} />
@@ -75,7 +93,7 @@ function TransitionRows({ operation, transitions, narrow, inspection = false }: 
             {sources.map(source => <p key={source}>{source}</p>)}
           </div>}
         </th>
-        {showSizes && <td><p>{sizes || '—'}</p>{quantity && <p className="text-muted">Количество · {quantity}</p>}<RemovedVolume volume={work.removed_volume} /><AddedVolume value={work.added_volume_mm3} /></td>}
+        {showSizes && <td>{work.dimensions.length ? <TransitionDimensions dimensions={work.dimensions} /> : <p>—</p>}{quantity && <p className="text-muted">Количество · {quantity}</p>}<RemovedVolume volume={work.removed_volume} /><AddedVolume value={work.added_volume_mm3} /></td>}
         {showRegime && <td>{regimeContent}</td>}
         <td className="tabular-nums">
           {work.minutes_per_piece == null ? <><span className="text-muted">{work.time_included ? 'Учтено в операции' : 'Не оценено'}</span>

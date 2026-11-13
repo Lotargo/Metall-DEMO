@@ -1,0 +1,428 @@
+{
+  "date": "2026-11-13",
+  "started": "2026-11-13T11:18:07.202Z",
+  "outcome": "passed",
+  "checkCount": 8,
+  "checks": [
+    {
+      "name": "route-floating-drawing-and-document-scroll",
+      "bodyOverflow": false,
+      "drawing": {
+        "height": 160,
+        "width": 224,
+        "x": 1038,
+        "y": 548
+      },
+      "mainOverflow": "auto",
+      "navBottom": 324.765625,
+      "viewportHeight": 720,
+      "viewportWidth": 1280,
+      "visibleDimensions": 57,
+      "passed": true
+    },
+    {
+      "name": "desktop-route-dimension-pairs",
+      "count": 57,
+      "pairs": [
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, размер над буртом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "15 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная цепь",
+          "tolerance": "Ra 6,3 на цилиндре Ø45",
+          "topAligned": true,
+          "value": "62 мм"
+        },
+        {
+          "source": "Главный вид, размер над шейкой",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "25 мм"
+        },
+        {
+          "source": "Главный вид, размер над правым концом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "41 мм"
+        },
+        {
+          "source": "Главный вид, слева от бурта",
+          "tolerance": "Допуск · Общий допуск h14",
+          "topAligned": true,
+          "value": "Ø60 мм"
+        },
+        {
+          "source": "Главный вид, средняя часть",
+          "tolerance": "Ra 6,3",
+          "topAligned": true,
+          "value": "Ø45 мм"
+        },
+        {
+          "source": "Главный вид, справа от ступени Ø45",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, участок с разрывом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "Ø28 мм"
+        },
+        {
+          "source": "Главный вид, правый конец",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, над правым торцом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "1×45°"
+        },
+        {
+          "source": "Главный вид, слева от разрыва",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "45°"
+        },
+        {
+          "source": "Главный вид, справа от разрыва",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "45°"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, размер над левой ступенью",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "10 мм"
+        },
+        {
+          "source": "Главный вид, размер над буртом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "15 мм"
+        },
+        {
+          "source": "Главный вид, слева от бурта",
+          "tolerance": "Допуск · Общий допуск h14",
+          "topAligned": true,
+          "value": "Ø60 мм"
+        },
+        {
+          "source": "Главный вид, левый конец",
+          "tolerance": "Допуск · −0,020 / −0,041",
+          "topAligned": true,
+          "value": "Ø25f7 мм"
+        },
+        {
+          "source": "Главный вид, ступень длиной 10",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "Ø30 мм"
+        },
+        {
+          "source": "Главный вид, слева от бурта",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "14 Эксцентр. мм"
+        },
+        {
+          "source": "Главный вид, над левым торцом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "1×45°"
+        },
+        {
+          "source": "Выносной элемент А",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "Ø24,5 мм"
+        },
+        {
+          "source": "Главный вид, размер над левой ступенью",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "10 мм"
+        },
+        {
+          "source": "Главный вид, левый конец",
+          "tolerance": "Допуск · −0,020 / −0,041",
+          "topAligned": true,
+          "value": "Ø25f7 мм"
+        },
+        {
+          "source": "Главный вид, ступень длиной 10",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "Ø30 мм"
+        },
+        {
+          "source": "Главный вид, слева от бурта",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "14 Эксцентр. мм"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Главный вид, размер над правым концом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "41 мм"
+        },
+        {
+          "source": "Главный вид, правый конец",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, размер над шейкой",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "25 мм"
+        },
+        {
+          "source": "Главный вид, справа от ступени Ø45",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, размер над шейкой",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "25 мм"
+        },
+        {
+          "source": "Главный вид, размер над правым концом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "41 мм"
+        },
+        {
+          "source": "Главный вид, справа от ступени Ø45",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, правый конец",
+          "tolerance": "Допуск · −0,009",
+          "topAligned": true,
+          "value": "Ø30h5 мм"
+        },
+        {
+          "source": "Главный вид, размер у правого торца",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "5 мм"
+        },
+        {
+          "source": "Сечение Г–Г, нижняя размерная линия",
+          "tolerance": "Допуск · +0,5 / +0,3",
+          "topAligned": true,
+          "value": "20 мм"
+        },
+        {
+          "source": "Главный вид, размер у правого торца",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "5 мм"
+        },
+        {
+          "source": "Сечение Г–Г, нижняя размерная линия",
+          "tolerance": "Допуск · +0,5 / +0,3",
+          "topAligned": true,
+          "value": "20 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Главный вид, размер у правого торца",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "5 мм"
+        },
+        {
+          "source": "Главный вид, над левым торцом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "1×45°"
+        },
+        {
+          "source": "Главный вид, над правым торцом",
+          "tolerance": null,
+          "topAligned": true,
+          "value": "1×45°"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        },
+        {
+          "source": "Сечение Г–Г, нижняя размерная линия",
+          "tolerance": "Допуск · +0,5 / +0,3",
+          "topAligned": true,
+          "value": "20 мм"
+        },
+        {
+          "source": "Главный вид, верхняя размерная линия",
+          "tolerance": "Допуск · Общий допуск ±IT14/2",
+          "topAligned": true,
+          "value": "269 мм"
+        },
+        {
+          "source": "Совмещённые разрезы Б–Б, В–В",
+          "tolerance": "Допуск · 6H",
+          "topAligned": true,
+          "value": "М12-6H"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "drawing-remains-in-scrolled-document",
+      "drawingBottom": 888,
+      "drawingY": 728,
+      "mainBottom": 900,
+      "navBottom": -15038.234375,
+      "scrollTop": 15363,
+      "passed": true
+    },
+    {
+      "name": "close-drawing-restores-current-document-focus",
+      "activeText": "Полный маршрут",
+      "current": "page",
+      "drawingClosed": true,
+      "scrollTop": 15363,
+      "passed": true
+    },
+    {
+      "name": "estimate-floating-window-and-saved-result",
+      "documentWidth": 1280,
+      "drawingVisible": true,
+      "mainOverflow": "auto",
+      "price": true,
+      "time": true,
+      "viewportWidth": 1280,
+      "passed": true
+    },
+    {
+      "name": "mobile-route-dimension-pairs-390",
+      "allStacked": true,
+      "documentWidth": 390,
+      "drawingClosed": true,
+      "pairCount": 57,
+      "viewport": 390,
+      "passed": true
+    },
+    {
+      "name": "mobile-route-320",
+      "documentWidth": 320,
+      "pairCount": 57,
+      "viewport": 320,
+      "passed": true
+    },
+    {
+      "name": "drawing-keyboard-move-and-resize",
+      "before": {
+        "width": 224,
+        "x": 1038
+      },
+      "after": {
+        "width": 212,
+        "x": 1026
+      },
+      "passed": true
+    }
+  ]
+}

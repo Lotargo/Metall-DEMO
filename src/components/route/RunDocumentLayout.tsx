@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FileText, Route } from 'lucide-react';
 import { useProcessingJournal } from '@/api/hooks/useProcessingJournal';
@@ -15,6 +15,7 @@ export function RunDocumentLayout({ runId, state, document, children }: {
 }) {
   useProcessingJournal(runId);
   const location = useLocation();
+  const [navigation, setNavigation] = useState<HTMLElement | null>(null);
   const Icon = document === 'estimate' ? FileText : Route;
   return <div className={`run-document-page run-document-page--${document}`}>
     <header className="run-document-heading document-screen-only">
@@ -22,9 +23,9 @@ export function RunDocumentLayout({ runId, state, document, children }: {
         <h1><Icon size={24} aria-hidden="true" />{document === 'estimate' ? 'Смета изготовления детали' : 'Полный маршрут'}</h1>
         <p>{[state.reading?.part_name.text, state.reading?.designation.text].filter(Boolean).join(' · ') || 'Деталь'}</p>
       </div>
-      <WorkspaceDrawing artifactId={state.image_artifact_id} pending={state.status === 'reading'} tabs={null} inlineTarget={null} tab={document === 'route' ? 'full-route' : 'estimate'} visit={location.key} />
+      <WorkspaceDrawing artifactId={state.image_artifact_id} pending={state.status === 'reading'} tabs={navigation} inlineTarget={null} tab={document === 'route' ? 'full-route' : 'estimate'} visit={location.key} />
     </header>
-    <nav className="document-navigation document-screen-only" aria-label="Документы детали">
+    <nav ref={setNavigation} className="document-navigation document-screen-only" aria-label="Документы детали">
       <Link to={`/runs/${encodeURIComponent(runId)}`}>Данные детали</Link>
       <Link to={runDocumentLink(runId, 'route')} aria-current={document === 'route' ? 'page' : undefined}>Полный маршрут</Link>
       <Link to={runDocumentLink(runId, 'estimate')} aria-current={document === 'estimate' ? 'page' : undefined}>Смета</Link>
