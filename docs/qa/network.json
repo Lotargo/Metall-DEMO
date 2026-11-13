@@ -1,0 +1,239 @@
+{
+  "date": "2026-11-13",
+  "scope": "Reload saved estimate on a static-only server; final build",
+  "apiResponseCount": 7,
+  "allApiResponsesMocked": true,
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/react-runtime-Cxw-Wle5.js",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/index-BKmw6Vl1.css",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/index-T0zlL0nq.js",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/demo-network-BmCgDgCq.js",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/demo/responses.json",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/useCompactRound-BNWAP1AT.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/useQuery-BBqOLYMk.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/RunEstimatePage-Dh_5KGnC.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/estimateOperatorText-N6Zwh5X3.css",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/priceEvidence-CVY27C1t.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/client-D9ih_Yb9.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/priceEvidence-MkbRJncz.css",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/info-block-DOhMdQqY.css",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/estimateOperatorText-B9qrP-CH.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/processingLogs-W3rZYDtp.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/MachineHourlyRate-CAhgZA_D.css",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/Modal-C4Wa3Iwq.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/compactNumbers-ol9cAKLa.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/RunEstimatePage-Dxf9gOjt.css",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/file-text-BGbySe4J.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/InfoBlock-DKDOBvlz.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/machineExchange-DXyFw2XW.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/publicSource-Dl3Cvisn.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/CompactEstimateRateSettings-B6V6T9bj.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/MachineHourlyRate-CnDuJrA7.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/useMutation-CS--ou_v.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/CompactEstimatePriceTable-BVQaa_cP.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/Tabs-DT75tpqg.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/CompactStockResult-Bl6DQzBP.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/Input-DShOH0FV.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/refresh-cw-CLywygYz.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/CompactStockChoice-BMugRP7c.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/PublicSourceInput-CKzWpltf.js",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/inter-cyrillic-wght-normal-DqGufNeO.woff2",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/runs/7ea4be93-9a2b-4c9b-b50a-6943cf9048a0/compact-round",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/equipment",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/equipment/hourly-rates",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/calculation/bar-lengths",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/demo/drawing.png",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/runs/7ea4be93-9a2b-4c9b-b50a-6943cf9048a0/compact-round/history",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/runs/7ea4be93-9a2b-4c9b-b50a-6943cf9048a0/compact-round/estimate-table",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/api/v1/runs/7ea4be93-9a2b-4c9b-b50a-6943cf9048a0/compact-round/estimate-form",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/assets/inter-latin-ext-wght-normal-DO1Apj_S.woff2",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4189/Metall-DEMO/demo/events.json",
+      "status": 200,
+      "fromServiceWorker": true
+    }
+  ],
+  "externalRequests": []
+}

@@ -1,0 +1,53 @@
+.compact-route-summary { container-type: inline-size; }
+.route-document-meta { display: grid; gap: 6px; margin-bottom: 20px; }
+.route-operation-list { display: grid; gap: 24px; }
+.route-operation-card { min-width: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.route-operation-header { padding: 18px 20px; background: var(--surface-muted); }
+.route-operation-title { display: flex; align-items: flex-start; gap: 14px; }
+.route-operation-title > div { min-width: 0; }
+.route-operation-title h3 { margin: 0; font-size: 16px; font-weight: 650; line-height: 1.5; overflow-wrap: anywhere; scroll-margin-top: 24px; }
+.route-operation-number { padding-top: 2px; color: var(--accent); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.route-operation-reason { margin-top: 6px; color: var(--muted); font-size: 12px; }
+.route-operation-facts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.route-operation-facts h4 { margin-bottom: 5px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.route-setups { padding: 0 20px; }
+.route-setup { min-width: 0; padding: 18px 0; }
+.route-setup + .route-setup { border-top: 1px solid var(--line); }
+.route-setup > h4, .route-inspection-block > h4 { margin-bottom: 12px; color: var(--text); font-weight: 600; }
+.route-setup-facts { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px 20px; margin-bottom: 16px; }
+.route-setup-facts dt { margin-bottom: 4px; color: var(--muted); font-size: 12px; }
+.route-setup-facts dd { font-size: 13px; overflow-wrap: anywhere; }
+.route-transitions { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.route-transitions :is(th,td) { padding: 10px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.route-transitions thead th { background: var(--surface-muted); font-weight: 600; color: var(--text-secondary); }
+.route-transitions .route-size-track { width: 22%; }
+.route-transitions .route-regime-track { width: 19%; }
+.route-transitions .route-time-track { width: 19%; }
+.route-work-notes { margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.6; font-weight: 400; }
+.route-work-notes p + p { margin-top: 5px; }
+.route-inspection-block, .route-operation-note { margin: 0 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.route-inspection-block p + p { margin-top: 6px; }
+.route-open-conditions { margin: 16px 20px; padding: 14px 16px; border-left: 3px solid var(--warning); background: var(--surface-muted); font-size: 13px; line-height: 1.65; }
+.route-document-meta > .route-open-conditions { margin: 8px 0 0; }
+.route-open-conditions h4 { font-weight: 600; margin-bottom: 6px; }
+.route-open-conditions p + p, .route-open-conditions li + li { margin-top: 6px; }
+.route-global-conditions { padding-top: 18px; border-top: 1px solid var(--line); }
+.route-global-conditions .info-block-body { display: grid; gap: 10px; }
+@container (max-width: 35rem) {
+  .route-operation-header { padding: 16px 12px; }
+  .route-operation-title { gap: 10px; }
+  .route-operation-title h3 { font-size: 15px; }
+  .route-operation-facts, .route-setup-facts { grid-template-columns: minmax(0, 1fr); }
+  .route-setups { padding: 0 12px; }
+  .route-transitions .route-time-track { width: 30%; }
+  .route-transitions :is(th,td) { padding: 9px 7px; }
+  .route-inspection-block, .route-operation-note { margin-inline: 12px; }
+  .route-open-conditions { margin-inline: 12px; padding: 12px; }
+}
+@media print {
+  .route-operation-card { border-radius: 0; overflow: visible; }
+  .route-operation-header, .route-setup > h4 { break-after: avoid; }
+  .route-transitions thead { display: table-header-group; }
+  .route-transitions tr { break-inside: avoid; }
+  .route-operation-list { gap: 16px; }
+}

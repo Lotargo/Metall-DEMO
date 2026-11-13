@@ -1,0 +1,52 @@
+.equipment-configurator .workspace-card-header { align-items: flex-start; gap: 20px; }
+.configurator-layout { display: grid; grid-template-columns: 245px minmax(0, 1fr); border-top: 1px solid var(--line); }
+.configurator-list { background: var(--surface-muted); border-right: 1px solid var(--line); padding: 20px 12px; }
+.configurator-list h3 { color: var(--muted); font-size: 12px; margin: 18px 10px 8px; font-weight: 500; }
+.configurator-list > div:first-child h3 { margin-top: 0; }
+.configurator-list button { display: block; width: 100%; text-align: left; color: var(--text); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 12px 10px; }
+.configurator-list button:hover { background: var(--surface-hover); }
+.configurator-list button[aria-current] { border-color: var(--accent); background: var(--accent-soft); }
+.configurator-list strong { display: block; font-size: 13px; font-weight: 600; }
+.configurator-list small { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+.configurator-editor { padding: 24px 28px; min-width: 0; max-width: 1080px; }
+.configurator-form-heading, .configurator-form-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.configurator-form-heading h3 { margin: 0; font-size: 18px; }
+.configurator-form-heading p, .configurator-form-footer p, .configurator-explanation, .configurator-editor fieldset > p { font-size: 13px; line-height: 1.6; color: var(--muted); }
+.configurator-form-heading p { margin: 6px 0 20px; }
+.configurator-editor fieldset { border: 0; padding: 24px 0; margin: 20px 0 0; border-top: 1px solid var(--line); min-width: 0; }
+.configurator-editor legend { font-weight: 600; padding: 0 12px 0 0; font-size: 15px; }
+.configurator-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 12px 0 20px; }
+.configurator-field { display: grid; gap: 7px; align-content: end; min-width: 0; font-size: 13px; color: var(--text-secondary); }
+.configurator-field small { color: var(--muted); white-space: nowrap; }
+.configurator-field .ui-input { width: 100%; font-variant-numeric: tabular-nums; }
+.configurator-text-field, .configurator-template { display: grid; gap: 8px; margin: 16px 0; font-size: 13px; color: var(--text-secondary); }
+.configurator-text-field .ui-input { width: 100%; min-width: 0; }
+.configurator-editor textarea { resize: vertical; line-height: 1.55; }
+.configurator-checkbox { display: flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; }
+.configurator-checkbox input { accent-color: var(--accent); }
+.configurator-source { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--accent); }
+.configurator-operations-heading { font-size: 16px; margin: 12px 0 8px; }
+.configurator-operation { border-bottom: 1px solid var(--line); }
+.configurator-operation .info-block-title { font-size: 14px; padding: 17px 0; }
+.configurator-operation .info-block-title small { margin-left: 12px; color: var(--muted); font-size: 12px; }
+.configurator-operation-body { padding-bottom: 20px; }
+.configurator-form-footer { margin-top: 24px; }
+.configurator-form-footer p { max-width: 500px; margin: 0; }
+.configurator-error { color: var(--danger); background: var(--danger-soft); padding: 12px; border-left: 3px solid var(--danger); }
+.configurator-success { color: var(--success); }
+.configurator-message { padding: 24px; }
+.configurator-editor .ui-button, .equipment-configurator .workspace-card-header .ui-button { min-height: 44px; }
+.configurator-editor .ui-input, .configurator-editor .ui-select { border: 1px solid var(--control-border); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+@media (max-width: 1000px) {
+  .configurator-layout { grid-template-columns: 200px minmax(0, 1fr); }
+  .configurator-editor { padding: 20px; }
+  .configurator-fields { grid-template-columns: minmax(0, 1fr); }
+  .configurator-form-heading { flex-wrap: wrap; }
+}
+@media (max-width: 700px) {
+  .configurator-layout { grid-template-columns: minmax(0, 1fr); }
+  .configurator-list { border-right: 0; border-bottom: 1px solid var(--line); }
+  .equipment-configurator .workspace-card-header, .configurator-form-footer { flex-direction: column; }
+  .configurator-text-field, .configurator-field, .configurator-checkbox, .configurator-editor .ui-input, .configurator-editor .ui-select, .configurator-operation .info-block-title { font-size: 16px; }
+  .configurator-editor .ui-button { min-height: 48px; }
+}

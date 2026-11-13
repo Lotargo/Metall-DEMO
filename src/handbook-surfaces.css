@@ -1,0 +1,138 @@
+/* Shared product surfaces follow the standalone Metall handbook. */
+@theme inline {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.65;
+}
+
+:root { font-synthesis: none; }
+.app-main { font-size: 14px; line-height: 1.6; }
+.content { padding-block: 28px 40px; }
+.page-intro { align-items: center; gap: 24px; margin-bottom: 24px; }
+.page-intro h2 { font-size: 26px; line-height: 1.3; letter-spacing: -.025em; }
+.page-intro p { margin-top: 8px; font-size: 14px; line-height: 1.65; }
+.content :is(h2, h3, h4) { text-wrap: balance; }
+
+.workspace-card { border-color: var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.workspace-card-header { min-height: 72px; padding: 18px 22px; background: var(--surface); }
+.workspace-card-header :is(h2, h3) { margin: 0; font-size: 18px; line-height: 1.4; letter-spacing: -.015em; }
+.workspace-card-header p { margin-top: 5px; font-size: 13px; line-height: 1.6; }
+.workspace-card-header h3 svg { color: var(--accent); }
+.stat-card { padding: 20px; }
+.stat-label { font-size: 11px; font-weight: 600; }
+.stat-value { margin-top: 12px; font-size: 30px; font-weight: 700; }
+.stat-meta { font-size: 12px; }
+.soft-badge { min-height: 26px; padding: 4px 8px; border: 1px solid transparent; border-radius: 7px; font-size: 11px; font-weight: 600; }
+.soft-badge.accent { border-color: color-mix(in srgb, var(--accent) 20%, transparent); }
+.soft-badge.success { border-color: color-mix(in srgb, var(--success) 20%, transparent); }
+.soft-badge.warning { border-color: color-mix(in srgb, var(--warning) 20%, transparent); }
+.soft-badge.danger { border-color: color-mix(in srgb, var(--danger) 20%, transparent); }
+.operator-note { padding: 14px 18px; font-size: 13px; line-height: 1.65; background: var(--surface-muted); }
+
+.page-section-nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 7px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 1px 2px rgba(15,23,42,.04); }
+.page-section-nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 9px 14px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1.4; text-decoration: none; }
+.page-section-nav a:hover { background: var(--surface-hover); color: var(--text); }
+.page-section-nav a[aria-current] { border-color: color-mix(in srgb, var(--accent) 25%, transparent); background: var(--accent-soft); color: var(--accent); }
+.page-section-nav--inset { margin: 0 20px 16px; border-radius: 8px; box-shadow: none; background: var(--surface-muted); }
+
+.table-toolbar, .editable-nsi-toolbar { gap: 12px; padding: 14px 18px; background: var(--surface-muted); }
+.table-search-wrap { min-width: 0; }
+.table-search-wrap input { min-height: 40px; border-color: var(--control-border); border-radius: 6px; font-size: 14px; }
+.table-tabs { max-width: 100%; gap: 4px; padding: 4px; border-radius: 8px; overflow-x: auto; }
+.table-tabs button { flex-shrink: 0; min-height: 36px; padding: 8px 12px; font-size: 13px; font-weight: 500; }
+.table-tabs button.is-active { background: var(--accent-soft); color: var(--accent); box-shadow: 0 1px 2px rgba(15,23,42,.06); }
+.catalog-filter-bar { gap: 8px; padding: 12px 18px; font-size: 12px; }
+.catalog-chip { min-height: 32px; border-radius: 6px; font-size: 12px; font-weight: 500; transition: background-color 150ms, border-color 150ms; }
+.catalog-chip.is-active { border-color: color-mix(in srgb, var(--accent) 35%, transparent); background: var(--accent-soft); color: var(--accent); box-shadow: none; }
+.projects-table { font-size: 13px; line-height: 1.55; }
+.projects-table :is(th, td) { padding: 13px 16px; border-bottom-color: var(--line); }
+.projects-table thead th { color: var(--text-secondary); font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: normal; background: var(--surface-muted); }
+.entity-link strong { font-size: 12px; }
+.entity-link span { font-size: 14px; font-weight: 600; }
+.row-actions button { width: 36px; height: 36px; border: 1px solid transparent; border-radius: 6px; }
+.empty-state { gap: 8px; padding: 24px; }
+.empty-state strong { font-size: 16px; }
+.empty-state span, .page-state { font-size: 14px; line-height: 1.6; }
+.primary-action, .secondary-action, .restore-action { min-height: 40px; border-radius: 6px; font-size: 14px; font-weight: 500; }
+
+/* Workspace panels retain the operator's dense data, with handbook hierarchy. */
+.compact-round-workspace > header { padding-block: 20px; background: var(--surface); }
+.compact-round-workspace > header h1 { font-size: 23px; line-height: 1.35; letter-spacing: -.02em; }
+.compact-work-area { padding-top: 16px; }
+.compact-workspace-nav { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.compact-work-area [role="tabpanel"] { min-width: 0; margin-top: 20px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.compact-work-area [role="tabpanel"] > h2 { padding-bottom: 15px; border-bottom: 1px solid var(--line); color: var(--text); font-size: 22px; line-height: 1.35; letter-spacing: -.02em; }
+.workspace-description-drawing, .compact-workspace-card { padding: 20px; border-color: var(--line); border-radius: var(--radius); background: var(--surface-muted); }
+.compact-workspace-card > h3 { color: var(--accent); font-size: 16px; }
+.compact-work-area table { line-height: 1.6; }
+.compact-work-area table thead th { padding-block: 12px; color: var(--text-secondary); background: var(--surface-muted); }
+.compact-route-table .route-operation-header > th { padding: 14px 12px; border-block: 1px solid var(--line); background: var(--accent-soft); color: var(--accent); }
+.compact-route-table .route-transitions { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.compact-route-table .route-transitions :is(th, td) { padding: 12px 10px; }
+.compact-route-table .route-setup > td { padding-block: 16px; }
+.workspace-drawing-window { border-color: var(--line-strong); border-radius: var(--radius); box-shadow: 0 8px 28px rgba(15,23,42,.16); }
+.workspace-drawing-bar { min-height: 40px; padding: 4px 8px; background: var(--surface-muted); }
+.compact-clarifications__table thead th { color: var(--text-secondary); background: var(--surface-muted); }
+.compact-cost-estimate .estimate-total :is(th, td) { padding-block: 16px; background: var(--accent-soft); color: var(--accent); }
+.engineering-table-scroll { max-width: 100%; border: 1px solid var(--line); border-radius: 8px; scrollbar-width: thin; scrollbar-color: var(--control-border) var(--surface-muted); }
+.material-evidence-table { min-width: 30rem; table-layout: fixed; }
+.material-evidence-table th:first-child { width: 40%; }
+.preliminary-route-table { min-width: 56rem; table-layout: fixed; }
+.preliminary-route-table th:first-child { width: 3rem; }
+.preliminary-route-table th:nth-child(2) { width: 32%; }
+.engineering-scroll-hint { position: sticky; left: 0; margin: 0; padding: 8px 12px; border-top: 1px solid var(--line); background: var(--surface-muted); color: var(--muted); font-size: 12px; }
+.compact-cost-estimate .estimate-price-table { min-width: 56rem; }
+.app-modal-body table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; text-align: left; }
+.app-modal-body table :is(th, td) { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: break-word; }
+.app-modal-body table thead th { color: var(--text-secondary); background: var(--surface-muted); font-weight: 600; }
+.app-modal-body table tbody th { font-weight: 500; }
+.app-modal-body .estimate-articles-table { min-width: 56rem; }
+.app-modal-body :is(.estimate-conditions-table, .estimate-rate-table) { min-width: 30rem; }
+
+/* Equipment, configuration and NSI share the same surface vocabulary. */
+.configurator-list { padding: 16px 12px; }
+.configurator-list button { position: relative; margin-block: 3px; border-radius: 8px; }
+.configurator-list button[aria-current] { border-color: transparent; box-shadow: inset 3px 0 var(--accent); }
+.configurator-editor { padding: 24px; }
+.configurator-form-heading h3 { font-size: 22px; line-height: 1.35; letter-spacing: -.02em; }
+.configurator-operation { margin-top: 14px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.configurator-operation > .info-block-title { padding: 16px 18px; color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.configurator-operation-body { padding: 0 18px 18px; }
+.configurator-editor fieldset { padding-block: 20px; }
+.machine-data-group, .machine-import-preview, .machine-history { border-radius: var(--radius); background: var(--surface-muted); }
+.machine-parameter-group h4, .machine-card-heading h4 { color: var(--accent); font-size: 16px; line-height: 1.4; }
+.machine-parameter-table { font-size: 13px; }
+.machine-parameter-table thead th { background: var(--surface-muted); }
+.editable-nsi-picker button { min-height: 44px; border-radius: 6px; font-size: 12px; }
+.editable-nsi-table td { padding: 10px 14px; }
+.nsi-cell-input { min-height: 36px; font-size: 13px; }
+.nsi-message, .nsi-warning { border-radius: 8px; font-size: 13px; }
+
+@media (max-width: 900px) {
+  .content { padding: 22px 18px 32px; }
+  .page-intro { align-items: flex-start; flex-wrap: wrap; }
+  .workspace-card-header { flex-wrap: wrap; padding: 16px 18px; }
+}
+@media (max-width: 600px) {
+  .content { padding: 20px 12px 28px; }
+  .page-intro h2 { font-size: 23px; }
+  .workspace-card-header :is(h2, h3) { font-size: 17px; }
+  .page-section-nav a { min-height: 44px; padding: 9px 10px; font-size: 13px; }
+  .page-section-nav--inset { margin: 0 12px 12px; }
+  .table-toolbar, .editable-nsi-toolbar { padding: 12px; }
+  .table-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; overflow: visible; }
+  .table-tabs button { min-width: 0; min-height: 44px; white-space: normal; overflow-wrap: anywhere; }
+  .row-actions button { width: 44px; height: 44px; }
+  .compact-round-workspace > header h1 { font-size: 20px; }
+  .compact-work-area [role="tabpanel"] { padding: 16px 12px; }
+  .compact-work-area [role="tabpanel"] > h2 { font-size: 20px; }
+  .compact-route-table .route-transitions :is(th, td) { padding: 10px 6px; }
+  .workspace-description-drawing, .compact-workspace-card { padding: 14px; }
+  .configurator-editor { padding: 18px 14px; }
+  .configurator-operation > .info-block-title { padding: 14px; }
+  .configurator-operation-body { padding: 0 14px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .catalog-chip { transition: none; }
+}

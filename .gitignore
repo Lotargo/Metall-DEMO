@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.temp/
+*.tsbuildinfo
+.env*
+!.env.example
+# Recreated from viewer/ and the locked Three.js package by predev/prebuild.
+public/models/**/viewer.html
+public/models/**/viewer.mjs
+public/models/**/preview.css
+public/models/**/preview-*.mjs
+public/models/**/icons.svg
+public/models/**/three.*.js
+public/models/**/OrbitControls.js

@@ -1,0 +1,51 @@
+.compact-cost-estimate { min-width: 0; font-size: 0.875rem; container-type: inline-size; }
+.compact-cost-estimate .estimate-table-scroll { max-width: 100%; overflow-x: auto; }
+.compact-cost-estimate .estimate-articles-table { min-width: 48rem; table-layout: auto; }
+.compact-cost-estimate .estimate-articles-table th:first-child { min-width: 12rem; }
+.compact-cost-estimate .estimate-articles-table thead th { white-space: nowrap; }
+.compact-cost-estimate .estimate-articles-table :is(th, td):last-child { min-width: 7.5rem; }
+.compact-cost-estimate .estimate-missing-table :is(th, td):nth-child(2) { min-width: 4.5rem; }
+.compact-cost-estimate .estimate-row-source > .info-block-title { white-space: nowrap; }
+.estimate-line-notes > td { padding-top: 0 !important; }
+.estimate-line-context { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px 24px; padding: 12px 14px; margin-bottom: 10px; background: var(--surface-muted); border-radius: 6px; font-size: 12px; font-weight: 400; }
+.estimate-line-context > :only-child { grid-column: 1 / -1; }
+.estimate-line-basis { min-width: 0; }
+.estimate-line-basis > .info-block + .info-block { margin-top: 12px; }
+@media (max-width: 700px) { .estimate-line-context { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+.compact-cost-estimate .estimate-number { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.compact-cost-estimate .estimate-summary-table th { width: 60%; }
+.compact-cost-estimate .estimate-group-row th { padding-top: 0.9rem; background: var(--color-surface-muted); font-weight: 600; }
+.compact-cost-estimate .estimate-subtotal th, .compact-cost-estimate .estimate-subtotal td { font-weight: 600; }
+.compact-cost-estimate .estimate-row-source > div { min-width: 10rem; }
+.compact-cost-estimate .estimate-cell-values { min-width: 10rem; }
+.compact-cost-estimate .estimate-cell-values > div { display: flex; justify-content: space-between; gap: 0.75rem; }
+.compact-cost-estimate .estimate-rate-table { min-width: 25rem; }
+.compact-cost-estimate .estimate-rate-table :is(th, td) { vertical-align: top; }
+.compact-cost-estimate .estimate-document-table :is(th, td) { padding: 0.55rem 0.4rem 0.55rem 0; vertical-align: top; overflow-wrap: anywhere; }
+.compact-cost-estimate .estimate-document-table :is(th, td):last-child { padding-right: 0; }
+.compact-cost-estimate .estimate-document-table .estimate-group-title { padding-left: 0.45rem; }
+.compact-cost-estimate .estimate-context-compact { display: none; }
+.compact-cost-estimate .estimate-price-table { table-layout: fixed; }
+.compact-cost-estimate .estimate-price-table { min-width: 46rem; }
+.compact-cost-estimate .estimate-price-table thead th { white-space: nowrap; }
+.compact-cost-estimate .estimate-number-track { width: 2.5rem; }
+.compact-round-workspace .estimate-price-table .tabular-nums { white-space: normal; }
+.compact-cost-estimate .estimate-unit-track { width: 7%; }
+.compact-cost-estimate .estimate-price-track { width: 15%; }
+.compact-cost-estimate .estimate-quantity-track { width: 12%; }
+.compact-cost-estimate .estimate-amount-track { width: 16%; }
+@container (max-width: 38rem) {
+  .compact-cost-estimate .estimate-document-table .estimate-context-column { display: none; }
+  .compact-cost-estimate .estimate-document-table .estimate-context-compact { display: block; }
+  .compact-cost-estimate .estimate-document-table td:last-child { width: 29%; }
+  .compact-cost-estimate .estimate-price-table .estimate-amount-track { width: 16%; }
+  .compact-cost-estimate .estimate-conditions-table,
+  .compact-cost-estimate .estimate-conditions-table tbody,
+  .compact-cost-estimate .estimate-conditions-table tr,
+  .compact-cost-estimate .estimate-conditions-table th,
+  .compact-cost-estimate .estimate-conditions-table td { display: block; width: 100%; }
+  .compact-cost-estimate .estimate-conditions-table thead { display: none; }
+  .compact-cost-estimate .estimate-conditions-table tbody th { padding-bottom: 0; border-bottom: 0; }
+  .compact-cost-estimate .estimate-conditions-table td { border-bottom: 0; }
+  .compact-cost-estimate .estimate-conditions-table tr { padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-line); }
+}

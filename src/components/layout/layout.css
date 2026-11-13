@@ -1,0 +1,229 @@
+/* The application chrome follows the Metall formula handbook. */
+.app-shell {
+  --sidebar-width: 280px;
+  --sidebar-rail-width: 76px;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 100dvh;
+  background: var(--bg);
+}
+.app-shell:has(> .sidebar.is-collapsed) { grid-template-columns: var(--sidebar-rail-width) minmax(0, 1fr); }
+.app-shell > .sidebar {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  height: 100dvh;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 40;
+  background: var(--sidebar);
+  color: #eef3f6;
+}
+.app-shell > .sidebar.is-collapsed { display: flex; }
+.app-shell .sidebar :focus-visible { outline-color: var(--sidebar-focus); }
+.app-shell .sidebar-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--sidebar-focus);
+  opacity: .38;
+  pointer-events: none;
+  user-select: none;
+}
+.app-shell .sidebar-head,
+.app-shell .sidebar-scroll,
+.app-shell .sidebar-footer { position: relative; z-index: 1; }
+.app-shell .sidebar .nav-text,
+.app-shell .sidebar .nav-label,
+.app-shell .sidebar .brand strong,
+.app-shell .sidebar .brand small { text-shadow: 0 1px 3px var(--sidebar); }
+.app-shell .sidebar-head {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 84px;
+  padding: calc(22px + env(safe-area-inset-top)) 20px 22px;
+}
+.app-shell .sidebar .brand { display: flex; min-width: 0; align-items: center; gap: 12px; padding: 0; color: inherit; text-decoration: none; }
+.app-shell .sidebar .brand-mark {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 10px;
+  background: rgba(24, 32, 41, .8);
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -.04em;
+}
+.app-shell .sidebar .brand strong,
+.app-shell .sidebar .brand small { display: block; }
+.app-shell .sidebar .brand strong { color: #fff; font-size: 17px; line-height: 1.3; letter-spacing: .01em; }
+.app-shell .sidebar .brand small { margin-top: 2px; color: var(--sidebar-muted); font-size: 11px; line-height: 1.5; }
+.app-shell .sidebar-scroll {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  padding: 0 12px 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #485562 transparent;
+}
+.app-shell .sidebar .nav-group { margin-top: 20px; }
+.app-shell .sidebar .nav-group:first-child { margin-top: 0; }
+.app-shell .sidebar .nav-label { margin: 0; padding: 0 12px 8px; color: #abb9c6; font-size: 10px; font-weight: 600; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.app-shell .sidebar .nav-links { margin: 0; padding: 0; list-style: none; }
+.app-shell .sidebar .nav-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  margin: 3px 0;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #c9d2da;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 160ms ease-out, background-color 160ms ease-out;
+}
+.app-shell .sidebar .nav-item::before { content: ''; position: absolute; left: 0; top: 50%; width: 3px; height: 18px; border-radius: 0 3px 3px 0; background: var(--sidebar-focus); opacity: 0; transform: translateY(-50%) scaleY(.5); transition: transform 160ms ease-out, opacity 160ms ease-out; }
+.app-shell .sidebar .nav-item:hover { background: rgba(255, 255, 255, .06); color: #fff; }
+.app-shell .sidebar .nav-item[aria-current] { background: rgba(37, 95, 133, .32); color: #fff; }
+.app-shell .sidebar .nav-item[aria-current]::before { opacity: 1; transform: translateY(-50%) scaleY(1); }
+.app-shell .sidebar .nav-icon { flex: 0 0 auto; width: 18px; height: 18px; color: var(--sidebar-muted); transition: transform 160ms ease-out; }
+.app-shell .sidebar .nav-item:hover .nav-icon { color: var(--sidebar-focus); transform: translateX(2px); }
+.app-shell .sidebar .nav-item[aria-current] .nav-icon { color: var(--sidebar-focus); }
+.app-shell .sidebar .nav-text { min-width: 0; }
+.app-shell .sidebar-footer { flex: 0 0 auto; padding: 14px 12px calc(14px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(255, 255, 255, .1); background: rgba(24, 32, 41, .9); }
+.app-shell .sidebar-footlinks { display: block; }
+.app-shell .sidebar-footlinks .nav-item { grid-template-columns: 16px minmax(0, 1fr) 13px; gap: 8px; min-height: 36px; padding: 8px 10px; font-size: 12px; }
+.app-shell .sidebar-footlinks .nav-icon { width: 16px; height: 16px; }
+.app-shell .sidebar .nav-external-icon { width: 13px; height: 13px; margin-left: 0; color: #8f9ea9; opacity: .7; }
+.app-shell .sidebar .nav-item-external:hover .nav-external-icon { color: #fff; opacity: 1; }
+.app-shell .sidebar .sidebar-close { display: none; }
+
+.app-shell > .sidebar.is-collapsed .sidebar-head { justify-content: center; padding-inline: 0; }
+.app-shell > .sidebar.is-collapsed .brand-text,
+.app-shell > .sidebar.is-collapsed .nav-label,
+.app-shell > .sidebar.is-collapsed .nav-text,
+.app-shell > .sidebar.is-collapsed .nav-external-icon { display: none; }
+.app-shell > .sidebar.is-collapsed .sidebar-scroll { padding-inline: 12px; }
+.app-shell > .sidebar.is-collapsed .nav-group + .nav-group { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.app-shell > .sidebar.is-collapsed .nav-item { grid-template-columns: 1fr; justify-items: center; min-height: 44px; padding: 10px; }
+.app-shell > .sidebar.is-collapsed .sidebar-art { opacity: .24; }
+
+.app-shell > .topbar {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+  min-height: 84px;
+  padding: 18px 30px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: none;
+}
+.app-shell .topbar-heading { display: flex; min-width: 0; align-items: center; gap: 12px; }
+.app-shell .topbar-symbol { display: grid; flex: 0 0 auto; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 10px; background: var(--accent-soft); color: var(--accent); }
+.app-shell .topbar-title { min-width: 0; }
+.app-shell .topbar h1 { margin: 0 0 2px; overflow: hidden; color: var(--text); font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -.02em; white-space: nowrap; text-overflow: ellipsis; }
+.app-shell .topbar .eyebrow { margin: 0; color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.5; letter-spacing: normal; text-transform: none; }
+.app-shell .topbar-actions { display: flex; flex: 0 1 auto; max-width: 34%; align-items: center; gap: 8px; }
+.app-shell .operator-chip { display: flex; min-width: 0; min-height: 46px; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); text-decoration: none; }
+.app-shell .operator-avatar { display: grid; flex: 0 0 auto; place-items: center; width: 32px; height: 32px; border-radius: 7px; background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.app-shell .operator-details { min-width: 0; }
+.app-shell .operator-chip strong,
+.app-shell .operator-chip small { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.app-shell .operator-chip strong { font-size: 12px; font-weight: 650; line-height: 1.4; }
+.app-shell .operator-chip small { margin-top: 1px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.app-shell .topbar .menu-button,
+.app-shell .topbar .sidebar-toggle { flex: 0 0 auto; place-items: center; width: 36px; height: 36px; min-height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); cursor: pointer; }
+.app-shell .topbar .sidebar-toggle { display: inline-grid; }
+.app-shell .topbar .menu-button { display: none; }
+.app-shell .topbar .menu-button:hover,
+.app-shell .topbar .sidebar-toggle:hover { background: var(--surface-hover); color: var(--text); }
+.app-shell > .app-main { grid-column: 2; grid-row: 2; min-width: 0; min-height: 0; }
+
+.app-shell > .navigation-dialog { position: fixed; inset: 0 auto 0 0; width: min(300px, calc(100vw - 40px)); height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; overflow: visible; }
+.app-shell > .navigation-dialog:not([open]) { display: none; }
+.app-shell > .navigation-dialog[open] { animation: metall-drawer-in 180ms ease-out both; }
+.app-shell > .navigation-dialog::backdrop { background: rgba(15, 23, 42, .45); animation: metall-backdrop-in 160ms ease-out both; }
+.app-shell .navigation-dialog > .sidebar { position: relative; inset: auto; display: flex; flex-direction: column; gap: 0; width: 100%; height: 100dvh; min-height: 0; padding: 0; overflow: hidden; background: var(--sidebar); color: #eef3f6; box-shadow: 12px 0 32px rgba(15, 23, 42, .18); }
+body:has(.app-shell > .navigation-dialog[open]) { overflow: hidden; }
+@keyframes metall-drawer-in { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes metall-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 1050px) {
+  .app-shell > .topbar { padding-inline: 24px; }
+  .app-shell .topbar-symbol { display: none; }
+}
+@media (max-width: 900px) {
+  .app-shell,
+  .app-shell:has(> .sidebar.is-collapsed) { grid-template-columns: minmax(0, 1fr); }
+  .app-shell > .sidebar,
+  .app-shell > .sidebar.is-collapsed { display: none; }
+  .app-shell > .topbar { grid-column: 1; min-height: 72px; gap: 12px; padding: 12px 16px; }
+  .app-shell > .app-main { grid-column: 1; }
+  .app-shell .topbar-heading { gap: 10px; }
+  .app-shell .topbar .menu-button { display: inline-grid; width: 44px; height: 44px; min-height: 44px; }
+  .app-shell .topbar .sidebar-toggle { display: none; }
+  .app-shell .topbar h1 { font-size: 18px; }
+  .app-shell .topbar-actions { margin-left: auto; }
+  .app-shell .mobile-sidebar .sidebar-head { min-height: 84px; padding: calc(18px + env(safe-area-inset-top)) 20px 18px; }
+  .app-shell .mobile-sidebar .sidebar-close { display: inline-grid; flex: 0 0 auto; place-items: center; width: 44px; height: 44px; min-height: 44px; padding: 0; border: 1px solid rgba(255, 255, 255, .15); border-radius: 8px; background: transparent; color: #c9d2da; cursor: pointer; }
+  .app-shell .mobile-sidebar .sidebar-close:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+  .app-shell .mobile-sidebar .nav-item { min-height: 44px; font-size: 14px; }
+  .app-shell .mobile-sidebar .sidebar-footlinks .nav-item { font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .app-shell .topbar h1 { font-size: 16px; }
+  .app-shell .topbar .eyebrow { font-size: 10px; }
+  .app-shell .operator-chip { justify-content: center; width: 44px; height: 44px; min-height: 44px; padding: 5px; border: 0; background: transparent; }
+  .app-shell .operator-details { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell > .navigation-dialog[open],
+  .app-shell > .navigation-dialog::backdrop { animation: none; }
+  .app-shell .sidebar .nav-item,
+  .app-shell .sidebar .nav-item::before,
+  .app-shell .sidebar .nav-icon,
+  .app-shell .sidebar .nav-external-icon { transition: none; }
+  .app-shell .sidebar .nav-item:hover .nav-icon,
+  .app-shell .sidebar .nav-item-external:hover .nav-external-icon { transform: none; }
+}
+@media print {
+  .app-shell,
+  .app-shell:has(> .sidebar.is-collapsed) { display: block; height: auto; min-height: 0; }
+  .app-shell > .sidebar,
+  .app-shell > .topbar,
+  .app-shell > .navigation-dialog { display: none !important; }
+  body:has(.app-shell > .navigation-dialog[open]) { overflow: visible; }
+}

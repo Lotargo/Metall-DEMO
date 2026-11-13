@@ -1,0 +1,98 @@
+{
+  "date": "2026-11-13",
+  "status": "passed",
+  "checkedArtifactCount": 18,
+  "trackedFileCount": 189,
+  "artifacts": [
+    {
+      "file": "public/demo/drawing.pdf",
+      "bytes": 642410,
+      "sha256": "75a927103bd549633a3125ace1efa63c1ecc823943e61ce6b1d6250c0065670f"
+    },
+    {
+      "file": "public/demo/drawing.png",
+      "bytes": 2586611,
+      "sha256": "a370fb7438f351df7a6d44700933f760a7aa490134cfa48db2a787b8d233f6e9"
+    },
+    {
+      "file": "public/demo/events.json",
+      "bytes": 4631,
+      "sha256": "df7fe4bab4cc645aef97b51456fca7363c60fa120cc71d9124f10ebaaf590e76"
+    },
+    {
+      "file": "public/demo/models.json",
+      "bytes": 566,
+      "sha256": "e9a400ba079232a1dde97e7476a42ab285eaf23b812e8f5ebcc2cef9d7a0d093"
+    },
+    {
+      "file": "public/demo/responses.json",
+      "bytes": 3395430,
+      "sha256": "47c88eb310c9197d01e73344baebd35fe1873183fe9ca530a36be0b09707002b"
+    },
+    {
+      "file": "public/models/drive-shaft/cutaway-1.json",
+      "bytes": 315838,
+      "sha256": "b78d41aeab81b2eb26088399cc79cea3ccdf04f80fcbfd83bf49cf49b8aa3c6e"
+    },
+    {
+      "file": "public/models/drive-shaft/dimensions.json",
+      "bytes": 23286,
+      "sha256": "c06c8e9e17a42d9ecfd2633ddb2ed00f67759e1e0a2156ae4e8e190cc50cc800"
+    },
+    {
+      "file": "public/models/drive-shaft/inspection.json",
+      "bytes": 55624,
+      "sha256": "9b901ff4987e77e884ddaac4deea903b1f6a75fe2f629d39b3552624dfa2a785"
+    },
+    {
+      "file": "public/models/drive-shaft/mesh.json",
+      "bytes": 567826,
+      "sha256": "5c6f10d5ff724f4c1a5b790f3bd261a9e71c6c833176f2ac7ba49d51310caaf0"
+    },
+    {
+      "file": "public/models/drive-shaft/model.step",
+      "bytes": 276167,
+      "sha256": "2f348cf1e4a581307c653db9690d2bc0fa1a39af9db8d71a8bd8137e3aa36f78"
+    },
+    {
+      "file": "public/models/drive-shaft/preview-config.json",
+      "bytes": 15102,
+      "sha256": "ad396b5dc2804a622e4ef33f081a9f454ca3261b679c04a40431ca88de0bc114"
+    },
+    {
+      "file": "public/models/drive-shaft/preview.jpg",
+      "bytes": 40936,
+      "sha256": "d17ff089045db6b51442d34599c245e53d6fd0b68ec4258a874b774cfb52bd78"
+    },
+    {
+      "file": "public/models/stepped-part/cutaway-1.json",
+      "bytes": 91034,
+      "sha256": "be6192edad7e55ccedc73465a7f36bba5bab8d05a5f0806cc8f935f7cb917d7d"
+    },
+    {
+      "file": "public/models/stepped-part/inspection.json",
+      "bytes": 8097,
+      "sha256": "99c28cbc434a2e63e4c1db2c9d58184417fbbe12b208994e35e9b917368461f7"
+    },
+    {
+      "file": "public/models/stepped-part/mesh.json",
+      "bytes": 151009,
+      "sha256": "c72dd32c1f3ee169a690b184ac7ad1ebaf1f2719d410d6a400b902a3dfc3ce63"
+    },
+    {
+      "file": "public/models/stepped-part/model.step",
+      "bytes": 43593,
+      "sha256": "6e0f974a61980390be22e782c6699c27ccd196f7289b44537c3810cf3e273a12"
+    },
+    {
+      "file": "public/models/stepped-part/preview-config.json",
+      "bytes": 448,
+      "sha256": "502839d23dd5eedfbac7edb861ed6a61113d2b928479c316e23953c8621a40bb"
+    },
+    {
+      "file": "public/models/stepped-part/preview.jpg",
+      "bytes": 44486,
+      "sha256": "4f119ba9f7cb169487d2808201f4b7ae78745e413a3c8e7ba10e7b6d149386c2"
+    }
+  ]
+}

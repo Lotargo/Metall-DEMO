@@ -1,0 +1,521 @@
+{
+  "date": "2026-11-13",
+  "scope": "Static demo UI; saved data only",
+  "started": "2026-11-13T10:25:17.371Z",
+  "outcome": "passed",
+  "checkCount": 67,
+  "checks": [
+    {
+      "name": "workspace-description",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Описание детали"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "workspace-passport",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Технический паспорт"
+      ],
+      "overflow": false,
+      "visibleRows": 55
+    },
+    {
+      "name": "workspace-stock",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Заготовка"
+      ],
+      "overflow": false,
+      "visibleRows": 14
+    },
+    {
+      "name": "workspace-material",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Свойства материала"
+      ],
+      "overflow": false,
+      "visibleRows": 63
+    },
+    {
+      "name": "workspace-questions",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Уточнения"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "workspace-preliminary",
+      "alerts": [],
+      "headings": [
+        "Вал эксцентриковый · 02.08.00761",
+        "Предварительный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 9
+    },
+    {
+      "name": "estimate-main",
+      "alerts": []
+    },
+    {
+      "name": "estimate-stock",
+      "alerts": []
+    },
+    {
+      "name": "estimate-works",
+      "alerts": []
+    },
+    {
+      "name": "estimate-rates",
+      "alerts": []
+    },
+    {
+      "name": "estimate-norms",
+      "alerts": []
+    },
+    {
+      "name": "estimate-totals",
+      "alerts": []
+    },
+    {
+      "name": "/projects",
+      "alerts": [],
+      "headings": [
+        "Очередь проектов"
+      ],
+      "overflow": false,
+      "visibleRows": 1
+    },
+    {
+      "name": "/projects/1",
+      "alerts": [],
+      "headings": [
+        "Демонстрационный проект"
+      ],
+      "overflow": false,
+      "visibleRows": 1
+    },
+    {
+      "name": "/catalog?section=materials",
+      "alerts": [],
+      "headings": [
+        "Справочник нормативно-справочной информации (НСИ)"
+      ],
+      "overflow": false,
+      "visibleRows": 8
+    },
+    {
+      "name": "/catalog?section=standards",
+      "alerts": [],
+      "headings": [
+        "Справочник нормативно-справочной информации (НСИ)"
+      ],
+      "overflow": false,
+      "visibleRows": 6
+    },
+    {
+      "name": "/catalog?section=assortment",
+      "alerts": [],
+      "headings": [
+        "Справочник нормативно-справочной информации (НСИ)"
+      ],
+      "overflow": false,
+      "visibleRows": 8
+    },
+    {
+      "name": "/catalog?section=editable",
+      "alerts": [],
+      "headings": [
+        "Справочник нормативно-справочной информации (НСИ)"
+      ],
+      "overflow": false,
+      "visibleRows": 8
+    },
+    {
+      "name": "/equipment",
+      "alerts": [],
+      "headings": [
+        "Парк оборудования"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/equipment-configurator",
+      "alerts": [],
+      "headings": [
+        "Конфигуратор оборудования"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/equipment-configurator?section=rates",
+      "alerts": [],
+      "headings": [
+        "Конфигуратор оборудования"
+      ],
+      "overflow": false,
+      "visibleRows": 3
+    },
+    {
+      "name": "/calculation-settings/rates",
+      "alerts": [],
+      "headings": [
+        "Ставки и наценка"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/calculation-settings/time-norms",
+      "alerts": [],
+      "headings": [
+        "Нормы времени"
+      ],
+      "overflow": false,
+      "visibleRows": 104
+    },
+    {
+      "name": "/calculation-settings/bar-lengths",
+      "alerts": [],
+      "headings": [
+        "Длина прутка"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/calculation-settings/cut-norms",
+      "alerts": [],
+      "headings": [
+        "Нормы отрезки круга"
+      ],
+      "overflow": false,
+      "visibleRows": 4
+    },
+    {
+      "name": "/calculation-settings/cutting-regimes",
+      "alerts": [],
+      "headings": [
+        "Режимы резки"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/calculation-settings/documents",
+      "alerts": [],
+      "headings": [
+        "Документы"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/settings/agents",
+      "alerts": [],
+      "headings": [],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/settings/launch",
+      "alerts": [],
+      "headings": [],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/settings/profile",
+      "alerts": [],
+      "headings": [],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "/models",
+      "alerts": [],
+      "headings": [
+        "Готовые 3D-модели"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "route-summary",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут",
+        "Карта операций"
+      ],
+      "overflow": false,
+      "visibleRows": 23
+    },
+    {
+      "name": "route-preparation",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут",
+        "Подготовка и итоги",
+        "Отрезка партии"
+      ],
+      "overflow": false,
+      "visibleRows": 14
+    },
+    {
+      "name": "operation-1",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "operation-2",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 1
+    },
+    {
+      "name": "operation-3",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 5
+    },
+    {
+      "name": "operation-4",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 4
+    },
+    {
+      "name": "operation-5",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 4
+    },
+    {
+      "name": "operation-6",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 2
+    },
+    {
+      "name": "operation-7",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 2
+    },
+    {
+      "name": "operation-8",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "operation-9",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "operation-button-navigation",
+      "url": "http://127.0.0.1:4189/Metall-DEMO/#/runs/7ea4be93-9a2b-4c9b-b50a-6943cf9048a0/route?view=operation&operation=1"
+    },
+    {
+      "name": "estimate-print",
+      "alerts": [],
+      "headings": [
+        "Смета изготовления детали",
+        "Смета производственных работ № СМ-7EA4BE93-20",
+        "Итого по смете"
+      ],
+      "overflow": false,
+      "visibleRows": 23
+    },
+    {
+      "name": "route-print-from-operation",
+      "alerts": [],
+      "headings": [
+        "Полный маршрут"
+      ],
+      "overflow": false,
+      "visibleRows": 1
+    },
+    {
+      "name": "machine-passport-dialog",
+      "alerts": []
+    },
+    {
+      "name": "local-project-create-and-reload",
+      "passed": true
+    },
+    {
+      "name": "local-project-trash-restore",
+      "passed": true
+    },
+    {
+      "name": "agent-settings-save-reload",
+      "passed": true
+    },
+    {
+      "name": "reset-projects-and-settings",
+      "passed": true
+    },
+    {
+      "name": "unsupported-recalculation-preserves-result",
+      "passed": true
+    },
+    {
+      "name": "mobile-estimate-390",
+      "alerts": [],
+      "scroll": 384,
+      "width": 390
+    },
+    {
+      "name": "mobile-navigation-menu",
+      "passed": true
+    },
+    {
+      "name": "mobile-model-gallery-390",
+      "images": [
+        {
+          "alt": "Вал приводной II-175",
+          "loaded": true
+        },
+        {
+          "alt": "Ступенчатая деталь",
+          "loaded": true
+        }
+      ],
+      "scroll": 384,
+      "width": 390
+    },
+    {
+      "name": "mobile-model-gallery-320",
+      "alerts": [],
+      "headings": [
+        "Готовые 3D-модели"
+      ],
+      "overflow": false,
+      "visibleRows": 0
+    },
+    {
+      "name": "mobile-estimate-320",
+      "alerts": [],
+      "headings": [
+        "Смета изготовления детали"
+      ],
+      "overflow": false,
+      "visibleRows": 55
+    },
+    {
+      "name": "assortment-csv-download",
+      "passed": true,
+      "rows": 8
+    },
+    {
+      "name": "3d-face-selection-and-orbit",
+      "selectedFace": "Цилиндр Ø40",
+      "imageChanged": true
+    },
+    {
+      "name": "step-download-byte-equivalence",
+      "passed": true,
+      "bytes": 43593
+    },
+    {
+      "name": "drive-shaft-dimensions-section",
+      "dimensions": 31,
+      "section": "Разрез 1",
+      "passed": true
+    },
+    {
+      "name": "drawing-lightbox-and-keyboard-zoom",
+      "zoomBefore": "100%",
+      "zoomAfter": "125%",
+      "height": 3507,
+      "loaded": true,
+      "width": 4961
+    },
+    {
+      "name": "desktop-model-gallery-1440",
+      "passed": true
+    },
+    {
+      "name": "desktop-estimate-1440",
+      "passed": true
+    },
+    {
+      "name": "direct-estimate-reload-1440",
+      "documentWidth": 1434,
+      "imageLoaded": true,
+      "priceShown": true,
+      "thumbnailHeight": 48,
+      "thumbnailWidth": 80,
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "direct-route-reload-1440",
+      "documentWidth": 1434,
+      "thumbnailHeight": 48,
+      "thumbnailWidth": 80,
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "name": "direct-estimate-reload-390",
+      "documentWidth": 384,
+      "thumbnailHeight": 48,
+      "thumbnailWidth": 69.46875,
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "direct-estimate-reload-320",
+      "documentWidth": 320,
+      "thumbnailHeight": 48,
+      "width": 320,
+      "passed": true
+    }
+  ]
+}

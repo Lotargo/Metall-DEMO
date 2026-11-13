@@ -1,0 +1,62 @@
+.recognition-progress-bar,
+.recognition-progress-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.recognition-progress-bar { min-height: 3.5rem; }
+.recognition-progress-summary { justify-content: space-between; margin-bottom: 1rem; }
+.recognition-progress-stages { display: grid; gap: .375rem; list-style: none; }
+.recognition-progress-stages > li { border: 1px solid var(--line); border-radius: .5rem; }
+.recognition-progress-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .625rem;
+  padding: .5rem .625rem;
+}
+.recognition-progress-stages > li[aria-current="step"] { border-color: var(--accent); background: var(--surface-muted); }
+.recognition-progress-icon {
+  display: grid;
+  width: 2.125rem;
+  height: 2.125rem;
+  place-items: center;
+  color: var(--accent);
+  background: var(--surface-muted);
+  border-radius: .375rem;
+}
+.recognition-progress-duration {
+  display: flex;
+  align-items: center;
+  gap: .375rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.recognition-progress-events { padding: 0 .625rem .625rem; }
+.recognition-progress-events .processing-log-rows { max-height: 10rem; }
+.recognition-progress-spinner { color: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .recognition-progress-spinner { animation: progress-spin 1s linear infinite; }
+  .recognition-progress-stages [aria-current="step"] .recognition-progress-icon svg {
+    animation: var(--progress-icon-motion) .45s ease-out both;
+  }
+  .recognition-progress-stages [data-stage="compact_reading"] { --progress-icon-motion: progress-enter; }
+  .recognition-progress-stages [data-stage="reading"] { --progress-icon-motion: progress-scan; }
+  .recognition-progress-stages [data-stage="verify"] { --progress-icon-motion: progress-check; }
+  .recognition-progress-stages [data-stage="verify_repair"] { --progress-icon-motion: progress-join; }
+  .recognition-progress-stages [data-stage="planning"] { --progress-icon-motion: progress-route; }
+  .recognition-progress-stages [data-stage="review"] { --progress-icon-motion: progress-pause; }
+  .recognition-progress-stages [data-stage="detailing"] { --progress-icon-motion: progress-tool; }
+  .recognition-progress-stages [data-stage="ready"] { --progress-icon-motion: progress-done; }
+}
+@keyframes progress-spin { to { transform: rotate(360deg); } }
+@keyframes progress-enter { from { transform: translateY(-5px); opacity: .5; } }
+@keyframes progress-scan { 25% { transform: translateY(4px); } 55% { transform: translateY(-3px); } }
+@keyframes progress-check { from { transform: scale(.72); opacity: .5; } }
+@keyframes progress-join { from { transform: translateX(-4px) rotate(-18deg); } }
+@keyframes progress-route { from { transform: translateX(-5px); opacity: .5; } }
+@keyframes progress-pause { from { opacity: .4; } }
+@keyframes progress-tool { 35% { transform: rotate(22deg); } 65% { transform: rotate(-10deg); } }
+@keyframes progress-done { 50% { transform: scale(1.2); } }

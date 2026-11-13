@@ -1,0 +1,273 @@
+.compact-round-workspace { min-height: 100%; }
+
+.compact-round-workspace [role="tabpanel"] {
+  line-height: 1.55;
+}
+
+.compact-round-workspace .compact-work-area {
+  container: compact-work-area / inline-size;
+}
+
+.compact-workspace-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface);
+  box-shadow: 0 2px 4px rgba(15,23,42,.06);
+}
+
+.compact-round-workspace .ui-tabs--wrap .ui-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.compact-round-workspace .ui-tabs--wrap .ui-tab {
+  min-width: 0;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.compact-round-workspace .ui-tab-label { overflow-wrap: anywhere; }
+
+@container compact-work-area (min-width: 38rem) {
+  .compact-round-workspace .ui-tabs--wrap .ui-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@container compact-work-area (min-width: 86rem) {
+  .compact-round-workspace .ui-tabs--wrap .ui-tabs {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+.workspace-drawing-window {
+  position: fixed;
+  z-index: 25;
+  flex-direction: column;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(15,23,42,.18);
+}
+.workspace-drawing-window:not([hidden]) { display: flex; }
+.workspace-drawing-thumbnail,
+.workspace-inline-drawing {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  border: 1px solid var(--control-border);
+  border-radius: .5rem;
+  background: var(--surface);
+  cursor: zoom-in;
+}
+.workspace-drawing-thumbnail {
+  width: 5rem;
+  height: 3rem;
+  padding: .25rem;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+}
+.workspace-inline-drawing { width: 100%; padding: .5rem; }
+.workspace-drawing-thumbnail img,
+.workspace-inline-drawing img { width: 100%; height: 100%; object-fit: contain; }
+.workspace-inline-drawing img { max-height: 28rem; }
+.workspace-drawing-thumbnail:focus-visible,
+.workspace-inline-drawing:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.workspace-description-layout,
+.compact-material-layout { display: grid; gap: 1rem; align-items: start; }
+.workspace-description-drawing,
+.compact-workspace-card {
+  min-width: 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--control-border);
+  border-radius: .5rem;
+}
+@container compact-work-area (min-width: 50rem) {
+  .workspace-description-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .workspace-description-drawing { grid-column: 2; grid-row: 1; }
+  .compact-material-layout { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+}
+.workspace-drawing-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: .8125rem;
+}
+.workspace-drawing-grip {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 4px;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+}
+.workspace-drawing-preview {
+  position: relative;
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  place-items: center;
+  margin: 4px;
+  padding: 4px;
+  background: var(--surface-muted);
+  font-size: .8125rem;
+  cursor: zoom-in;
+}
+.workspace-drawing-preview img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.workspace-drawing-expand {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  box-sizing: content-box;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+}
+.workspace-drawing-resize {
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  cursor: nwse-resize;
+  touch-action: none;
+}
+.workspace-drawing-resize::after {
+  content: '';
+  position: absolute;
+  inset: auto 5px 5px auto;
+  width: 11px;
+  height: 11px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+}
+
+.compact-round-workspace table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.compact-round-workspace table caption {
+  text-align: left;
+}
+
+.compact-round-workspace table :is(th, td) {
+  padding: 0.625rem 0.75rem;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.compact-round-workspace table thead th {
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.compact-round-workspace table tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+.compact-round-workspace table tbody th {
+  text-align: left;
+  font-weight: 500;
+}
+
+.compact-round-workspace table .tabular-nums {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.compact-round-workspace .compact-engineering-description {
+  max-width: 76ch;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.part-description-copy { display: grid; min-width: 0; gap: 20px; }
+.compact-engineering-description.part-description-card,
+.workspace-description-drawing.part-description-card {
+  min-width: 0;
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.part-description-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-muted);
+}
+.part-description-card--construction .part-description-card-heading { background: var(--accent-soft); }
+.part-description-icon {
+  display: grid;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .05);
+}
+.part-description-card-heading h3 { margin: 0; color: var(--text); font-size: 16px; font-weight: 650; line-height: 1.4; text-wrap: balance; }
+.part-description-card-heading p { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.5; text-wrap: pretty; }
+.part-description-card-body { padding: 20px; }
+.part-description-prose { display: grid; gap: 16px; max-width: 72ch; }
+.part-description-prose p { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; font-size: 15px; line-height: 1.8; text-wrap: pretty; }
+.part-description-drawing-body { padding: 16px; }
+
+@container compact-work-area (min-width: 50rem) {
+  .workspace-description-layout { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; }
+}
+@media (max-width: 600px) {
+  .part-description-copy { gap: 16px; }
+  .part-description-card-heading { padding: 15px 14px; gap: 10px; }
+  .part-description-icon { flex-basis: 36px; width: 36px; height: 36px; border-radius: 8px; }
+  .part-description-card-heading h3 { font-size: 15px; }
+  .part-description-card-body { padding: 16px 14px; }
+  .part-description-prose { gap: 14px; }
+  .part-description-prose p { font-size: 14px; line-height: 1.8; }
+  .part-description-drawing-body { padding: 12px; }
+}
+
+.compact-round-workspace .compact-dimensions-table {
+  min-width: 36rem;
+}
+
+.compact-passport-table { table-layout: fixed; }
+.compact-passport-table thead th:first-child { width: 25%; }
+.compact-passport-table thead th:nth-child(2) { width: 30%; }
+.compact-round-workspace .compact-passport-table .tabular-nums { white-space: normal; }
+
+.compact-round-workspace [role="tabpanel"] :is(input, textarea, select) {
+  max-width: 100%;
+}
+
+@media (max-width: 639px) {
+  .compact-round-workspace .compact-passport-table :is(th, td) { padding: .5rem .375rem; font-size: .8125rem; }
+  .compact-passport-table thead th:first-child { width: 37%; }
+  .compact-passport-table thead th:nth-child(2) { width: 28%; }
+  .compact-round-workspace [role="tabpanel"] :is(input, textarea, select) {
+    font-size: 1rem;
+  }
+}

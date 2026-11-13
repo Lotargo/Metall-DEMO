@@ -1,0 +1,20 @@
+[
+  {
+    "file": "demo/drawing.pdf",
+    "status": 200,
+    "mime": "application/pdf",
+    "bytes": 642410
+  },
+  {
+    "file": "models/drive-shaft/model.step",
+    "status": 200,
+    "mime": "application/step",
+    "bytes": 276167
+  },
+  {
+    "file": "models/stepped-part/model.step",
+    "status": 200,
+    "mime": "application/step",
+    "bytes": 43593
+  }
+]

@@ -1,0 +1,8 @@
+* text=auto eol=lf
+# Preserve evidence bytes, STEP digests and their dimension bindings across platforms.
+public/demo/** -text -whitespace
+public/models/** -text -whitespace
+*.png -text
+*.jpg -text
+*.pdf -text
+*.step -text

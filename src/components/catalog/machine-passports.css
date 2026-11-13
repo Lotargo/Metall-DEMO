@@ -1,0 +1,26 @@
+.machine-passports { padding: 20px; min-width: 0; }
+.passport-toolbar, .passport-actions, .passport-card > header, .passport-category-row, .passport-inline-category { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.passport-toolbar, .passport-card > header, .passport-category-row { justify-content: space-between; }
+.passport-toolbar label, .passport-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.passport-form { display: flex; flex-direction: column; gap: 16px; }
+.passport-form input:not(.ui-input), .passport-form select:not(.ui-select), .passport-form textarea:not(.ui-input), .passport-toolbar select:not(.ui-select) { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); padding: 10px 12px; width: 100%; min-width: 0; }
+.passport-form textarea { resize: vertical; min-height: 200px; font-family: inherit; line-height: 1.5; }
+.passport-inline-category label { flex: 1; }
+.passport-inline-category button { align-self: end; }
+.passport-form .passport-actions { justify-content: flex-end; }
+.passport-count, .passport-version { color: var(--muted); font-size: 13px; margin: 8px 0; }
+.passport-categories { border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; margin-bottom: 20px; }
+.passport-group { margin-top: 22px; }
+.passport-group > h4 { font-size: 15px; margin-bottom: 10px; }
+.passport-card { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 10px; }
+.passport-card h5 { font-size: 15px; margin: 0; overflow-wrap: anywhere; }
+.passport-card .info-block-title { color: var(--accent); padding: 12px 0; }
+.passport-card .info-block-body { overflow-wrap: anywhere; }
+.passport-error { color: var(--danger); border: 1px solid var(--danger); border-radius: 8px; padding: 12px; }
+.passport-error p { margin: 0 0 8px; }
+@media (max-width: 640px) {
+  .machine-passports { padding: 12px; }
+  .passport-toolbar > label, .passport-toolbar > .passport-actions { width: 100%; }
+  .passport-card > header { align-items: flex-start; flex-direction: column; }
+  .passport-form input, .passport-form select, .passport-form textarea { font-size: 16px; }
+}

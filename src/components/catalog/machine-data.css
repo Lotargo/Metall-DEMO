@@ -1,0 +1,77 @@
+.machine-data-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; border:0; padding:0; min-width:0; }
+.machine-data fieldset { min-width:0; }
+.machine-data .info-block-title {  padding:10px 0; color:var(--accent); overflow-wrap:anywhere; }
+.machine-data-group, .machine-import-preview, .machine-history { border:1px solid var(--line); border-radius:8px; padding:10px 14px; }
+.machine-data-row { border-top:1px solid var(--line); padding:4px 0; }
+.machine-data-row > .info-block-title { display:block; }
+.machine-data-row > .info-block-title > span:last-child { float:right; max-width:50%; color:var(--muted); white-space:normal; overflow-wrap:anywhere; }
+.machine-field-form { display:grid; gap:12px; padding:12px 0; }
+.machine-condition { display:grid; grid-template-columns:1fr 1fr auto; gap:8px; align-items:end; }
+.machine-check { flex-direction:row!important; align-items:center; }
+.machine-check input { width:auto!important; }
+.machine-data pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+.machine-source-text { max-height:280px; overflow:auto; border:1px solid var(--line); padding:12px; }
+.machine-table-scroll { overflow:auto; }
+.machine-import-preview table { width:100%; border-collapse:collapse; }
+.machine-import-preview th, .machine-import-preview td { text-align:left; vertical-align:top; padding:10px; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+.machine-import-preview h4 { margin:0 0 12px; }
+@media(max-width:640px) { .machine-data-grid,.machine-condition { grid-template-columns:minmax(0,1fr); } .machine-data-row > .info-block-title > span:last-child { float:none; display:block; max-width:none; margin-top:4px; } .machine-import-preview { padding:10px; } }
+.machine-data-shell { border:0; padding:0; margin:0; min-width:0; }
+.machine-full-fields:not([hidden]) { display:contents; }
+.machine-card-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+.machine-card-heading h4 { margin:0; font-size:15px; }
+.machine-data .machine-field-evidence { color:var(--muted); font-size:12px; }
+.machine-data .machine-field-evidence .info-block-title { padding:4px 0; }
+.machine-field-evidence p { margin:4px 0; }
+.machine-field-evidence a { text-decoration:underline; }
+.machine-field-evidence div + div { border-top:1px solid var(--line); margin-top:6px; padding-top:4px; }
+.machine-parameter-table tr[data-requested] > * { background:var(--canvas); }
+.machine-hourly-rate { display:grid; gap:8px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+.machine-rate-values { display:flex; align-items:flex-start; flex-wrap:wrap; gap:16px; }
+.machine-rate-values > div { display:grid; gap:6px; max-width:100%; }
+.machine-rate-values input { width:11rem; max-width:100%; min-width:0; }
+.machine-rate-source { display:grid; gap:4px; margin:0; min-width:0; font-size:13px; }
+.machine-rate-source > div { display:flex; flex-wrap:wrap; gap:4px 8px; }
+.machine-rate-source dt { color:var(--muted); }
+.machine-rate-source dd { margin:0; overflow-wrap:anywhere; }
+.machine-table-hint { margin:0; color:var(--muted); font-size:13px; }
+.machine-parameter-group { min-width:0; }
+.machine-parameter-group h4 { margin:0 0 8px; color:var(--text); font-size:14px; font-weight:600; }
+.machine-execution-facts { display:grid; gap:4px; margin:0 0 8px; }
+.machine-execution-facts > div { display:grid; grid-template-columns:11rem minmax(0,1fr); gap:4px 8px; }
+.machine-execution-facts dt { font-weight:500; }
+.machine-execution-facts dd { margin:0; color:var(--muted); overflow-wrap:anywhere; }
+.machine-execution-limits { margin:8px 0; padding-inline-start:20px; list-style:disc; }
+.machine-parameter-table { width:100%; table-layout:fixed; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.machine-parameter-table th, .machine-parameter-table td { border-bottom:1px solid var(--line); padding:8px 10px; vertical-align:middle; }
+.machine-parameter-table thead th { color:var(--muted); font-size:12px; font-weight:500; text-align:left; }
+.machine-parameter-table th:first-child { width:43%; }
+.machine-parameter-table tbody th { font-weight:400; text-align:left; overflow-wrap:anywhere; }
+.machine-passport-values th:first-child { width:39%; }
+.machine-passport-values thead th:nth-child(2) { width:23%; }
+.machine-reference-value { color:var(--muted); overflow-wrap:anywhere; }
+.machine-history .passport-actions { margin-top:8px; }
+.machine-value-cell { display:flex; gap:8px; align-items:center; min-width:0; }
+.machine-number-fields { display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
+.machine-number-fields .machine-step-values { min-height:0; height:40px; padding:7px 9px; font:inherit; font-variant-numeric:tabular-nums; resize:vertical; line-height:24px; }
+.machine-number-fields.is-range input { width:calc(50% - 10px); }
+.machine-value-shape { color:var(--muted); font-size:12px; }
+.machine-value-unit { min-width:44px; color:var(--muted); font-size:13px; white-space:nowrap; }
+.machine-value-error { display:block; color:var(--danger); margin-top:6px; font-size:12px; }
+.machine-parameter-details > td { background:var(--canvas); padding:12px 16px; }
+.machine-parameter-details .machine-field-form { max-width:680px; margin:0 auto; }
+.machine-parameter-table [hidden], .machine-parameter-group[hidden] { display:none; }
+@media(max-width:640px) {
+  .machine-execution-facts > div { grid-template-columns:minmax(0,1fr); }
+  .machine-parameter-table th, .machine-parameter-table td { padding:8px 4px; }
+  .machine-parameter-table th:first-child { width:42%; }
+  .machine-passport-values th:first-child { width:36%; }
+  .machine-passport-values thead th:nth-child(2) { width:23%; }
+  .machine-value-cell { flex-wrap:wrap; gap:4px; }
+  .machine-number-fields { flex-basis:60%; }
+  .machine-number-fields.is-range { flex-basis:100%; }
+  .machine-value-shape { flex-basis:100%; }
+  .machine-value-unit { min-width:0; }
+  .machine-number-fields input { padding:7px 5px; }
+  .machine-number-fields .machine-step-values { height:82px; padding:4px 5px; }
+}
