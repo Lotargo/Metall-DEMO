@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import os.path
 import re
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -37,7 +38,7 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def export(api, run):
+def export(api, run, case, label, public_drawing):
     def get(path):
         with urlopen(api + path, timeout=25) as response:
             return response.read()
@@ -45,7 +46,18 @@ def export(api, run):
     def data(path):
         return json.loads(get(path))
 
-    files = {}
+    manifest = json.loads((DEMO / 'manifest.json').read_text('utf-8'))
+    examples = manifest.get('examples') or [{
+        **select(manifest, 'run_id state_revision model_revision drawing_sha256 step_sha256 quantity time_minutes assessed_cost_rub'),
+        'case': 'shaft', 'label': 'Вал', 'directory': 'demo', 'redacted': False,
+    }]
+    if any(example['case'] == case and example['run_id'] != run for example in examples):
+        raise ValueError('Use a unique case name for a new run')
+    previous = next((example for example in examples if example['run_id'] == run), None)
+    if previous and (previous['case'] != case or (previous['redacted'] and public_drawing is None)):
+        raise ValueError('Keep the existing case name and its redacted drawing')
+    package = previous['directory'] if previous else f'demo/{case}'
+    files = json.loads((DEMO / 'assets.json').read_text('utf-8'))
 
     def save(relative, content):
         target = PUBLIC / relative
@@ -65,38 +77,38 @@ def export(api, run):
     decision = cad['route']['decision']
     assert raw['status'] == 'completed' and decision['method'] == 'agent'
     assert raw['step_sha256'] == decision['step_sha256']
+    title = f'{raw["passport"]["drawing_designation"]} {label}'
 
-    # Keep the shipped, reduced NSI data and replace the saved calculation and equipment.
-    baseline = json.loads((DEMO / 'responses.json').read_text('utf-8'))
-    responses = {path: value for path, value in baseline.items() if path.startswith('/api/v1/nsi/')}
-    for path in ('equipment', 'equipment-configurator', 'equipment/hourly-rates', 'equipment/exchange/registry',
-                 'settings/agents', 'settings/agents/models', 'calculation/settings', 'calculation/bar-lengths',
-                 'nsi/cut-norms', 'estimation/profiles'):
-        url = '/api/v1/' + path
-        responses[url] = data(url)
-    for mode in ('cad_route', 'volume_round', 'compact_round'):
-        url = '/api/v1/settings/agents/roles?pipeline_mode=' + mode
-        responses[url] = data(url)
-    for machine in responses['/api/v1/equipment']['machines']:
-        url = '/api/v1/equipment/passports/' + machine['machine_id']
-        responses[url + '/exchange'] = data(url + '/exchange')
-        responses[url + '/history'] = []
-    for kind in ('lathe', 'bandsaw', 'drill', 'mill', 'grinder', 'generic'):
-        url = '/api/v1/equipment/exchange/templates/' + kind
-        responses[url] = data(url)
+    responses = json.loads((DEMO / 'responses.json').read_text('utf-8'))
 
     drawing = raw['source_artifact_id']
-    assert digest(asset(artifact + drawing, 'demo/drawing.pdf')) == raw['source_sha256']
-    asset(artifact + drawing + '/preview', 'demo/drawing.png')
+    original = get(artifact + drawing)
+    assert digest(original) == raw['source_sha256']
+    drawing_bytes = public_drawing.read_bytes() if public_drawing else original
+    clean_drawing = None
+    if public_drawing:
+        import pymupdf
+
+        assert digest(drawing_bytes) != raw['source_sha256']
+        clean_drawing = pymupdf.open(stream=drawing_bytes, filetype='pdf')
+        with pymupdf.open(stream=original, filetype='pdf') as original_drawing:
+            assert [p.rect for p in clean_drawing] == [p.rect for p in original_drawing]
+    files[artifact + drawing] = f'{package}/drawing.pdf'
+    files[artifact + drawing + '/preview'] = f'{package}/drawing.png'
+    save(files[artifact + drawing], drawing_bytes)
+    preview = (clean_drawing[0].get_pixmap(dpi=180).tobytes('png') if clean_drawing
+               else get(artifact + drawing + '/preview'))
+    save(files[artifact + drawing + '/preview'], preview)
     stored = raw['artifacts']
-    asset(artifact + stored['rough_step'], 'demo/rough.step')
+    asset(artifact + stored['rough_step'], f'{package}/rough.step')
 
     accepted = raw['model_revision']
-    models = []
+    models = [model for model in json.loads((DEMO / 'models.json').read_text('utf-8'))
+              if not model['slug'].startswith(f'{case}-v')]
     for model in cad['route']['models']:
         revision = model['revision']
         view = f'{prefix}/cad-route/models/{revision}/view/'
-        slug = f'shaft-v{revision}'
+        slug = f'{case}-v{revision}'
         directory = f'models/{slug}'
         step = asset(view + 'model.step', directory + '/model.step')
         checksum = digest(step)
@@ -108,13 +120,13 @@ def export(api, run):
         config = data(view + 'preview-config.json')
         assert config['annotations']['step_sha256'] == checksum
         config = select(config, 'title subtitle annotations annotationsWarning model_notes')
-        config.update(home_url=f'../../#/runs/{run}', chat_model=None, modelNavigation=[],
+        config.update(title=title, home_url=f'../../#/runs/{run}', chat_model=None, modelNavigation=[],
                       download={'available': True, 'name': slug + '.step', 'bytes': len(step),
                                 'sha256': checksum, 'url': 'model.step'})
         dump(PUBLIC / directory / 'preview-config.json', clean(config))
         if revision == accepted:
             files[artifact + stored['final_step']] = directory + '/model.step'
-            models.append({'slug': slug, 'title': raw['title'], 'subtitle': f'Модель {revision} · принята в расчёт',
+            models.append({'slug': slug, 'title': title, 'subtitle': f'Модель {revision} · принята в расчёт',
                            'stepBytes': len(step), 'dimensions': len(config['annotations'].get('dimensions', [])),
                            'limitations': model['limitations']})
 
@@ -124,16 +136,25 @@ def export(api, run):
         for issue in passport.get('issues', []):
             for crop in issue.get('crops', []):
                 url = crop.get('url')
-                if url and url.startswith(artifact):
-                    asset(url, f'demo/crops/{url.rsplit("/", 1)[-1]}.png')
+                name = crop['file']
+                assert Path(name).name == name and name.endswith('.png')
+                source = url if url and url.startswith(artifact) else accepted_view + name
+                destination = (f'{package}/crops/{name}' if url and url.startswith(artifact)
+                               else f'models/{case}-v{accepted}/{name}')
+                if clean_drawing:
+                    # Derive every public crop from the flattened public drawing, never from the private run.
+                    page = clean_drawing[crop['page'] - 1]
+                    image = page.get_pixmap(dpi=216, clip=pymupdf.Rect(crop['rect'])).tobytes('png')
+                    save(destination, image)
+                    files[source] = destination
                 else:
-                    name = crop['file']
-                    assert Path(name).name == name and name.endswith('.png')
-                    asset(accepted_view + name, f'models/shaft-v{accepted}/{name}')
+                    asset(source, destination)
+    if clean_drawing:
+        clean_drawing.close()
 
     basis_url = prefix + '/volume-round/basis'
-    files[basis_url] = 'demo/calculation-basis.md'
-    files[artifact + stored['report']] = 'demo/route-and-estimate.md'
+    files[basis_url] = f'{package}/calculation-basis.md'
+    files[artifact + stored['report']] = f'{package}/route-and-estimate.md'
 
     def markdown(text):
         def replace(match):
@@ -141,7 +162,7 @@ def export(api, run):
             file = files.get(url.split('?')[0])
             if not file:
                 return label
-            relative = file.removeprefix('demo/') if file.startswith('demo/') else '../' + file
+            relative = Path(os.path.relpath(PUBLIC / file, PUBLIC / package)).as_posix()
             return f'[{label}]({relative})'
         return clean(re.sub(r'\[([^\]]*)\]\((/api/v1/[^)\s]+)\)', replace, text))
 
@@ -168,11 +189,13 @@ def export(api, run):
                                              'setup_per_batch_minutes basis assumptions known_per_piece_minutes '
                                              'known_setup_per_batch_minutes calculation_explanation') for group in time['groups']]
     state['calculation_locked'] = True
+    state['title'] = title
 
     cad_demo = select(cad, 'sequence title source_file quantity quantity_basis originals viewer_ready cad_events geometry_passport')
+    cad_demo['title'] = title
     cad_demo['route'] = select(cad['route'], 'run_id revision phase mode input_mode models message decision decisions review_count repair_count')
     for model in cad_demo['route']['models']:
-        model['model_url'] = f'models/shaft-v{model["revision"]}/viewer.html'
+        model['model_url'] = f'models/{case}-v{model["revision"]}/viewer.html'
     cad_demo['review'] = {**select(cad['review'], 'status model_revision step_sha256 summary findings limitations'), 'viewed': []}
     cad_demo['jobs'] = {jobid: select(job, 'id action status created_at started_at finished_at published_revision model_revision cancel_requested message')
                         for jobid, job in cad['jobs'].items()}
@@ -181,11 +204,11 @@ def export(api, run):
     cad_demo['downstream'] = state
 
     run_info = select(data(prefix)['run'], 'id document_id parent_run_id trigger_type status started_at finished_at current_stage created_at')
-    run_info.update(project_id='1', root_span_id=None)
-    project = {'id': 1, 'name': 'Демонстрационный проект', 'customer': 'Обработка вала', 'status': 'approved',
-               'deleted_at': None, 'created_at': run_info['created_at']}
-    responses.update({'/api/v1/projects': [project], '/api/v1/projects/trash': [], '/api/v1/projects/1/runs': [run_info],
-                      '/api/v1/runs': [run_info], '/api/v1/providers': [], prefix: {'run': run_info, 'artifacts': [], 'spans': [], 'events': []},
+    run_info.update(project_id='1', root_span_id=None, document_id=title)
+    runs = [item for item in responses['/api/v1/runs'] if item['id'] != run] + [run_info]
+    responses['/api/v1/projects'][0]['customer'] = 'Демонстрационные расчёты'
+    responses.update({'/api/v1/projects/1/runs': runs, '/api/v1/runs': runs,
+                      prefix: {'run': run_info, 'artifacts': [], 'spans': [], 'events': []},
                       prefix + '/family': [run_info], prefix + '/cad-route': cad_demo, prefix + '/volume-round': state,
                       prefix + '/compact-round': None})
 
@@ -203,16 +226,26 @@ def export(api, run):
         assert before != previous
     responses[prefix + '/events'] = {'events': events, 'next_before_sequence': None}
 
-    dump(DEMO / 'events.json', events)
+    example = {
+        'case': case, 'label': label, 'directory': package, 'redacted': public_drawing is not None,
+        'run_id': run, 'state_revision': state['revision'], 'model_revision': accepted,
+        'drawing_sha256': digest(drawing_bytes), 'source_sha256': state['source_sha256'],
+        'step_sha256': state['step_sha256'], 'quantity': state['quantity'],
+        'time_minutes': time['totals']['batch_minutes'], 'assessed_cost_rub': state['cost_estimate']['known_batch_rub'],
+    }
+    examples = [item for item in examples if item['run_id'] != run] + [example]
+    order = {item['id']: i for i, item in enumerate(runs)}
+    examples.sort(key=lambda item: 0 if item['run_id'] == manifest['run_id'] else order[item['run_id']] + 1)
+    for item in examples:
+        for document in ('estimate', 'route', 'basis'):
+            files[f'/api/v1/runs/{item["run_id"]}/demo/print/{document}.pdf'] = f'{item["directory"]}/print/{document}.pdf'
     dump(DEMO / 'models.json', clean(models))
     dump(DEMO / 'assets.json', files)
     dump(DEMO / 'responses.json', clean(responses))
     dump(DEMO / 'manifest.json', {
-        'schema': 'metall-demo/2', 'run_id': run, 'state_revision': state['revision'], 'model_revision': accepted,
-        'drawing_sha256': state['source_sha256'], 'step_sha256': state['step_sha256'], 'quantity': state['quantity'],
-        'time_minutes': time['totals']['batch_minutes'], 'assessed_cost_rub': state['cost_estimate']['known_batch_rub'],
+        **manifest, 'schema': 'metall-demo/3', 'examples': examples,
         'files': {file.relative_to(PUBLIC).as_posix(): digest(file.read_bytes())
-                  for directory in (DEMO, *(PUBLIC / 'models' / f'shaft-v{m["revision"]}' for m in cad['route']['models']))
+                  for directory in (DEMO, PUBLIC / 'models')
                   for file in directory.rglob('*') if file.is_file() and file.name != 'manifest.json'
                   and file.suffix in {'.json', '.step', '.jpg', '.png', '.pdf', '.md'}},
     })
@@ -222,6 +255,9 @@ def export(api, run):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run', required=True)
+    parser.add_argument('--case', required=True)
+    parser.add_argument('--label', required=True)
+    parser.add_argument('--public-drawing', type=Path)
     parser.add_argument('--api', default='http://127.0.0.1:5173')
     args = parser.parse_args()
     url = urlsplit(args.api)
@@ -229,4 +265,6 @@ if __name__ == '__main__':
         parser.error('--api must be a local HTTP origin')
     if not re.fullmatch(r'[0-9a-f-]{36}', args.run):
         parser.error('--run must be a valid run identifier')
-    export(args.api.rstrip('/'), args.run)
+    if not re.fullmatch(r'[a-z][a-z0-9-]*', args.case):
+        parser.error('--case must be a lowercase slug')
+    export(args.api.rstrip('/'), args.run, args.case, args.label, args.public_drawing)

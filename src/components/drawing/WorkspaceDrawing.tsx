@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { FileImage, Grip, Maximize2, X } from 'lucide-react';
-import { getDrawingPreviewUrl } from '@/api/client';
+import { Download, FileImage, Grip, Maximize2, X } from 'lucide-react';
+import { getArtifactUrl, getDrawingPreviewUrl } from '@/api/client';
 import { DrawingViewer } from '@/components/drawing/DrawingViewer';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
@@ -126,7 +126,8 @@ export function WorkspaceDrawing({ artifactId, pending, tabs, inlineTarget, tab,
       </button>, inlineTarget,
     )}
     <Modal isOpen={lightbox && !!artifactId} onClose={() => setLightbox(false)} title="Исходный чертёж" size="full"
-      footer={<Button type="button" variant="outline" onClick={() => { setManualWindow(true); setLightbox(false); }}>Свернуть в окно</Button>}>
+      footer={<>{artifactId && <a className="ui-button ui-button--outline ui-button--size-md" href={getArtifactUrl(artifactId)} download><Download size={16} aria-hidden="true" />Скачать чертёж PDF</a>}
+        <Button type="button" variant="outline" onClick={() => { setManualWindow(true); setLightbox(false); }}>Свернуть в окно</Button></>}>
       <div className="h-[min(66dvh,48rem)]"><DrawingViewer sourceArtifactId={artifactId} /></div>
     </Modal>
     {artifactId && floating && area && area.height > inset * 2 && frame && <section className="workspace-drawing-window" aria-label="Плавающее окно чертежа" hidden={lightbox}

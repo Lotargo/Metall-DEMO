@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Box, FileCheck, RotateCcw, X } from 'lucide-react';
-import { DEMO_RUN_PATH } from './config';
+import { DEMO_RUN_PATH, demoExamples } from './config';
 import './demo.css';
 export function DemoToolbar() {
   const [notice, setNotice] = useState('');
@@ -17,8 +17,8 @@ export function DemoToolbar() {
   }
   return <>
     <div className="demo-toolbar document-screen-only" aria-label="Управление демонстрацией">
-      <span className="demo-tag">Демо</span><span className="demo-caption">Сохранённый пример Metall</span>
-      <nav aria-label="Демонстрационные примеры"><Link to={DEMO_RUN_PATH}><FileCheck size={15} aria-hidden="true" />Открыть пример</Link><Link to="/models"><Box size={15} aria-hidden="true" />3D-модели</Link></nav>
+      <span className="demo-tag">Демо</span>
+      <nav aria-label="Демонстрационные примеры">{demoExamples().map(example => <NavLink key={example.run_id} to={`/runs/${example.run_id}`}><FileCheck size={15} aria-hidden="true" />{example.label}</NavLink>)}<Link to="/models"><Box size={15} aria-hidden="true" />3D-модели</Link></nav>
       <button type="button" onClick={reset}><RotateCcw size={14} aria-hidden="true" />Сбросить демо</button>
     </div>
     <dialog ref={dialog} className="demo-dialog" aria-labelledby="demo-notice-title"><header><h2 id="demo-notice-title">Демонстрационный режим</h2><button ref={closeButton} type="button" aria-label="Закрыть" onClick={() => dialog.current?.close()}><X size={20} /></button></header>

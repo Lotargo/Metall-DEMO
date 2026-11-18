@@ -20,7 +20,7 @@
     document.body.dataset.preview = new URLSearchParams(location.search).get('preview') === '1' ? 'true' : 'false';
     const source = new URLSearchParams(location.search).get('source');
     const models = new URL('./models/', location.href).pathname;
-    if (!source || !source.startsWith(models) || !/^shaft-v\d+\/$/.test(source.slice(models.length))) {
+    if (!source || !source.startsWith(models) || !/^[a-z][a-z0-9-]*-v\d+\/$/.test(source.slice(models.length))) {
       document.querySelector('#error').hidden = false;
       document.querySelector('#error').textContent = 'Просмотр модели недоступен.';
     } else {

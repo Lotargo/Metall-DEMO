@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { setupWorker } from 'msw/browser';
-import { DEMO_READ_ONLY, DEMO_RUN_ID, DEMO_STORAGE, demoAsset, demoNotice, registerDemoAssets } from './config';
+import { DEMO_READ_ONLY, DEMO_STORAGE, demoAsset, demoNotice, registerDemoAssets, type DemoExample } from './config';
 
 type JsonObject = Record<string, unknown>;
 type Responses = Record<string, unknown>;
@@ -9,11 +9,11 @@ function json(data: unknown, init: { status?: number } = {}) {
   return new HttpResponse(JSON.stringify(data), { ...init, headers: { 'Content-Type': 'application/json' } });
 }
 export async function startDemo() {
-  const [response, index] = await Promise.all(['responses.json', 'assets.json'].map(name => fetch(demoAsset('demo/' + name))));
-  if (!response.ok || !index.ok) throw new Error('Не удалось загрузить демонстрационный пример. Обновите страницу.');
+  const [response, index, manifest] = await Promise.all(['responses.json', 'assets.json', 'manifest.json'].map(name => fetch(demoAsset(`demo/${name}?schema=3`), { cache: 'no-cache' })));
+  if (![response, index, manifest].every(item => item.ok)) throw new Error('Не удалось загрузить демонстрационные примеры. Обновите страницу.');
   const baseline = await response.json() as Responses;
   const files = await index.json() as Record<string, string>;
-  registerDemoAssets(files);
+  registerDemoAssets(files, (await manifest.json() as { examples: DemoExample[] }).examples);
   let overrides: Responses = {};
   try {
     const saved: unknown = JSON.parse(localStorage.getItem(DEMO_STORAGE) ?? '{}');
@@ -36,13 +36,12 @@ export async function startDemo() {
       }
       if (path === '/api/v1/orchestrator/chat') {
         const runId = url.searchParams.get('run_id'), projectId = url.searchParams.get('project_id');
-        const isRun = runId === DEMO_RUN_ID;
         const key = runId ? `run:${runId}` : projectId ? `project:${projectId}` : 'workspace';
-        const cad = baseline[`/api/v1/runs/${DEMO_RUN_ID}/cad-route`] as { title: string; route: { revision: number; models: unknown[]; decision: unknown }; jobs: JsonObject[] };
-        return json({ scope: { key, title: isRun ? cad.title : 'Рабочее пространство', kind: runId ? 'run' : projectId ? 'project' : 'workspace', run_id: runId, project_id: projectId },
+        const cad = baseline[`/api/v1/runs/${runId}/cad-route`] as { title: string; route: { revision: number; models: unknown[]; decision: unknown }; jobs: Record<string, JsonObject> } | undefined;
+        return json({ scope: { key, title: cad?.title ?? 'Рабочее пространство', kind: runId ? 'run' : projectId ? 'project' : 'workspace', run_id: runId, project_id: projectId },
           availability: { enabled: false, reason: 'В демо доступна история работ по сохранённому расчёту.' }, choice: null, chat: null, requests: [],
-          context: { run: isRun ? { status: 'completed', current_stage: 'done' } : null,
-            cad: isRun ? { phase: 'completed', revision: cad.route.revision, model: cad.route.models.at(-1), decision: cad.route.decision, jobs: Object.values(cad.jobs) } : undefined } });
+          context: { run: cad ? { status: 'completed', current_stage: 'done' } : null,
+            cad: cad ? { phase: 'completed', revision: cad.route.revision, model: cad.route.models.at(-1), decision: cad.route.decision, jobs: Object.values(cad.jobs) } : undefined } });
       }
       if (path === '/api/v1/projects/trash') return json((current('/api/v1/projects') as JsonObject[]).filter(project => project.deleted_at));
       if (path === '/api/v1/projects') return json((current(path) as JsonObject[]).filter(project => !project.deleted_at));

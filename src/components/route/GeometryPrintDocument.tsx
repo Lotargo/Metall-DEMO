@@ -8,7 +8,7 @@ import { RouteSections } from './GeometryRouteDocument';
 import { assessedCostLabel, estimateStatus, estimateTimeLabel, estimateTotals, oncePerRunLabel, rangeText } from './geometryDocuments';
 import { CalculationBasisSections } from './CalculationBasisSections';
 import { formatNumber, materialLabel, operatorText } from './geometryPresentation';
-import { demoAsset } from '@/demo/config';
+import { demoPrintFile } from '@/demo/config';
 import './run-documents.css';
 import './geometry-documents.css';
 
@@ -17,8 +17,9 @@ const names = { route: 'Маршрут изготовления', estimate: 'С�
 export function GeometryPrintDocument({ state, document }: { state: VolumeState; document: Document }) {
   const ready = document === 'route' ? !!state.operations_markdown : document === 'basis' ? !!state.calculation_basis || !!state.time_estimate : !!state.time_estimate;
   const { cost, time } = estimateTotals(state);
+  const pdf = demoPrintFile(state.run_id, document);
   return <article className="run-document-page geometry-print-page">
-    <div className="document-toolbar document-screen-only"><Link className="ui-button ui-button--outline ui-button--size-sm" to={`/runs/${state.run_id}?tab=${document}`}><ArrowLeft size={16} aria-hidden="true" />К рабочему пространству</Link><nav className="geometry-print-navigation" aria-label="Печатные документы">{(['route', 'estimate', 'basis'] as const).map(item => <Link key={item} to={`/runs/${state.run_id}/${item}/print`} aria-current={document === item ? 'page' : undefined}>{item === 'route' ? 'Маршрут' : item === 'estimate' ? 'Смета' : names.basis}</Link>)}</nav><div className="calculation-basis-actions">{ready && <a className="ui-button ui-button--outline ui-button--size-sm" href={demoAsset(`demo/print/${document}.pdf`)} download><Download size={16} aria-hidden="true" />Скачать PDF</a>}<Button icon={<Printer size={16} aria-hidden="true" />} disabled={!ready} onClick={() => window.print()}>Печать</Button></div></div>
+    <div className="document-toolbar document-screen-only"><Link className="ui-button ui-button--outline ui-button--size-sm" to={`/runs/${state.run_id}?tab=${document}`}><ArrowLeft size={16} aria-hidden="true" />К рабочему пространству</Link><nav className="geometry-print-navigation" aria-label="Печатные документы">{(['route', 'estimate', 'basis'] as const).map(item => <Link key={item} to={`/runs/${state.run_id}/${item}/print`} aria-current={document === item ? 'page' : undefined}>{item === 'route' ? 'Маршрут' : item === 'estimate' ? 'Смета' : names.basis}</Link>)}</nav><div className="calculation-basis-actions">{ready && pdf && <a className="ui-button ui-button--outline ui-button--size-sm" href={pdf} download><Download size={16} aria-hidden="true" />Скачать PDF</a>}<Button icon={<Printer size={16} aria-hidden="true" />} disabled={!ready} onClick={() => window.print()}>Печать</Button></div></div>
     {!ready ? <p role="status">Документ ещё не подготовлен. Сохранённые данные доступны в рабочем пространстве.</p> : <EngineeringPrintContext.Provider value><div className="estimate-paper geometry-paper">
       <header className="estimate-paper-heading"><h1>{names[document]}</h1><p>{document === 'route' ? state.results_stale ? 'Требует обновления после изменения модели' : 'По принятому предварительному сценарию' : estimateStatus(state)}</p></header>
       <dl className="estimate-paper-meta"><div className="geometry-paper-detail"><dt>Деталь:</dt><dd>{operatorText(state.title || state.filename)}</dd></div><div><dt>Количество в расчёте</dt><dd>{state.quantity} шт.</dd></div>

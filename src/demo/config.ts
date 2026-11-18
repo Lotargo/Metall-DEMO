@@ -8,7 +8,13 @@ export function demoNotice(message: string) {
 }
 
 let assets: Record<string, string> = {};
-export function registerDemoAssets(value: Record<string, string>) { assets = value; }
+export type DemoExample = { run_id: string; label: string };
+let examples: readonly DemoExample[] = [];
+export function registerDemoAssets(value: Record<string, string>, savedExamples: DemoExample[]) {
+  assets = value;
+  examples = savedExamples;
+}
+export function demoExamples() { return examples; }
 export function demoFileFor(url: string): string | undefined {
   const path = url.split('?')[0];
   const file = assets[path];
@@ -18,4 +24,12 @@ export function demoDocumentLink(url: string) {
   if (url.startsWith('/api/')) return demoFileFor(url);
   return url.startsWith('/runs/') ? `#${url}` : url;
 }
-export function demoModelSource(revision: number) { return demoAsset(`models/shaft-v${revision}/`); }
+export function demoModelFile(runId: string, revision: number) {
+  return demoFileFor(`/api/v1/runs/${runId}/cad-route/models/${revision}/view/model.step`);
+}
+export function demoModelSource(runId: string, revision: number) {
+  return demoModelFile(runId, revision)?.replace(/model\.step$/, '');
+}
+export function demoPrintFile(runId: string, document: string) {
+  return demoFileFor(`/api/v1/runs/${runId}/demo/print/${document}.pdf`);
+}

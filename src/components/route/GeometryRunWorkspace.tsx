@@ -6,7 +6,7 @@ import type { CadRouteState } from '@/api/hooks/useCadRoute';
 import type { GeometryDimension, VolumeState } from '@/api/hooks/useVolumeRound';
 import { useCancelRun } from '@/api/hooks/useRuns';
 import { getArtifactUrl } from '@/api/client';
-import { demoModelSource } from '@/demo/config';
+import { demoModelFile, demoModelSource } from '@/demo/config';
 import { WorkspaceDrawing } from '@/components/drawing/WorkspaceDrawing';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
@@ -65,7 +65,7 @@ export function GeometryRunWorkspace({ state, document, cad, modelControls, onMo
   const active = !['completed', 'failed', 'interrupted', 'cancelled'].includes(phase);
   const stage = geometryRunLabel(state, cad);
   const timeFailure = state.time_estimate?.failure_kind ? timeIssueMessages(state.time_estimate).join(' ') : '';
-  const source = model && cad?.viewer_ready ? demoModelSource(model.revision)
+  const source = model && cad?.viewer_ready ? demoModelSource(state.run_id, model.revision)
     : state.viewer_ready ? (state.preview_url ?? `/api/v1/runs/${state.run_id}/volume-round/view/viewer.html`).replace(/viewer\.html$/, '') : undefined;
   const sha = model?.step_sha256 ?? state.step_sha256 ?? state.passport?.step_sha256;
   const sameModel = passportMatchesModel(state, model);
@@ -140,7 +140,7 @@ export function GeometryRunWorkspace({ state, document, cad, modelControls, onMo
           {tab === 'history' && <div className="space-y-5"><h2>История работы</h2>
             {cad?.route.decision && <p>В расчёт принята модель {cad.route.decision.accepted_revision}. {cad.route.decision.kind === 'user' ? 'Подтверждена оператором.' : cad.route.decision.kind === 'agent_no_findings' ? 'Просмотрена агентом.' : 'Исправлена после просмотра. Повторный просмотр не выполнялся.'}</p>}
             {cad?.review && <section className="geometry-requirements"><h3>Результат просмотра модели {cad.review.model_revision}</h3><ul>{uniqueNotes([...cad.review.findings, ...cad.review.limitations]).map((item, i) => <li key={i}>{item}</li>)}</ul></section>}
-            {!!cad?.route.models.length && <section className="geometry-requirements"><h3>Версии модели</h3><ul>{cad.route.models.map(item => <li key={item.revision}>Модель {item.revision} · <a className="text-accent underline" href={`${demoModelSource(item.revision)}model.step`} download>Скачать STEP</a></li>)}</ul></section>}
+            {!!cad?.route.models.length && <section className="geometry-requirements"><h3>Версии модели</h3><ul>{cad.route.models.map(item => <li key={item.revision}>Модель {item.revision} · <a className="text-accent underline" href={demoModelFile(state.run_id, item.revision)} download>Скачать STEP</a></li>)}</ul></section>}
             {!!cad?.calculations?.length && <section className="geometry-requirements"><h3>Сохранённые расчёты</h3><ul>{cad.calculations.map((item, i) => <li key={i}>Модель {item.model_revision} · {item.quantity} шт. {item.artifacts.report && <a className="text-accent underline" href={getArtifactUrl(item.artifacts.report)} target="_blank" rel="noreferrer">Открыть отчёт</a>}</li>)}</ul></section>}
             {!!state.steps.length && <section className="geometry-requirements"><h3>Выполненные этапы</h3><ul>{state.steps.map((item, i) => <li key={i}>{operatorText(item.title)} · {formatNumber(item.seconds)} с</li>)}</ul></section>}
             {!!state.warnings.length && <Button size="sm" variant="outline" onClick={() => setConditions(true)}>Условия расчёта · {state.warnings.length}</Button>}
