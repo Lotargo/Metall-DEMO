@@ -1,7 +1,7 @@
 import createClient from 'openapi-fetch';
 import type { paths } from './schema';
 import { getOperatorProfile } from '@/utils/storage';
-import { demoAsset } from '@/demo/config';
+import { demoFileFor } from '@/demo/config';
 
 export const apiClient = createClient<paths>({
   baseUrl: '',
@@ -26,9 +26,13 @@ apiClient.use({
 });
 
 export function getArtifactUrl(artifactId: string): string {
-  if (artifactId === '577d0241-1730-4797-9d21-439ef87899f4') return demoAsset('demo/drawing.png');
-  if (artifactId === '06eaf750-d1c6-4564-893b-aee6eb4e53ea') return demoAsset('demo/drawing.pdf');
-  return `/api/v1/artifacts/${encodeURIComponent(artifactId)}`;
+  const path = `/api/v1/artifacts/${encodeURIComponent(artifactId)}`;
+  return demoFileFor(path) ?? path;
+}
+
+export function getDrawingPreviewUrl(artifactId: string): string {
+  const path = `/api/v1/artifacts/${encodeURIComponent(artifactId)}/preview`;
+  return demoFileFor(path) ?? getArtifactUrl(artifactId);
 }
 
 export async function downloadFile(url: string, defaultFilename: string): Promise<void> {

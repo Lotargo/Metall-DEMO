@@ -8,7 +8,7 @@ type Profile = components['schemas']['EstimateProfile'];
 type Norm = Profile['parameters'][string];
 type Draft = { text: string; base: string | null };
 
-export function TimeNormRow({ profile, parameter, number, label, unit, heading, conditions }: {
+export function TimeNormRow({ profile, parameter, number, label, unit, heading, conditions, onSaved }: {
   profile: Profile;
   parameter: string;
   number: Norm | null;
@@ -16,6 +16,7 @@ export function TimeNormRow({ profile, parameter, number, label, unit, heading, 
   unit: string;
   heading: ReactNode;
   conditions: ReactNode;
+  onSaved?: () => Promise<unknown>;
 }) {
   const id = useId();
   const client = useQueryClient();
@@ -55,6 +56,7 @@ export function TimeNormRow({ profile, parameter, number, label, unit, heading, 
       await client.cancelQueries({ queryKey: key, exact: true });
       client.setQueryData<Profile[]>(key, current => current?.map(item =>
         item.id === profile.id && item.sha256 === profile.sha256 ? data : item));
+      await onSaved?.();
       setDraft(undefined);
       setMessage({ error: false, text: 'Сохранено.' });
     } catch (error) {

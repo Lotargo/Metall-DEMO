@@ -29,7 +29,7 @@ export function publicSourceText(value: unknown, fallback = 'Расчётное 
     .replace(/\b[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\b/giu, '')
     .replace(/\bsha-?256\s*[:=#]?\s*[\da-f]{8,64}\b/giu, '')
     .replace(/\b[\da-f]{32,64}\b/giu, '')
-    .replace(/\b(?:[a-z][a-z\d_]*(?:[.-][a-z\d_-]+)+|machcalc|reserve|spindle|feed|time)\/\d+(?:\.\d+)*\b/giu, '')
+    .replace(/\b(?:[a-z][a-z\d_]*(?:\.[a-z\d_-]+)+|(?:metall|cad-metall|machcalc)(?:[-._][a-z\d_-]+)*|reserve|spindle|feed|time)\/\d+(?:\.\d+)*\b/giu, '')
     .replace(/\b(?:sha-?256|schema_version|profile_id|method_id|source_id|run_id)\s*[:=]?\s*/giu, '')
     .replace(/\b(?:op|work|profile|machine-card|machcalc|artifact):[a-z\d._:@#/-]+/giu, '')
     .replace(/\b(?:cq|ct)_[a-z\d_-]+\b/giu, '')

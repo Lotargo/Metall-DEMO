@@ -1,7 +1,6 @@
 import type { components } from '@/api/schema';
 import { asRecord, formatNumber, formatText } from '@/utils/compactNumbers';
 import { operationTimeView } from '@/components/route/CompactOperationResult';
-import { Link } from 'react-router-dom';
 
 type Route = components['schemas']['CompactState']['route'];
 
@@ -11,6 +10,6 @@ export function CompactOperationsTable({ details, route, referenceOnly = false }
     const detail = asRecord(raw), index = typeof detail.operation_index === 'number' ? detail.operation_index : position;
     const time = operationTimeView(detail);
     const state = detail.equipment_state === 'incompatible' ? 'Станок несовместим' : detail.stock_incompatible === true ? 'Заготовка не подходит' : detail.calculation_complete === true && time.machineTime !== null ? 'Рассчитано' : time.machineTime !== null || time.motions.length > 0 ? 'Частично' : 'Время не определено';
-    return <tr key={index}><td className="tabular-nums">{index + 1}</td><th scope="row"><Link to={{ hash: `#compact-operation-${index}` }} className="text-accent">{formatText(route?.operations[index]?.title || `Операция ${index + 1}`)}</Link></th><td>{detail.machine_title ? formatText(detail.machine_title) : 'Не назначено'}</td><td className="tabular-nums">{formatNumber(time.machineTime)}</td><td className="tabular-nums">{formatNumber(time.batchTime)}</td><td className={detail.equipment_state === 'incompatible' || detail.stock_incompatible === true ? 'text-warning' : ''}>{state}{time.motions.length > 0 && time.machineTime === null && <p className="mt-1 text-muted">Отдельные движения: {time.motions.length}</p>}</td></tr>;
+    return <tr key={index}><td className="tabular-nums">{index + 1}</td><th scope="row"><a href={`#compact-operation-${index}`} className="text-accent">{formatText(route?.operations[index]?.title || `Операция ${index + 1}`)}</a></th><td>{detail.machine_title ? formatText(detail.machine_title) : 'Не назначено'}</td><td className="tabular-nums">{formatNumber(time.machineTime)}</td><td className="tabular-nums">{formatNumber(time.batchTime)}</td><td className={detail.equipment_state === 'incompatible' || detail.stock_incompatible === true ? 'text-warning' : ''}>{state}{time.motions.length > 0 && time.machineTime === null && <p className="mt-1 text-muted">Отдельные движения: {time.motions.length}</p>}</td></tr>;
   })}</tbody></table></div>;
 }

@@ -13,7 +13,7 @@ export function DemoToolbar() {
   }, []);
   function reset() {
     for (const storage of [localStorage, sessionStorage]) Object.keys(storage).filter(key => key.startsWith('metall-demo')).forEach(key => storage.removeItem(key));
-    window.location.hash = '#/projects'; window.location.reload();
+    window.location.hash = `#${DEMO_RUN_PATH}`; window.location.reload();
   }
   return <>
     <div className="demo-toolbar document-screen-only" aria-label="Управление демонстрацией">

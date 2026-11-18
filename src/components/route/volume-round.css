@@ -1,0 +1,125 @@
+.geometry-workspace { min-width: 0; }
+.geometry-run-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 20px 24px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.geometry-run-header > div:first-child { flex: 1 1 24rem; }
+.geometry-run-header h1 { margin-top: 6px; font-size: 18px; font-weight: 650; line-height: 1.45; overflow-wrap: anywhere; text-wrap: balance; }
+.geometry-run-header p { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.geometry-header-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.geometry-work-area { min-width: 0; padding: 0 24px 24px; }
+.geometry-workspace .compact-workspace-nav { margin-inline: -24px; padding-inline: 16px; }
+.geometry-workspace .ui-tabs--wrap .ui-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@container compact-work-area (min-width: 44rem) { .geometry-workspace .ui-tabs--wrap .ui-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container compact-work-area (min-width: 70rem) { .geometry-workspace .ui-tabs--wrap .ui-tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.geometry-work-layout { display: grid; gap: 24px; padding-top: 24px; align-items: start; }
+.geometry-main-panel { min-width: 0; }
+.geometry-main-panel h2 { font-size: 18px; font-weight: 650; text-wrap: balance; }
+.geometry-main-panel h3 { font-size: 15px; font-weight: 650; text-wrap: balance; }
+.geometry-main-panel p { text-wrap: pretty; }
+.geometry-section-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.geometry-section-heading p { margin-top: 5px; font-size: 13px; color: var(--muted); }
+.geometry-run-progress { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.geometry-run-progress > span + span { color: var(--muted); }
+.geometry-run-notice, .geometry-approval { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); font-size: 14px; }
+.geometry-approval { display: flex; align-items: start; gap: 12px; flex-direction: column; }
+.geometry-passport-table { min-width: 780px; background: var(--surface); }
+.geometry-passport-table thead th { font-size: 12px; }
+.geometry-passport-table :is(th, td) { max-width: 250px; font-size: 13px; }
+.geometry-passport-table tbody th { padding: 0; min-width: 180px; }
+.geometry-passport-table small { display: block; font-size: 11px; color: var(--muted); margin-top: 5px; }
+.geometry-passport-table tr.is-linked { background: var(--accent-soft); }
+.geometry-dimension-link { display: grid; gap: 4px; width: 100%; padding: 12px; text-align: left; cursor: pointer; color: var(--text); }
+.geometry-dimension-link span { font-weight: 400; color: var(--muted); }
+.geometry-dimension-link:hover { color: var(--accent); }
+.geometry-measured { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--accent); font-weight: 600; }
+.geometry-note-link { margin-top: 6px; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; font-size: 12px; cursor: pointer; }
+.geometry-view-options { display: flex; flex-wrap: wrap; gap: 4px; }
+.geometry-view-options button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 5px; font-size: 12px; color: var(--muted); background: var(--surface); cursor: pointer; }
+.geometry-view-options button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.geometry-requirements { border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; background: var(--surface); }
+.geometry-requirements ul { list-style: disc; padding-left: 18px; margin-top: 12px; }
+.geometry-requirements li { font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.geometry-requirements li + li { margin-top: 10px; }
+.geometry-requirements small { display: block; font-size: 12px; color: var(--muted); }
+.part-model-viewer { position: relative; height: clamp(340px, 48dvh, 520px); min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface-muted); }
+.part-model-viewer iframe { display: block; width: 100%; height: 100%; border: 0; }
+.part-model-loading { position: absolute; top: 55px; left: 12px; padding: 6px 10px; font-size: 12px; background: var(--surface); color: var(--muted); pointer-events: none; }
+.app-modal .part-model-viewer { height: min(68dvh, 700px); }
+.geometry-summary { min-width: 0; display: grid; gap: 20px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.geometry-summary h3 { margin-bottom: 12px; font-size: 13px; font-weight: 650; }
+.geometry-summary dl { display: grid; gap: 9px; }
+.geometry-summary dl > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; align-items: baseline; font-size: 12px; }
+.geometry-summary dt { color: var(--muted); }
+.geometry-summary dd { font-weight: 600; font-variant-numeric: tabular-nums; }
+.geometry-summary-divider { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 3px; }
+.geometry-summary-subheading { grid-column: 1 / -1; padding-bottom: 4px; font-size: 11px; }
+.geometry-summary-total { font-size: 16px; font-variant-numeric: tabular-nums; }
+.geometry-summary p { margin-top: 5px; font-size: 11px; color: var(--muted); }
+.geometry-result-files { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; }
+.geometry-result-files a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.geometry-stock-size { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.volume-notes { list-style: disc; padding-left: 20px; line-height: 1.7; }
+.volume-notes li + li { margin-top: 8px; }
+.volume-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 12px; }
+.volume-totals > div { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.volume-totals dt { font-size: 12px; color: var(--muted); }
+.volume-totals dd { margin-top: 6px; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.volume-quantity-form { display: flex; align-items: end; flex-wrap: wrap; gap: 10px; }
+.volume-quantity-form .ui-field { width: min(220px, 100%); }
+.volume-time-table { min-width: 600px; }
+.volume-time-table small { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+.volume-route-text { max-width: 80ch; white-space: pre-wrap; line-height: 1.8; font-size: 14px; overflow-wrap: anywhere; text-wrap: pretty; }
+.geometry-workspace :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@container compact-work-area (min-width: 62rem) { .geometry-work-layout:has(> .geometry-summary) { grid-template-columns: minmax(0, 1fr) 220px; } .geometry-summary { position: sticky; top: 112px; } }
+@media (max-width: 600px) { .geometry-run-header { padding: 16px; } .geometry-work-area { padding: 0 14px 20px; } .geometry-workspace .compact-workspace-nav { margin-inline: -14px; padding-inline: 6px; } .geometry-header-actions { gap: 6px; } .geometry-work-layout { gap: 18px; padding-top: 18px; } }
+@media print { .geometry-header-actions, .compact-workspace-nav, .geometry-summary, .geometry-result-files { display: none; } .geometry-work-layout { display: block; } }
+
+.geometry-dimension-cell { display: flex; align-items: flex-start; }
+.geometry-dimension-info { flex: 0 0 28px; display: grid; place-items: center; width: 28px; height: 32px; margin: 6px 6px 0 0; color: var(--muted); cursor: pointer; }
+.geometry-run-header { position: sticky; top: 0; z-index: 30; }
+.geometry-workspace .compact-workspace-nav { top: var(--geometry-header-height, 140px); }
+.geometry-model-thumbnail { position: relative; width: 240px; height: 96px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: 0 0 auto; background: var(--surface-muted); }
+.geometry-model-thumbnail img { display: block; height: 100%; width: 100%; object-fit: contain; }
+.geometry-model-thumbnail button { position: absolute; inset: 0; display: flex; align-items: end; justify-content: space-between; padding: 7px 9px; color: var(--accent); font-size: 11px; cursor: zoom-in; background: transparent; }
+.geometry-model-thumbnail button span { padding: 2px 5px; border-radius: 3px; background: var(--surface); }
+.geometry-model-thumbnail button svg { box-sizing: content-box; padding: 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.geometry-dimension-link { scroll-margin-top: calc(var(--geometry-header-height, 140px) + 120px); }
+.app-modal:has(.app-modal-dialog--screen) { padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+.app-modal-dialog--screen { max-width: none; width: 100%; height: calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); max-height: none; }
+.app-modal-dialog--screen .app-modal-header { padding: 10px 18px; }
+.app-modal-dialog--screen .app-modal-title { font-size: 17px; }
+.app-modal-dialog--screen .app-modal-body { display: flex; padding: 0; overflow: hidden; }
+.app-modal-dialog--screen .app-modal-footer { padding: 10px 18px; }
+.app-modal-dialog--screen .geometry-approval { margin: 0; border: 0; background: transparent; padding: 0; gap: 6px; }
+.model-inspection-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr) 300px; width: 100%; min-width: 0; min-height: 0; }
+.model-inspection-dimensions, .model-inspection-passport { overflow: auto; min-height: 0; padding: 16px; background: var(--surface); }
+.model-inspection-dimensions { border-right: 1px solid var(--line); padding: 12px 8px; }
+.model-inspection-passport { border-left: 1px solid var(--line); font-size: 12px; }
+.model-inspection-sidebar-heading { padding: 0 8px 12px; display: grid; gap: 10px; }
+.model-inspection-layout h4 { font-size: 15px; font-weight: 650; }
+.model-inspection-sidebar-heading > button { padding: 6px 8px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
+.model-inspection-sidebar-heading > button[aria-pressed="true"] { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.model-inspection-dimensions li > button { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; width: 100%; text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); color: var(--text); font-size: 12px; cursor: pointer; }
+.model-inspection-dimensions li > button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+.model-inspection-dimensions small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; font-weight: 400; }
+.model-inspection-dimensions strong { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.model-inspection-canvas { min-width: 0; min-height: 0; background: var(--surface-muted); }
+.model-inspection-canvas .part-model-viewer { height: 100%; border: 0; border-radius: 0; }
+.model-inspection-material { margin-top: 8px; font-weight: 600; }
+.model-inspection-passport section { padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--line); }
+.model-inspection-passport h5 { font-size: 13px; font-weight: 650; margin-bottom: 8px; }
+.model-inspection-passport p { line-height: 1.65; margin-bottom: 10px; }
+.model-inspection-passport dl { display: grid; gap: 8px; margin: 12px 0; }
+.model-inspection-passport dl > div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.model-inspection-passport dt { color: var(--muted); }
+.model-inspection-passport dd { font-variant-numeric: tabular-nums; }
+.model-inspection-passport li { margin: 10px 0; line-height: 1.65; overflow-wrap: anywhere; }
+.model-inspection-passport small { color: var(--muted); line-height: 1.5; }
+.model-inspection-layout :focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 1100px) { .model-inspection-layout { grid-template-columns: 220px minmax(0, 1fr) 250px; } }
+@media (max-width: 760px) { .geometry-model-thumbnail { width: 180px; height: 80px; } .geometry-run-header h1 { font-size: 16px; } .app-modal-dialog--screen .app-modal-body { overflow: auto; } .model-inspection-layout { display: flex; flex-direction: column; } .model-inspection-canvas { order: -1; flex: 0 0 45dvh; } .model-inspection-dimensions, .model-inspection-passport { flex: 0 0 auto; max-height: 35dvh; border: 0; border-top: 1px solid var(--line); } }
+@container compact-work-area (min-width: 62rem) { .geometry-summary { top: calc(var(--geometry-header-height, 140px) + var(--geometry-tabs-height, 60px) + 16px); } }
+.geometry-download-actions { display: grid; gap: 8px; width: 176px; flex: 0 0 auto; }
+.geometry-download-button { justify-content: flex-start; gap: 9px; padding: 9px 12px; color: var(--text-secondary); box-shadow: 0 2px 3px rgba(15, 23, 42, .08), 0 1px 1px rgba(15, 23, 42, .04); text-decoration: none; white-space: nowrap; }
+.geometry-download-button:hover { background: var(--surface-hover); color: var(--accent); }
+.geometry-download-button:active { box-shadow: inset 0 1px 2px rgba(15, 23, 42, .1); }
+.volume-route-text .engineering-rich-text { white-space: normal; }
+@media (max-width: 600px) { .geometry-download-actions { width: 160px; } .geometry-download-button { font-size: 12px; padding-inline: 10px; } }

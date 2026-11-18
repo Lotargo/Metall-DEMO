@@ -7,7 +7,7 @@ import {
   RotateCw,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { getArtifactUrl } from '@/api/client';
+import { getArtifactUrl, getDrawingPreviewUrl } from '@/api/client';
 
 export function DrawingViewer({ sourceArtifactId }: { sourceArtifactId?: string | null }) {
   const [scale, setScale] = useState<number>(1);
@@ -148,7 +148,7 @@ export function DrawingViewer({ sourceArtifactId }: { sourceArtifactId?: string 
           >
             {/* Image render */}
             <img
-              src={getArtifactUrl(sourceArtifactId)}
+              src={getDrawingPreviewUrl(sourceArtifactId)}
               alt="Чертёж детали"
               className="w-full h-full shadow-lg pointer-events-none block"
               onLoad={(event) => {
@@ -166,7 +166,7 @@ export function DrawingViewer({ sourceArtifactId }: { sourceArtifactId?: string 
             <p className="text-xs text-muted mt-1 max-w-xs">
               Запустите распознавание или выберите существующий запуск для отображения чертежа.
             </p>
-            {sourceArtifactId && <a className="mt-3 underline" href={getArtifactUrl(sourceArtifactId)} target="_blank" rel="noreferrer">Открыть исходное изображение</a>}
+            {sourceArtifactId && <a className="mt-3 underline" href={getArtifactUrl(sourceArtifactId)} target="_blank" rel="noreferrer">Открыть исходный файл</a>}
           </div>
         )}
 

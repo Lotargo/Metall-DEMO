@@ -2,6 +2,8 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Header } from '@/components/layout/Header';
+import { OrchestratorSidebar } from '@/components/orchestrator/OrchestratorSidebar';
+import { DEMO_RUN_PATH } from '@/demo/config';
 const ProjectsPage = React.lazy(() => import('@/pages/ProjectsPage').then(module => ({ default: module.ProjectsPage })));
 const ProjectDetailPage = React.lazy(() => import('@/pages/ProjectDetailPage').then(module => ({ default: module.ProjectDetailPage })));
 const RunWorkspacePage = React.lazy(() => import('@/pages/RunWorkspacePage').then(module => ({ default: module.RunWorkspacePage })));
@@ -13,6 +15,8 @@ const EquipmentPage = React.lazy(() => import('@/pages/EquipmentPage').then(modu
 const EquipmentConfiguratorPage = React.lazy(() => import('@/pages/EquipmentConfiguratorPage').then(module => ({ default: module.EquipmentConfiguratorPage })));
 const CalculationSettingsPage = React.lazy(() => import('@/pages/CalculationSettingsPage').then(module => ({ default: module.CalculationSettingsPage })));
 const SettingsPage = React.lazy(() => import('@/pages/SettingsPage').then(module => ({ default: module.SettingsPage })));
+const HowItWorksPage = React.lazy(() => import('@/pages/HowItWorksPage').then(module => ({ default: module.HowItWorksPage })));
+const RunGeometryPrintPage = React.lazy(() => import('@/pages/RunGeometryPrintPage').then(module => ({ default: module.RunGeometryPrintPage })));
 
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { DemoToolbar } from '@/demo/DemoToolbar';
@@ -40,13 +44,15 @@ export const App: React.FC = () => {
             <ErrorBoundary>
               <React.Suspense fallback={<p className="content" role="status">Загрузка раздела…</p>}>
               <Routes>
-                <Route path="/" element={<Navigate to="/projects" replace />} />
+                <Route path="/" element={<Navigate to={`${DEMO_RUN_PATH}?tab=description`} replace />} />
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
                 <Route path="/runs/:runId" element={<RunWorkspacePage />} />
                 <Route path="/runs/:runId/estimate" element={<RunEstimatePage />} />
                 <Route path="/runs/:runId/estimate/print" element={<RunEstimatePrintPage />} />
                 <Route path="/runs/:runId/route" element={<RunFullRoutePage />} />
+                <Route path="/runs/:runId/route/print" element={<RunGeometryPrintPage document="route" />} />
+                <Route path="/runs/:runId/basis/print" element={<RunGeometryPrintPage document="basis" />} />
                 <Route path="/catalog" element={<CatalogPage />} />
                 <Route path="/equipment" element={<EquipmentPage />} />
                 <Route path="/models" element={<ModelsPage />} />
@@ -55,11 +61,13 @@ export const App: React.FC = () => {
                 <Route path="/calculation-settings/:section" element={<CalculationSettingsPage />} />
                 <Route path="/settings" element={<Navigate to="agents" replace />} />
                 <Route path="/settings/:section" element={<SettingsPage />} />
-                <Route path="*" element={<Navigate to="/projects" replace />} />
+                <Route path="/how-it-works" element={<HowItWorksPage />} />
+                <Route path="*" element={<Navigate to={DEMO_RUN_PATH} replace />} />
               </Routes>
               </React.Suspense>
             </ErrorBoundary>
           </main>
+          <OrchestratorSidebar />
         </div>
       </HashRouter>
     </QueryClientProvider>

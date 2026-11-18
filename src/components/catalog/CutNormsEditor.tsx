@@ -1,14 +1,11 @@
-import { InfoBlock } from '@/components/ui/InfoBlock';
 import { useState, type FormEvent } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { formatDateTime } from '@/utils/formatters';
 import { useCutNorms, usePublishCutNorms, type CutNormRow, type CutNormsView } from '@/api/hooks/useCutNorms';
 import { publicSourceText } from '@/utils/publicSource';
 
 type Draft = { over: string; to: string; face: string; kerf: string };
-const sourceLabels: Record<string, string> = { empty: 'пустая таблица', csv_file: 'загрузка таблицы', ui: 'правка в интерфейсе' };
 const text = (value?: string | null) => value == null ? '' : value.replace('.', ',');
 const number = (value: string) => value.trim().replace(',', '.');
 const toDraft = (row: CutNormRow): Draft => ({ over: text(row.diameter_over_mm), to: text(row.diameter_to_mm), face: text(row.face_allowance_mm), kerf: text(row.kerf_mm) });
@@ -32,7 +29,6 @@ function CutNormsForm({ view, refreshing, onRefresh }: {
 }) {
   const publish = usePublishCutNorms();
   const [draft, setDraft] = useState<{ revision: number; rows: Draft[] }>();
-  const [comment, setComment] = useState('');
   const [notice, setNotice] = useState('');
   const revision = view.table.revision;
   const rows = draft?.rows ?? view.table.rows.map(toDraft);
@@ -47,9 +43,9 @@ function CutNormsForm({ view, refreshing, onRefresh }: {
     event.preventDefault();
     if (!draft || stale || publish.isPending) return;
     publish.mutate({
-      expected_revision: draft.revision, comment,
+      expected_revision: draft.revision, comment: '',
       rows: rows.map(row => ({ diameter_over_mm: number(row.over), diameter_to_mm: number(row.to), face_allowance_mm: number(row.face), kerf_mm: row.kerf.trim() && row.kerf.trim().toLowerCase() !== 'н/д' ? number(row.kerf) : null })),
-    }, { onSuccess: () => { setDraft(undefined); setComment(''); setNotice('Нормы сохранены.'); } });
+    }, { onSuccess: () => { setDraft(undefined); setNotice('Нормы сохранены.'); } });
   }
   const cell = (index: number, field: keyof Draft, label: string) => <td className="px-3 py-2">
     <Input className="max-w-28 tabular-nums" inputMode="decimal" aria-label={`${label}, строка ${index + 1}`}
@@ -91,18 +87,10 @@ function CutNormsForm({ view, refreshing, onRefresh }: {
     {stale && <div className="space-y-2">
       <p role="alert" className="text-warning">Нормы изменились после начала правки.</p>
       <Button type="button" size="sm" variant="outline" onClick={() => {
-        setDraft(undefined); setComment(''); publish.reset(); setNotice('Действующая таблица загружена.');
+        setDraft(undefined); publish.reset(); setNotice('Действующая таблица загружена.');
       }}>Сбросить черновик и открыть действующую таблицу</Button>
     </div>}
     {!stale && publish.error && <Button type="button" size="sm" variant="outline" loading={refreshing}
       onClick={onRefresh}>Обновить данные</Button>}
-    <InfoBlock className="border-t border-line pt-3" title="Сведения о публикации">
-
-      <div className="mt-2 space-y-2 text-xs text-muted">
-        <div className="w-72 max-w-full"><Input label="Комментарий к сохранению" value={comment} disabled={publish.isPending}
-          onChange={event => { edit(rows); setComment(event.target.value); }} /></div>
-        {view.history.length > 0 && <ul className="space-y-1">{view.history.map(item => <li key={item.revision}>№{item.revision} · {formatDateTime(item.created_at_utc)} · {/(?:system|watcher|import|fixture)/i.test(item.created_by ?? '') ? 'Система' : publicSourceText(item.created_by, 'Автор не указан')} · {sourceLabels[item.source] ?? 'Изменение норм'} · строк {item.row_count}{item.comment ? ` · ${publicSourceText(item.comment, 'Комментарий к изменению')}` : ''}</li>)}</ul>}
-      </div>
-    </InfoBlock>
   </form>;
 }

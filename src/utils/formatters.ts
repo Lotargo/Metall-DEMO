@@ -21,6 +21,7 @@ export function formatStatusLabel(status: string | null | undefined): string {
     completed: 'Завершён',
     running: 'Выполняется',
     needs_review: 'Требует проверки',
+    waiting: 'Ожидается проверка модели',
     queued: 'В очереди',
     processing: 'В обработке',
     review: 'Требует проверки',

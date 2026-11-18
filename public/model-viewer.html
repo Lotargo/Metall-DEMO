@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Модель детали</title>
+  <link rel="stylesheet" href="./model-viewer.css">
+</head>
+<body>
+  <div class="viewer-toolbar" role="group" aria-label="Вид модели">
+    <button type="button" data-view="iso" aria-pressed="true">Изометрия</button>
+    <button type="button" data-view="x" aria-pressed="false">Спереди</button>
+    <button type="button" data-view="y" aria-pressed="false">Сбоку</button>
+    <button type="button" data-view="z" aria-pressed="false">С торца</button>
+    <button type="button" id="fit">Вписать</button>
+    <div id="sections" role="group" aria-label="Разрезы модели"></div>
+  </div>
+  <div id="viewport" aria-label="Область 3D-модели"><p id="error" role="alert" hidden></p></div>
+  <p id="selection" role="status">Выберите поверхность на модели или размер в таблице</p>
+  <script type="module">
+    document.body.dataset.preview = new URLSearchParams(location.search).get('preview') === '1' ? 'true' : 'false';
+    const source = new URLSearchParams(location.search).get('source');
+    const models = new URL('./models/', location.href).pathname;
+    if (!source || !source.startsWith(models) || !/^shaft-v\d+\/$/.test(source.slice(models.length))) {
+      document.querySelector('#error').hidden = false;
+      document.querySelector('#error').textContent = 'Просмотр модели недоступен.';
+    } else {
+      const base = new URL(source, location.origin).href;
+      const map = document.createElement('script'); map.type = 'importmap';
+      map.textContent = JSON.stringify({ imports: { three: base + 'three.module.js' } }); document.head.append(map);
+      import('./model-viewer.mjs').then(module => module.openModel(base)).catch(() => {
+        document.querySelector('#error').hidden = false;
+        document.querySelector('#error').textContent = 'Не удалось загрузить модель.';
+        parent.postMessage({ type: 'cad-preview-error' }, location.origin);
+      });
+    }
+  </script>
+</body>
+</html>

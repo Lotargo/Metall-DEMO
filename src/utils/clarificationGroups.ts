@@ -2,6 +2,7 @@ import type { components } from '@/api/schema';
 
 type Question = components['schemas']['CompactClarificationQuestion'];
 type Task = components['schemas']['CompactClarificationTask'];
+type Response = components['schemas']['CompactClarificationResponse'];
 export type ClarificationGroup = { id: string; question: string; sources: Question[]; task?: Task };
 
 // Only literal equality merges questions. Related wording remains an operator choice.
@@ -16,4 +17,9 @@ export function groupClarifications(questions: Question[], tasks: Task[] = []): 
     else groups.set(question.question, { id: question.id, question: question.question, sources: [question] });
   }
   return [...structured, ...groups.values()];
+}
+
+export function openClarificationCount(questions: Question[], tasks: Task[], responses: Response[]) {
+  const resolved = new Set(responses.filter(response => response.status !== 'unresolved').map(response => response.id));
+  return groupClarifications(questions, tasks).filter(group => group.sources.some(source => !resolved.has(source.id))).length;
 }

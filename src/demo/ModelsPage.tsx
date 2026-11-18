@@ -22,6 +22,6 @@ export function ModelsPage() {
           {model.limitations.length > 0 && <p className="demo-model-note">{model.limitations.join(' ')}</p>}
         </div>
       </article>)}
-    </div><p className="demo-model-footer">Модели относятся к самостоятельным примерам. Данные эксцентрикового вала представлены в демонстрационном проекте.</p>
+    </div>
   </section></div>;
 }

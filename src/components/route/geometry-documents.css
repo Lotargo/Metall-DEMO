@@ -1,0 +1,154 @@
+.geometry-document-panel { padding: 0; border: 0; background: transparent; box-shadow: none; }
+.geometry-document-workspace { display: grid; gap: 20px; min-width: 0; }
+.geometry-document-workspace .document-toolbar { margin: 0; justify-content: space-between; }
+.geometry-document-workspace .document-toolbar h2 { font-size: 19px; font-weight: 650; text-wrap: balance; }
+.geometry-document-workspace .document-notice { margin: 0; }
+.geometry-document-workspace .document-panel { padding: 20px; }
+.geometry-document-metrics { grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); margin-bottom: 0; gap: 12px; }
+.geometry-document-metrics > div { padding: 16px; }
+.geometry-document-metrics dt { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.geometry-document-metrics dd { font-size: 21px; font-weight: 650; line-height: 1.4; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.geometry-document-metrics dd span { font-size: 13px; font-weight: 400; }
+.geometry-work-table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.geometry-work-table :is(th,td) { padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.geometry-work-table thead th { font-weight: 500; background: var(--surface-muted); color: var(--text-secondary); }
+.geometry-work-table tbody th { font-weight: 400; min-width: 190px; }
+.geometry-work-table td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.geometry-work-table small { display: block; font-size: 12px; line-height: 1.65; color: var(--muted); margin-top: 5px; }
+.geometry-estimate-table { min-width: 650px; }
+.geometry-estimate-table tbody th { width: 36%; }
+.geometry-time-breakdown { display: flex; flex-wrap: wrap; gap: 16px 32px; }
+.geometry-time-breakdown dt { color: var(--muted); font-size: 12px; }
+.geometry-time-breakdown dd { margin-top: 5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.geometry-condition-label { margin-bottom: 4px; font-size: 12px; color: var(--muted); font-weight: 600; }
+.calculation-basis-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.calculation-basis-sections { display: grid; gap: 28px; }
+.calculation-basis-list { list-style: none; margin-top: 16px; }
+.calculation-basis-item { display: grid; gap: 12px; min-width: 0; padding-block: 20px; border-top: 1px solid var(--line); }
+.calculation-basis-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.calculation-basis-heading h4 { font-weight: 650; }
+.calculation-basis-heading > span { font-size: 12px; color: var(--muted); }
+.calculation-basis-legend { margin-top: 8px; color: var(--text-secondary); font-size: 0.93em; }
+.calculation-basis-formulas { display: grid; gap: 8px; padding: 12px 16px; border-left: 3px solid var(--line); background: var(--surface-muted); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; line-height: 1.7; }
+.calculation-basis-notes { display: grid; gap: 8px; padding-left: 18px; list-style: disc; }
+.calculation-basis-table { width: 100%; border-collapse: collapse; font-size: 0.93em; font-variant-numeric: tabular-nums; }
+.calculation-basis-table :is(th,td) { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.calculation-basis-table thead th { background: var(--surface-muted); font-weight: 650; }
+.calculation-basis-table tbody th { width: 26%; font-weight: 500; }
+.calculation-basis-table :is(th,td):last-child { width: 15%; text-align: right; }
+.calculation-assumption { padding-block: 14px; border-top: 1px solid var(--line); }
+.calculation-assumption dl { display: grid; gap: 6px; margin-top: 8px; }
+.calculation-assumption dl > div { display: grid; grid-template-columns: minmax(115px, 16%) minmax(0, 1fr); align-items: baseline; gap: 12px; }
+.calculation-assumption dt { color: var(--text-secondary); font-size: 0.93em; font-weight: 600; }
+.calculation-assumption dd { margin: 0; }
+.calculation-assumption .engineering-rich-text > p:first-child { margin-top: 0; }
+.calculation-retained > summary { cursor: pointer; font-weight: 650; padding-block: 10px; border-top: 1px solid var(--line); }
+.geometry-route-navigation { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; background: var(--surface-muted); border-bottom: 1px solid var(--line); }
+.geometry-route-navigation a { display: flex; gap: 7px; align-items: baseline; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); font-size: 12px; color: var(--text-secondary); }
+.geometry-route-navigation a:hover { border-color: var(--accent); color: var(--accent); }
+.geometry-route-navigation a > span { color: var(--accent); font-variant-numeric: tabular-nums; }
+.geometry-route-navigation .engineering-rich-text { font-size: inherit; }
+.geometry-route-navigation .engineering-rich-text p { margin: 0; }
+.geometry-route-sections { list-style: none; display: grid; gap: 24px; }
+.geometry-route-sections > li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; scroll-margin-top: calc(var(--geometry-header-height, 140px) + var(--geometry-tabs-height, 60px) + 20px); }
+.geometry-route-sections > li + li { padding-top: 24px; border-top: 1px solid var(--line); }
+.geometry-route-sections > li > .engineering-card-number { width: 28px; }
+.geometry-route-title { margin-bottom: 10px; font-weight: 650; }
+.geometry-route-title .engineering-rich-text { font-size: 15px; }
+.geometry-progress-bar { min-height: 0; margin-top: 10px; }
+.geometry-progress-events { display: grid; gap: 6px; padding: 0 14px 12px; font-size: 12px; color: var(--muted); }
+.geometry-progress-events li { display: flex; gap: 12px; }
+.geometry-progress-events time { font-variant-numeric: tabular-nums; }
+.geometry-print-navigation { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-muted); }
+.geometry-print-navigation a { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 12px; border: 1px solid transparent; border-radius: 5px; font-size: 13px; color: var(--muted); text-decoration: none; }
+.geometry-print-navigation a:hover { background: var(--surface-hover); color: var(--text); }
+.geometry-print-navigation a[aria-current] { border-color: var(--line); background: var(--surface); color: var(--accent); }
+.geometry-print-navigation a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.geometry-paper { font: 11px/1.45 Arial, sans-serif; color: #222; border-radius: 0; }
+.geometry-paper .estimate-paper-heading { border-bottom: 2px solid #444; padding-bottom: 10px; margin-bottom: 15px; }
+.geometry-paper .estimate-paper-heading h1 { font: bold 18px/1.3 Arial, sans-serif; margin: 0 0 8px; }
+.geometry-paper .estimate-paper-heading p { font-size: 11px; }
+.geometry-paper .estimate-paper-meta { gap: 5px 20px; margin: 12px 0 20px; font-size: 11px; }
+.geometry-paper .estimate-paper-meta > div { display: flex; align-items: baseline; gap: 5px; }
+.geometry-paper .estimate-paper-meta dt { font-weight: bold; color: inherit; font-size: inherit; }
+.geometry-paper .estimate-paper-meta dd { margin: 0; }
+.geometry-paper-detail { grid-column: 1 / -1; }
+.geometry-paper .geometry-print-section { margin: 18px 0 9px; font-size: 13px; }
+.geometry-paper .geometry-work-table :is(th,td), .geometry-paper-calculation :is(th,td) { border: 1px solid #aaa; padding: 5px 6px; }
+.geometry-paper .geometry-work-table thead th, .geometry-paper-calculation thead th, .geometry-print-total { background: #eee; color: #222; font-weight: bold; }
+.geometry-paper .geometry-work-table :is(th,td):nth-child(n+2) { text-align: right; }
+.geometry-paper-calculation { width: 100%; border-collapse: collapse; font-size: 10px; }
+.geometry-paper-calculation tbody th { font-weight: normal; text-align: left; }
+.geometry-paper-calculation :is(th,td):last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.geometry-paper-calculation .geometry-print-total th { font-weight: bold; }
+.geometry-print-signatures { display: flex; justify-content: space-between; margin-top: 38px; gap: 20px; break-inside: avoid; }
+.geometry-print-signatures span { width: 45%; border-top: 1px solid #999; padding-top: 7px; font-size: 11px; }
+.geometry-paper .engineering-card { border: 0; border-radius: 0; box-shadow: none; padding: 10px 0; font-size: inherit; background: white; }
+.geometry-paper .engineering-card-number { background: transparent; border: 0; border-radius: 0; color: #222; font-size: inherit; }
+.geometry-paper .geometry-route-sections { gap: 16px; }
+.geometry-paper .engineering-rich-text { font-size: inherit; line-height: inherit; }
+.geometry-paper .geometry-document-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block: 16px; }
+.geometry-paper .geometry-document-metrics > div { padding: 10px; box-shadow: none; }
+.geometry-paper .geometry-document-metrics dd { font-size: 17px; }
+.geometry-paper .geometry-work-table { font-size: 9px; min-width: 0; }
+.geometry-paper .geometry-work-table tbody th { min-width: 0; }
+.geometry-paper .geometry-work-table :is(th,td) { padding: 5px 6px; }
+.geometry-paper .geometry-work-table small { font-size: 9px; }
+.geometry-paper .geometry-route-title .engineering-rich-text { font-size: 13px; }
+.geometry-paper .document-help { font: inherit; color: #555; }
+.geometry-paper .calculation-basis-heading > span { font-size: inherit; }
+.geometry-paper .calculation-basis-formulas { background: #f5f5f5; border-color: #aaa; padding: 7px 8px; gap: 3px; line-height: 1.5; }
+.geometry-paper .calculation-basis-item { padding-block: 12px; gap: 8px; }
+.geometry-paper .calculation-basis-table :is(th,td) { border: 1px solid #aaa; padding: 4px 6px; }
+.geometry-paper .calculation-basis-table thead th { background: #eee; }
+.geometry-paper .calculation-assumption { padding-block: 9px; }
+.geometry-paper h2 { font-size: 14px; font-weight: 650; margin-bottom: 8px; }
+.geometry-paper-scope, .geometry-paper-conditions, .geometry-paper-totals { margin-top: 20px; }
+.geometry-paper-conditions ol { list-style: decimal; padding-left: 18px; }
+.geometry-paper-conditions li + li { margin-top: 12px; }
+.geometry-paper .document-notices { margin-top: 16px; font-size: 11px; }
+.geometry-paper-appendix { margin-top: 28px; }
+@media (max-width: 600px) {
+  .geometry-run-header { padding: 12px 14px; gap: 10px; }
+  .geometry-run-header h1 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 15px; }
+  .geometry-progress-bar { gap: 8px; margin-top: 8px; }
+  .geometry-progress-bar .processing-timer { gap: 5px; padding: 6px; font-size: 11px; }
+  .geometry-header-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .geometry-header-actions .geometry-download-actions { width: auto; }
+  .geometry-header-actions .geometry-download-button { padding-inline: 8px; gap: 6px; font-size: 11px; }
+  .geometry-model-thumbnail { width: 100%; height: 72px; }
+  .geometry-document-workspace .document-panel { padding: 14px; }
+  .geometry-route-navigation { flex-wrap: nowrap; overflow-x: auto; }
+  .geometry-route-navigation a { flex: 0 0 190px; }
+  .geometry-paper { padding: 14px; }
+  .geometry-print-page .document-toolbar { align-items: start; }
+}
+@media screen and (max-width: 600px) {
+  .calculation-assumption dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+@media print {
+  @page { size: A4; margin: 13mm; }
+  body:has(.geometry-print-page) .app-shell > :not(.app-main) { display: none !important; }
+  .geometry-print-page { padding: 0; }
+  .geometry-paper { width: 100%; max-width: none; padding: 0; overflow: visible; color: #18212a; }
+  .geometry-paper .table-wrap { overflow: visible; }
+  .geometry-paper a[href] { display: none !important; }
+  .geometry-paper .geometry-work-table td { white-space: normal; }
+  .geometry-paper .geometry-work-table thead { display: table-header-group; }
+  .geometry-paper .geometry-work-table tr, .geometry-paper .geometry-route-sections > li, .geometry-paper-conditions li, .geometry-paper .engineering-card { break-inside: avoid; }
+  .geometry-paper-calculation tr { break-inside: avoid; }
+  .geometry-paper .geometry-print-total, .geometry-paper table thead th { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .geometry-paper .geometry-document-metrics { break-inside: avoid; }
+  .geometry-paper .engineering-card { box-shadow: none; }
+  .geometry-paper-appendix { break-before: page; }
+  .geometry-paper .calculation-basis-sections { display: block; }
+  .geometry-paper .calculation-basis-sections > section + section { margin-top: 28px; }
+  .geometry-paper .calculation-basis-item { display: block; }
+  .geometry-paper .calculation-basis-item > * + * { margin-top: 5px; }
+  .geometry-paper .calculation-basis-heading { break-after: avoid; }
+  .geometry-paper .calculation-basis-table thead { display: table-header-group; }
+  .geometry-paper .calculation-basis-table tr, .geometry-paper .calculation-assumption dd { break-inside: avoid; }
+  .geometry-paper .calculation-assumption h4 { break-after: avoid; }
+  .geometry-paper h2, .geometry-paper h3, .geometry-paper .geometry-route-title { break-after: avoid; }
+  .geometry-paper p { orphans: 3; widows: 3; }
+}

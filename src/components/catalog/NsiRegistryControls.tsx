@@ -385,7 +385,7 @@ export function NsiRegistryControls({ tables, selected, busy, onRegistered, onMe
           </label>
           <label>Класс точности
             <input className="ui-input" value={precisionClass} onChange={(event) => setPrecisionClass(event.target.value)}
-              placeholder={tables.find((table) => table.table_key === templateKey)?.precision_class || 'В2'} />
+              placeholder={tables.find((table) => table.table_key === templateKey)?.precision_class || 'Не указан'} />
           </label>
           <div className="space-y-2">
             <label htmlFor={fileInputId}>Полный CSV</label>

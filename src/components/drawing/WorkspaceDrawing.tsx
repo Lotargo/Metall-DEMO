@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { FileImage, Grip, Maximize2, X } from 'lucide-react';
-import { getArtifactUrl } from '@/api/client';
+import { getDrawingPreviewUrl } from '@/api/client';
 import { DrawingViewer } from '@/components/drawing/DrawingViewer';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
@@ -115,13 +115,13 @@ export function WorkspaceDrawing({ artifactId, pending, tabs, inlineTarget, tab,
     {artifactId ? <button ref={opener} type="button" className="workspace-drawing-thumbnail"
       onClick={() => setLightbox(true)} aria-label="Открыть чертёж" aria-haspopup="dialog" title="Исходный чертёж">
       {failedPreview === artifactId ? <FileImage size={20} aria-hidden="true" />
-        : <img src={getArtifactUrl(artifactId)} alt="" onError={() => setFailedPreview(artifactId)} />}
+        : <img src={getDrawingPreviewUrl(artifactId)} alt="" onError={() => setFailedPreview(artifactId)} />}
     </button> : <p className="self-center text-xs text-muted">{pending ? 'Загрузка чертежа…' : 'Чертёж недоступен'}</p>}
     {inlineTarget && artifactId && createPortal(
       <button type="button" className="workspace-inline-drawing" onClick={() => setLightbox(true)}
         aria-label="Открыть исходный лист в лайтбоксе" aria-haspopup="dialog">
         {failedPreview === artifactId ? <span>Открыть исходный лист</span>
-          : <img src={getArtifactUrl(artifactId)} alt="" onError={() => setFailedPreview(artifactId)} />}
+          : <img src={getDrawingPreviewUrl(artifactId)} alt="" onError={() => setFailedPreview(artifactId)} />}
         <Maximize2 className="workspace-drawing-expand" size={17} aria-hidden="true" />
       </button>, inlineTarget,
     )}
@@ -145,7 +145,7 @@ export function WorkspaceDrawing({ artifactId, pending, tabs, inlineTarget, tab,
       <button type="button" className="workspace-drawing-preview" aria-label="Развернуть чертёж" aria-haspopup="dialog"
         onClick={() => setLightbox(true)}>
         {failedPreview === artifactId ? <span>Не удалось показать чертёж</span>
-          : <img src={getArtifactUrl(artifactId)} alt="" draggable={false} onError={() => setFailedPreview(artifactId)} />}
+          : <img src={getDrawingPreviewUrl(artifactId)} alt="" draggable={false} onError={() => setFailedPreview(artifactId)} />}
         <Maximize2 className="workspace-drawing-expand" size={15} aria-hidden="true" />
       </button>
       <div className="workspace-drawing-resize" role="group" tabIndex={0} aria-label="Изменить ширину и высоту окна чертежа стрелками"

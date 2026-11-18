@@ -1,0 +1,65 @@
+.equipment-library .workspace-card-header { align-items: center; gap: 16px; flex-wrap: wrap; }
+.equipment-library-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 20px; border-top: 1px solid var(--line); }
+.equipment-library-toolbar .table-search-wrap { max-width: 320px; }
+.equipment-kind-filter { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--control-border) transparent; border-block: 1px solid var(--line); padding: 10px 20px; }
+.equipment-kind-filter > button { flex-shrink: 0; }
+.equipment-kind-filter > button[aria-pressed=true] { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.equipment-card-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(290px,100%),1fr)); gap: 18px; padding: 22px; }
+.equipment-view-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; box-shadow: var(--shadow); }
+.equipment-view-card.is-excluded { background: var(--canvas); box-shadow: none; }
+.equipment-view-card.is-excluded .equipment-card-heading h3 { color: var(--muted); }
+.equipment-view-card.is-excluded .equipment-card-heading > span { color: var(--muted); background: var(--line); }
+.equipment-card-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+.equipment-card-heading { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.equipment-card-heading h3 { font-size: 16px; font-weight: 650; text-wrap: balance; overflow-wrap: anywhere; }
+.equipment-card-heading > span { flex-shrink: 0; padding: 4px 7px; border-radius: 5px; color: var(--accent); background: var(--accent-soft); font-size: 11px; }
+.equipment-card-category { color: var(--muted); font-size: 12px; margin: 6px 0 16px; }
+.equipment-view-card dl { display: grid; gap: 10px; margin-bottom: 18px; }
+.equipment-view-card dl > div { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: baseline; gap: 12px; font-size: 12px; }
+.equipment-view-card dt { color: var(--muted); }
+.equipment-view-card dd { max-width: 150px; text-align: right; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.equipment-view-card dd small { font-size: 11px; font-weight: 400; }
+.equipment-card-rate { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: auto; font-size: 13px; }
+.equipment-card-rate strong { font-variant-numeric: tabular-nums; }
+.equipment-card-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.equipment-view-card .equipment-card-actions { margin-top: 16px; }
+.equipment-message { padding: 22px; }
+.equipment-configurator-body { border-top: 1px solid var(--line); padding: 22px; }
+.equipment-configurator-body > .table-search-wrap { margin-bottom: 18px; width: min(360px,100%); }
+.equipment-editor-form { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; min-width: 0; }
+.equipment-editor-form > * { min-width: 0; }
+.equipment-editor-heading { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+.equipment-editor-heading h3 { font-size: 18px; font-weight: 650; text-wrap: balance; }
+.equipment-editor-form h4 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+.equipment-column-table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.5; }
+.equipment-column-table :is(th,td) { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.equipment-column-table thead th { font-weight: 500; color: var(--text-secondary); background: var(--surface-muted); }
+.equipment-column-table tbody th { font-weight: 500; min-width: 160px; }
+.equipment-column-table td { font-variant-numeric: tabular-nums; }
+.equipment-column-table td:last-child { color: var(--muted); font-size: 12px; }
+.equipment-column-table small { display: block; color: var(--muted); font-weight: 400; margin-top: 5px; }
+.equipment-column-table .ui-input { width: 100%; min-width: 100px; }
+.equipment-column-table input[type=number] { font-variant-numeric: tabular-nums; }
+.equipment-column-table input[type=checkbox], .equipment-choice input, .equipment-use-configuration input { accent-color: var(--accent); }
+.equipment-main-fields { min-width: 520px; }
+.equipment-main-fields th:first-child { width: 55%; }
+.equipment-choice { display: flex; flex-wrap: wrap; gap: 10px 18px; border: 0; padding: 0; margin-bottom: 20px; }
+.equipment-choice legend { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.equipment-choice label, .equipment-use-configuration { display: flex; align-items: center; gap: 7px; min-height: 36px; font-size: 13px; }
+.equipment-parameter-picker { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; }
+.equipment-form-error { padding: 12px 14px; border: 1px solid var(--danger); border-radius: 6px; color: var(--danger); background: var(--danger-soft); font-size: 13px; }
+.equipment-passport-editor { min-width: 680px; }
+.equipment-passport-editor tbody th { width: 35%; }
+.equipment-editor-footer { display: flex; justify-content: flex-end; }
+.equipment-library :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.calculation-settings .equipment-configurator-body { display: grid; grid-template-columns: minmax(0,1fr); gap: 22px; }
+.calculation-settings .equipment-configurator-body > * { min-width: 0; }
+.calculation-settings h3 { font-size: 16px; font-weight: 600; }
+.calculation-settings section > h3 { margin-bottom: 14px; }
+@media (max-width: 700px) {
+  .equipment-library-toolbar { align-items: stretch; flex-direction: column; padding: 10px 12px; }
+  .equipment-library-toolbar .table-search-wrap { flex: none; width: 100%; max-width: none; }
+  .equipment-card-grid { padding: 14px; gap: 12px; }
+  .equipment-configurator-body { padding: 14px; }
+  .equipment-editor-heading .ui-button { width: 100%; }
+}

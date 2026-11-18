@@ -6,7 +6,7 @@ import { apiClient } from '@/api/client';
 import { useMachinePassports } from '@/api/hooks/useMachinePassports';
 import type { MachineRate } from '@/api/machineExchange';
 import type { components } from '@/api/schema';
-import { MACHINE_RATE_COMPOSITION, formatMachineHourlyRate } from '@/components/catalog/MachineHourlyRate';
+import { MACHINE_RATE_COMPOSITION, formatMachineHourlyRate } from '@/utils/machineRatePresentation';
 import { calculationRateLink, estimateRateAnchor } from '@/utils/calculationSettingsLinks';
 import { publicSourceText } from '@/utils/publicSource';
 

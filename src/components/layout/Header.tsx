@@ -18,13 +18,12 @@ import {
 } from 'lucide-react';
 import { calculationRateLink } from '@/utils/calculationSettingsLinks';
 import { getOperatorProfile } from '@/utils/storage';
+import { demoAsset } from '@/demo/config';
 import { SidebarArtwork } from './SidebarArtwork';
 import './layout.css';
-import { demoAsset } from '@/demo/config';
 
 const pageTitles: Array<{ match: (path: string) => boolean; title: string; icon: LucideIcon }> = [
-  { match: path => path.startsWith('/models'), title: '3D-модели', icon: Box },
-  { match: (path) => /\/runs\/[^/]+\/(?:estimate|route)(?:\/|$)/.test(path), title: 'Документы детали', icon: FolderKanban },
+  { match: (path) => /\/runs\/[^/]+\/(?:estimate|route|basis)(?:\/|$)/.test(path), title: 'Документы детали', icon: FolderKanban },
   { match: (path) => path.startsWith('/runs/'), title: 'Рабочее пространство', icon: FolderKanban },
   { match: (path) => /^\/projects\/[^/]+/.test(path), title: 'Карточка проекта', icon: FolderKanban },
   { match: (path) => path.startsWith('/catalog'), title: 'Справочник НСИ', icon: BookOpen },
@@ -32,20 +31,21 @@ const pageTitles: Array<{ match: (path: string) => boolean; title: string; icon:
   { match: (path) => path.startsWith('/equipment'), title: 'Оборудование', icon: Wrench },
   { match: (path) => path.startsWith('/calculation-settings'), title: 'Настройки расчёта', icon: SlidersHorizontal },
   { match: (path) => path.startsWith('/settings'), title: 'Настройки', icon: Settings },
+  { match: (path) => path.startsWith('/how-it-works'), title: 'Как работает Metall', icon: BookOpen },
   { match: () => true, title: 'Проекты', icon: FolderKanban },
 ];
 
 const externalTools = [
   {
-    label: 'Создать 3D',
+    label: 'Просмотр 3D',
     href: demoAsset('#/models'),
-    title: 'Открыть готовые 3D-модели CAD-Metall',
+    title: 'Открыть сохранённую 3D-модель',
     icon: Box,
   },
   {
     label: 'Марочник Splav',
     href: demoAsset('#/catalog?section=materials'),
-    title: 'Открыть демонстрационный справочник материалов',
+    title: 'Открыть материалы в справочнике НСИ',
     icon: Database,
   },
 ];
@@ -83,6 +83,11 @@ function SidebarContent({ pathname, runId, mobile = false, onNavigate, onClose, 
         { to: '/calculation-settings', destination: runId ? calculationRateLink(runId) : '/calculation-settings', label: 'Настройки расчёта', icon: SlidersHorizontal },
         { to: '/settings', label: 'Настройки', icon: Settings },
       ],
+    },
+    {
+      id: 'help',
+      label: 'Помощь',
+      links: [{ to: '/how-it-works', label: 'Как работает Metall', icon: BookOpen }],
     },
   ];
 

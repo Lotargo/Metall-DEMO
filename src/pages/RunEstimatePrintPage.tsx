@@ -10,8 +10,19 @@ import { estimateFormKey } from '@/components/route/CompactEstimateDocument';
 import { RunDocumentLayout } from '@/components/route/RunDocumentLayout';
 import { runDocumentLink } from '@/utils/runDocumentLinks';
 import { hasHistoricalMaterialCost } from '@/utils/priceEvidence';
+import { useCadRoute } from '@/api/hooks/useCadRoute';
+import { useVolumeRound } from '@/api/hooks/useVolumeRound';
+import { RunGeometryPrintPage } from './RunGeometryPrintPage';
 
 export function RunEstimatePrintPage() {
+  const { runId } = useParams();
+  const cad = useCadRoute(runId), volume = useVolumeRound(runId);
+  if (cad.isPending || !cad.data && volume.isPending) return <section className="content"><p role="status">Загрузка печатной формы…</p></section>;
+  if (cad.data || volume.data) return <RunGeometryPrintPage document="estimate" />;
+  if (cad.isError || volume.isError) return <section className="content"><p role="alert">Не удалось загрузить печатную форму.</p><Button variant="outline" onClick={() => { void cad.refetch(); void volume.refetch(); }}>Повторить загрузку</Button></section>;
+  return <CompactEstimatePrintPage />;
+}
+function CompactEstimatePrintPage() {
   const { runId } = useParams();
   const [params] = useSearchParams();
   const client = useQueryClient();

@@ -7,6 +7,7 @@ import { Modal } from '@/components/ui/Modal';
 import { ProcessingLogs } from '@/components/trace/ProcessingLogs';
 import { compactProgressStages, compactProgressTimeline, processingStageLabel, type CompactProgressStage, type ProcessingEvent } from '@/utils/processingLogs';
 import { formatElapsedTime, processingTimestamp } from '@/utils/processingTimer';
+import { canCancelCompactRun, compactProgressStatus } from '@/utils/compactRunControls';
 import './CompactRecognitionProgress.css';
 
 type State = components['schemas']['CompactState'];
@@ -29,7 +30,7 @@ function elapsedTime(value: number | undefined) {
 }
 
 export function CompactRecognitionProgress({ state, journal, uploadStart, onReview, onCancel, cancelling, error }: {
-  state?: Pick<State, 'source_run_id' | 'status' | 'revision' | 'image_artifact_id' | 'launch_options' | 'geometry' | 'geometry_issue'>;
+  state?: Pick<State, 'source_run_id' | 'status' | 'revision' | 'image_artifact_id' | 'launch_options' | 'geometry' | 'geometry_issue' | 'calculation_pending'>;
   journal?: ProcessingJournal;
   uploadStart?: number | null;
   onReview?: () => void;
@@ -41,8 +42,7 @@ export function CompactRecognitionProgress({ state, journal, uploadStart, onRevi
   const runId = state?.source_run_id;
   const timeline = useMemo(() => compactProgressTimeline(events, runId, uploadStart), [events, runId, uploadStart]);
   const savedStatus = state?.status ?? 'reading';
-  const status = timeline.result && (timeline.revision >= (state?.revision ?? 0) || timeline.result === 'cancelled')
-    ? timeline.result : savedStatus;
+  const status = compactProgressStatus(savedStatus, state?.revision ?? 0, timeline.result, timeline.revision);
   const fallbackStage = {
     reading: state?.image_artifact_id ? 'reading' : 'compact_reading',
     checking: 'verify',
@@ -90,10 +90,11 @@ export function CompactRecognitionProgress({ state, journal, uploadStart, onRevi
     <div className="recognition-progress-bar">
       <Button variant="outline" size="sm" aria-haspopup="dialog" onClick={() => setOpen(true)}>Ход обработки</Button>
       {clock}
+      {state && <span className="text-xs text-muted" data-launch-mode>{state.launch_options?.auto_resolve_questions ? 'Автоматически до сметы' : 'Ручное подтверждение после карты'}</span>}
     </div>
     <Modal isOpen={open} onClose={close} title="Ход обработки чертежа" size="xl"
       footer={<>
-        {activeStage && onCancel && <Button variant="outline" loading={cancelling} onClick={onCancel}>Отменить обработку</Button>}
+        {canCancelCompactRun(status, state?.calculation_pending) && onCancel && <Button variant="outline" loading={cancelling} onClick={onCancel}>Отменить обработку</Button>}
         <Button onClick={() => { close(); if (status === 'review') onReview?.(); }}>
           {status === 'review' ? 'К проверке' : activeStage ? 'Свернуть' : 'Закрыть'}
         </Button>

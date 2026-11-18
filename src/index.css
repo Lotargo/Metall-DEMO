@@ -450,9 +450,11 @@ body:has(.compact-round-workspace, .run-document-page) { min-height: 100dvh; }
 .recognition-section-title { display: flex; align-items: center; gap: 7px; margin: 0 0 16px; color: var(--text-secondary); font-size: 12px; font-weight: 650; text-wrap: balance; }
 .recognition-section-title svg { color: var(--muted); }
 .recognition-profile .ui-input-label { font-size: 12px; }
-.recognition-profile .ui-select { min-height: 44px; font-weight: 600; }
-.recognition-profile .ui-select:hover { border-color: var(--control-border); }
-.recognition-profile .ui-select:focus { border-color: var(--accent); }
+.recognition-options { display: grid; gap: 8px; margin: 16px 0; min-width: 0; }
+.recognition-options legend { margin-bottom: 8px; }
+.recognition-option { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); font-size: 13px; cursor: pointer; }
+.recognition-option:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.recognition-option input { flex-shrink: 0; accent-color: var(--accent); }
 .recognition-profile .ui-input-helper { margin-top: 8px; font-size: 11px; line-height: 1.5; text-wrap: pretty; }
 .recognition-results { min-width: 0; padding-left: 28px; border-left: 1px solid var(--line); }
 .recognition-result-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 8px 0 0; list-style: none; }

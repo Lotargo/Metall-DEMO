@@ -136,7 +136,7 @@ export function BarLengthsSettings() {
   }
 
   return <div className="space-y-4">
-    <p className="text-ink-secondary text-pretty">Добавьте доступные длины поставки круглого прутка. При пустом списке подбор использует 6 и 12 м.</p>
+    <p className="text-ink-secondary text-pretty">Укажите доступные длины поставки круглого прутка.</p>
     <section aria-label="Длины в подборе" className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-md bg-surface-muted px-3 py-2">
       <h3 className="font-semibold">Длины в подборе</h3>
       <p className="tabular-nums">{current.effective_lengths_mm.map(lengthLabel).join(' · ')}{!current.lengths_mm.length && <span className="text-muted"> по умолчанию</span>}</p>

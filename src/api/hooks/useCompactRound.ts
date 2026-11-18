@@ -1,7 +1,9 @@
 import { replaceEqualDeep, useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { preserveCompactCancellation } from '@/utils/compactRunControls';
 
 export function keepNewestCompactRevision(previous: unknown, next: unknown) {
+  if (preserveCompactCancellation(previous, next)) return previous;
   const revision = (value: unknown) => (value as { revision?: number } | null)?.revision;
   const previousRevision = revision(previous);
   const nextRevision = revision(next);

@@ -1,0 +1,27 @@
+.how-it-works { display: grid; gap: 20px; min-width: 0; }
+.how-it-works > .workspace-card { min-width: 0; }
+.how-it-works :is(h2,h3,h4) { text-wrap: balance; }
+.how-it-works p { text-wrap: pretty; }
+.how-it-works .workspace-card-header p { max-width: 70ch; margin-top: 6px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.how-it-works-topic { padding: 24px; }
+.how-it-works-topic:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.how-it-works-introduction { max-width: 80ch; margin-bottom: 20px; }
+.how-it-works-introduction h3 { font-size: 18px; font-weight: 650; }
+.how-it-works-introduction p { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.how-it-works-steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.how-it-works-steps li { display: flex; align-items: flex-start; gap: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; box-shadow: var(--shadow); }
+.how-it-works-number { display: grid; flex: 0 0 28px; place-items: center; height: 28px; border: 1px solid var(--line); border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.how-it-works-steps h4 { font-size: 15px; font-weight: 650; }
+.how-it-works-steps p { max-width: 90ch; margin-top: 8px; font-size: 14px; line-height: 1.75; }
+.how-it-works-faq { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(18rem,100%),1fr)); align-items: start; gap: 24px; border-top: 1px solid var(--line); padding: 24px; }
+.how-it-works-questions { display: grid; gap: 8px; min-width: 0; }
+.how-it-works-questions .ui-button { justify-content: flex-start; min-height: 44px; white-space: normal; text-align: left; line-height: 1.5; }
+.how-it-works-questions .ui-button[aria-pressed=true] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.how-it-works-answer { min-width: 0; border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; }
+.how-it-works-answer h3 { font-size: 16px; font-weight: 650; }
+.how-it-works-answer p { max-width: 65ch; margin-top: 12px; font-size: 14px; line-height: 1.8; }
+@media (max-width: 760px) {
+  .how-it-works-topic, .how-it-works-faq { padding: 18px; }
+  .how-it-works-faq { grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .how-it-works-steps li { gap: 10px; padding: 14px; }
+}

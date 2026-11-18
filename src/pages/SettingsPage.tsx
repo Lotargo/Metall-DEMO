@@ -1,30 +1,30 @@
 import { useState, type FormEvent } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Navigate, NavLink, useParams } from 'react-router-dom';
+import { Navigate, NavLink, useParams, useSearchParams } from 'react-router-dom';
 import { apiClient } from '@/api/client';
 import { agentSettingsKey as settingsKey, useAgentSettings } from '@/api/hooks/useAgentSettings';
 import { CompactLaunchOptions, defaultLaunchOptions } from '@/components/route/CompactLaunchOptions';
 import type { components } from '@/api/schema';
 import { Button } from '@/components/ui/Button';
-import { Input, Select } from '@/components/ui/Input';
+import { Input } from '@/components/ui/Input';
+import { Modal } from '@/components/ui/Modal';
 import { getOperatorProfile, saveOperatorProfile } from '@/utils/storage';
 import { publicSourceText } from '@/utils/publicSource';
+import './equipment-library.css';
 
 type Settings = components['schemas']['CompactAgentSettings'];
 type Model = components['schemas']['CodexModelOption'];
 type Choice = components['schemas']['CompactAgentChoice'];
 type Role = keyof Settings['roles'];
-const roleRows = [
-  { role: 'reading', label: 'Чтение чертежа', images: true },
-  { role: 'verify', label: 'Перепроверка', images: true },
-  { role: 'verify_repair', label: 'Исправление связей', images: true },
-  { role: 'clarifications', label: 'Решение вопросов', images: true },
-  { role: 'planning', label: 'Предварительная карта', images: false },
-  { role: 'detailing', label: 'Детализация', images: false },
+const modes = [
+  { id: 'cad_route', title: 'Построение 3D' },
+  { id: 'volume_round', title: 'Маршрут по объёмам' },
+  { id: 'compact_round', title: 'Компактный расчёт' },
 ] as const;
+type Pipeline = typeof modes[number]['id'];
 const efforts: Record<Choice['reasoning_effort'], string> = {
   minimal: 'Минимальный', low: 'Низкий', medium: 'Средний', high: 'Высокий',
-  xhigh: 'Очень высокий', max: 'Максимальный', ultra: 'Ultra',
+  xhigh: 'Очень высокий', max: 'Максимальный', ultra: 'Предельный',
 };
 
 function message(error: unknown, fallback: string) {
@@ -34,14 +34,26 @@ function message(error: unknown, fallback: string) {
 
 function AgentSettings() {
   const client = useQueryClient();
+  const [params, setParams] = useSearchParams();
+  const pipeline = modes.find(mode => mode.id === params.get('pipeline'))?.id ?? 'cad_route';
   const [draft, setDraft] = useState<Settings>();
   const [notice, setNotice] = useState('');
+  const [editing, setEditing] = useState<Role>();
+  const [search, setSearch] = useState('');
   const settings = useAgentSettings();
+  const roles = useQuery({
+    queryKey: ['agent-role-options', pipeline],
+    queryFn: async ({ signal }) => {
+      const result = await apiClient.GET('/api/v1/settings/agents/roles', { signal, params: { query: { pipeline_mode: pipeline } } });
+      if (!result.data) throw new Error('Не удалось загрузить этапы обработки.');
+      return result.data;
+    },
+  });
   const catalog = useQuery({
     queryKey: ['codex-model-catalog'],
     queryFn: async ({ signal }) => {
       const result = await apiClient.GET('/api/v1/settings/agents/models', { signal });
-      if (!result.data) throw new Error(message(result.error, 'Не удалось прочитать список Codex.'));
+      if (!result.data) throw new Error('Не удалось загрузить список моделей.');
       return result.data;
     },
   });
@@ -69,54 +81,51 @@ function AgentSettings() {
     setNotice('');
     save.reset();
   }
-  function modelOptions(images: boolean): Model[] {
-    return (catalog.data ?? []).filter(model => !images || model.supports_images);
+  function effectiveChoice(role: Role): Choice | undefined {
+    const fallback = roles.data?.find(row => row.role === role)?.fallback_role;
+    return value?.roles[role] ?? (fallback ? value?.roles[fallback] : undefined);
+  }
+  const editingRole = roles.data?.find(row => row.role === editing);
+  const choice = editing ? effectiveChoice(editing) : undefined;
+  const selected = catalog.data?.find(model => model.model_id === choice?.model_id);
+  const modelName = (item?: Choice) => item ? catalog.data?.find(model => model.model_id === item.model_id)?.title ?? 'Сохранённая модель' : 'Профиль запуска';
+  const options: Model[] = (catalog.data ?? []).filter(model => (!editingRole?.requires_images || model.supports_images) && model.title.toLocaleLowerCase().includes(search.toLocaleLowerCase().trim()));
+  function switchPipeline(next: Pipeline) {
+    setEditing(undefined);
+    setParams(previous => { const result = new URLSearchParams(previous); result.set('pipeline', next); return result; });
   }
   return <section className="workspace-card" aria-labelledby="agent-settings-title">
     <header className="workspace-card-header">
       <div><h3 id="agent-settings-title">Модели и уровни рассуждения</h3>
-        <p>Новые настройки действуют со следующей загрузки чертежа или отдельного запуска карты и детализации.</p></div>
-      <Button size="sm" variant="outline" loading={catalog.isFetching} onClick={() => void catalog.refetch()}>Обновить список Codex</Button>
+        <p>Настройки применяются к следующим запускам.</p></div>
+      <Button size="sm" variant="outline" loading={catalog.isFetching} onClick={() => void catalog.refetch()}>Обновить модели</Button>
     </header>
     <div className="space-y-4 p-4 sm:p-5">
       {catalog.error && <p role="alert" className="text-sm text-danger">{publicSourceText(catalog.error.message, 'Не удалось загрузить список моделей.')}</p>}
       {settings.error && <div className="space-y-2" role="alert"><p className="text-sm text-danger">{publicSourceText(settings.error.message, 'Не удалось загрузить настройки агентов.')}</p>
         <Button size="sm" variant="outline" onClick={() => void settings.refetch()}>Повторить загрузку</Button></div>}
       {settings.isPending && <p role="status">Загрузка настроек агентов…</p>}
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Режим обработки">
+        {modes.map(mode => <Button key={mode.id} size="sm" variant={pipeline === mode.id ? 'secondary' : 'outline'} aria-pressed={pipeline === mode.id} onClick={() => switchPipeline(mode.id)}>{mode.title}</Button>)}
+      </div>
+      {roles.isPending && <p role="status">Загрузка этапов…</p>}
+      {roles.error && <div role="alert" className="space-y-2"><p>Не удалось загрузить этапы обработки.</p><Button variant="outline" onClick={() => void roles.refetch()}>Повторить загрузку этапов</Button></div>}
       {value && <form className="space-y-4" onSubmit={event => { event.preventDefault(); if (draft) save.mutate(draft); }}>
-        <p className="text-sm text-muted">Показана конфигурация сохранённого примера. В демо настройки сохраняются только в этом браузере.</p>
-        <fieldset className="space-y-3" disabled={save.isPending}>
-          <legend className="sr-only">Этапы обработки</legend>
-          {roleRows.map(({ role, label, images }) => {
-            const choice = value.roles[role];
-            const options = modelOptions(images);
-            const selected = options.find(model => model.model_id === choice?.model_id);
-            const fallback = choice && !selected ? [{ value: choice.model_id, label: `${choice.model_id} · сохранённая модель` }] : [];
-            const supportedEfforts = selected?.reasoning_efforts ?? [];
-            const effortOptions = choice && !supportedEfforts.includes(choice.reasoning_effort)
-              ? [...supportedEfforts, choice.reasoning_effort] : supportedEfforts;
-            return <div key={role} className="grid items-start gap-3 rounded-md border border-line bg-canvas p-3 sm:grid-cols-[minmax(9rem,1fr)_minmax(0,1.5fr)_minmax(0,1fr)]">
-              <h4 className="font-semibold sm:self-center">{label}</h4>
-              <Select label={`Модель · ${label}`} value={choice?.model_id ?? ''}
-                options={[{ value: '', label: 'По умолчанию' }, ...fallback, ...options.map(model => ({ value: model.model_id, label: model.title }))]}
-                onChange={event => {
-                  const model = options.find(option => option.model_id === event.target.value);
-                  change(role, model ? { model_id: model.model_id, reasoning_effort: model.default_effort } : undefined);
-                }} />
-              <Select label={`Рассуждение · ${label}`} value={choice?.reasoning_effort ?? ''} disabled={!selected}
-                options={choice ? effortOptions.map(effort => ({ value: effort, label: efforts[effort] })) : [{ value: '', label: 'По умолчанию' }]}
-                onChange={event => {
-                  const effort = supportedEfforts.find(item => item === event.target.value);
-                  if (selected && effort) change(role, { model_id: selected.model_id, reasoning_effort: effort });
-                }} />
-            </div>;
-          })}
-        </fieldset>
+        {roles.data && <div className="table-wrap"><table className="equipment-column-table">
+          <caption className="sr-only">Модели для этапов выбранного режима обработки</caption>
+          <thead><tr><th scope="col">Этап</th><th scope="col">Модель</th><th scope="col">Рассуждение</th><th scope="col"><span className="sr-only">Действия</span></th></tr></thead>
+          <tbody>{roles.data.map(row => {
+            const item = effectiveChoice(row.role);
+            return <tr key={row.role}><th scope="row">{row.title}</th><td>{modelName(item)}</td><td>{item ? efforts[item.reasoning_effort] : 'По умолчанию'}</td><td>
+              <Button type="button" size="sm" variant="outline" disabled={save.isPending} aria-label={`Настроить: ${row.title}`} onClick={() => { setSearch(''); setEditing(row.role); }}>Настроить</Button>
+            </td></tr>;
+          })}</tbody>
+        </table></div>}
         {save.error && <p role="alert" className="text-sm text-danger">{publicSourceText(save.error.message, 'Не удалось сохранить настройки агентов.')}</p>}
         {notice && <p role="status" className="text-sm">{notice}</p>}
         <div className="flex flex-wrap gap-2">
           <Button type="submit" disabled={!draft} loading={save.isPending}>Сохранить настройки</Button>
-          {draft && <Button variant="outline" disabled={save.isPending} onClick={() => {
+          {draft && <Button type="button" variant="outline" disabled={save.isPending} onClick={() => {
             setDraft(undefined);
             save.reset();
             void settings.refetch();
@@ -124,6 +133,18 @@ function AgentSettings() {
         </div>
       </form>}
     </div>
+    <Modal isOpen={!!editingRole && !!value} onClose={() => setEditing(undefined)} title={editingRole?.title ?? 'Настройка модели'} size="lg" footer={<Button onClick={() => setEditing(undefined)}>Готово</Button>}>
+      {editingRole && <div className="space-y-5">
+        <Input label="Найти модель" value={search} onChange={event => setSearch(event.target.value)} type="search" />
+        <div className="space-y-2" role="group" aria-label="Выбор модели">
+          <Button variant={!value?.roles[editingRole.role] ? 'secondary' : 'outline'} aria-pressed={!value?.roles[editingRole.role]} onClick={() => change(editingRole.role)}>По умолчанию</Button>
+          <div className="grid gap-2 sm:grid-cols-2">{options.map(model => <Button key={model.model_id} variant={choice?.model_id === model.model_id ? 'secondary' : 'outline'} aria-pressed={choice?.model_id === model.model_id} onClick={() => change(editingRole.role, { model_id: model.model_id, reasoning_effort: model.default_effort })}>{model.title}</Button>)}</div>
+          {catalog.isPending && <p role="status">Загрузка моделей…</p>}
+          {!options.length && !catalog.isPending && <p>Подходящих моделей не найдено.</p>}
+        </div>
+        {selected && choice && <div className="space-y-2"><h4 className="font-semibold">Уровень рассуждения</h4><div className="flex flex-wrap gap-2" role="group" aria-label="Уровень рассуждения">{selected.reasoning_efforts.map(effort => <Button key={effort} size="sm" variant={choice.reasoning_effort === effort ? 'secondary' : 'outline'} aria-pressed={choice.reasoning_effort === effort} onClick={() => change(editingRole.role, { model_id: selected.model_id, reasoning_effort: effort })}>{efforts[effort]}</Button>)}</div></div>}
+      </div>}
+    </Modal>
   </section>;
 }
 
@@ -149,8 +170,8 @@ function LaunchSettings() {
   const value = draft ?? settings.data;
   return <section className="workspace-card" aria-labelledby="launch-settings-title">
     <header className="workspace-card-header"><div>
-      <h3 id="launch-settings-title">Настройки запуска</h3>
-      <p>Параметры по умолчанию для новых загрузок. На странице проекта можно выбрать режим отдельного запуска.</p>
+      <h3 id="launch-settings-title">Запуск компактного расчёта</h3>
+      <p>Перепроверка и решение вопросов по умолчанию для компактного режима.</p>
     </div></header>
     <div className="space-y-4 p-4 sm:p-5">
       {settings.isPending && <p role="status">Загрузка настроек…</p>}
@@ -163,7 +184,7 @@ function LaunchSettings() {
         {notice && <p role="status" className="text-sm">{notice}</p>}
         <div className="flex flex-wrap gap-2">
           <Button type="submit" disabled={!draft} loading={save.isPending}>Сохранить настройки запуска</Button>
-          {draft && <Button variant="outline" disabled={save.isPending} onClick={() => { setDraft(undefined); save.reset(); void settings.refetch(); }}>Сбросить черновик</Button>}
+          {draft && <Button type="button" variant="outline" disabled={save.isPending} onClick={() => { setDraft(undefined); save.reset(); void settings.refetch(); }}>Сбросить черновик</Button>}
         </div>
       </form>}
     </div>

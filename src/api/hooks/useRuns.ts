@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import { getOperatorProfile } from '@/utils/storage';
+import { recognitionUploadForm, type RecognitionUpload } from '@/utils/recognitionUpload';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -67,50 +68,13 @@ export function useRunSnapshot(runId: string | undefined, poll = true) {
   });
 }
 
-export function useProviders() {
-  return useQuery({
-    queryKey: ['providers'],
-    queryFn: async () => {
-      const { data, error } = await apiClient.GET('/api/v1/providers');
-      if (error) throw new Error(String(error));
-      return data;
-    },
-    staleTime: 60000,
-  });
-}
-
 export function useStartRecognition() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
-      file,
-      projectId,
-      modelId,
-      launchOptions,
-      quantity,
-    }: {
-      file: File;
-      projectId: string;
-      modelId?: string;
-      launchOptions?: { verification_enabled: boolean; auto_resolve_questions: boolean };
-      quantity?: number;
-    }) => {
+    mutationFn: async (upload: RecognitionUpload) => {
       const operator = getOperatorProfile();
       const operatorVal = operator.id || encodeURIComponent(operator.name || 'operator');
-      const formData = new FormData();
-      formData.append('source', file);
-      formData.append('project_id', projectId);
-      formData.append('document_id', file.name.replace(/\.[^/.]+$/, '') || 'drawing');
-      if (quantity !== undefined) {
-        formData.append('quantity', String(quantity));
-      }
-      if (modelId) {
-        formData.append('provider_profile', modelId);
-      }
-      if (launchOptions) {
-        formData.append('verification_enabled', String(launchOptions.verification_enabled));
-        formData.append('auto_resolve_questions', String(launchOptions.auto_resolve_questions));
-      }
+      const formData = recognitionUploadForm(upload);
 
       // NOTE: async queue endpoint (202 + run_id). Recognition runs in
       // BackgroundTasks; progress arrives via SSE on the run workspace page.
@@ -166,6 +130,9 @@ export function useCancelRun() {
     onSuccess: (_, { runId }) => {
       queryClient.invalidateQueries({ queryKey: ['runs', runId] });
       queryClient.invalidateQueries({ queryKey: ['runs'] });
+      queryClient.invalidateQueries({ queryKey: ['compact-round', runId], exact: true });
+      queryClient.invalidateQueries({ queryKey: ['cad-route', runId], exact: true });
+      queryClient.invalidateQueries({ queryKey: ['compact-clarifications', runId], exact: true });
     },
   });
 }

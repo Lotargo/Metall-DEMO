@@ -1,8 +1,8 @@
 import { InfoBlock } from '@/components/ui/InfoBlock';
 import { useEffect, useRef, useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
-import { keepNewestCompactRevision } from '@/api/hooks/useCompactRound';
+import { questionAgentActive, useCompactClarifications, type QuestionAgentJob } from '@/api/hooks/useCompactClarifications';
 import type { components } from '@/api/schema';
 import { Button } from '@/components/ui/Button';
 import { groupClarifications, type ClarificationGroup } from '@/utils/clarificationGroups';
@@ -65,17 +65,10 @@ export function CompactClarifications({ runId, state, disabled, onSaved, onOpenC
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [agentBusy, setAgentBusy] = useState<Record<string, boolean>>({});
   const answerFields = useRef<Record<string, HTMLTextAreaElement | null>>({});
   const queryClient = useQueryClient();
-  const query = useQuery({
-    queryKey: ['compact-clarifications', runId],
-    structuralSharing: keepNewestCompactRevision,
-    queryFn: async ({ signal }) => {
-      const result = await apiClient.GET('/api/v1/runs/{run_id}/compact-round/clarifications', { signal, params: { path: { run_id: runId } } });
-      if (result.error || !result.data) throw new Error('Не удалось загрузить сохранённые уточнения.');
-      return result.data;
-    },
-  });
+  const query = useCompactClarifications(runId);
   useEffect(() => {
     void queryClient.invalidateQueries({ queryKey: ['compact-clarifications', runId], exact: true });
   }, [queryClient, runId, state.revision]);
@@ -130,7 +123,26 @@ export function CompactClarifications({ runId, state, disabled, onSaved, onOpenC
     finally { setBusy(false); }
   }
 
+  function rememberJob(job: QuestionAgentJob) {
+    queryClient.setQueryData<components['schemas']['CompactClarificationsView']>(['compact-clarifications', runId], current => current ? { ...current, agent_jobs: [...current.agent_jobs.filter(item => item.id !== job.id), job] } : current);
+  }
+
+  async function callAgent(group: ClarificationGroup, cancelJob?: QuestionAgentJob) {
+    setAgentBusy(current => ({ ...current, [group.id]: true })); setError('');
+    try {
+      const result = cancelJob
+        ? await apiClient.POST('/api/v1/runs/{run_id}/compact-round/clarifications/jobs/{job_id}/cancel', { params: { path: { run_id: runId, job_id: cancelJob.id } } })
+        : await apiClient.POST('/api/v1/runs/{run_id}/compact-round/clarifications/solve', { params: { path: { run_id: runId } }, body: { expected_revision: revision, question_ids: idsOf(group) } });
+      if (result.error || !result.data) throw new Error(result.error && typeof result.error === 'object' && 'detail' in result.error ? String(result.error.detail) : 'Не удалось вызвать агента. Повторите попытку.');
+      rememberJob(result.data);
+      await query.refetch();
+    } catch (e) { setError(e instanceof Error ? e.message : 'Не удалось выполнить действие агента.'); }
+    finally { setAgentBusy(current => ({ ...current, [group.id]: false })); }
+  }
+
   function renderQuestion(group: ClarificationGroup) {
+    const job = [...(query.data?.agent_jobs ?? [])].reverse().find(item => item.question_ids.some(id => idsOf(group).includes(id)));
+    const agentActive = job && questionAgentActive(job);
     const saved = responses.filter(response => idsOf(group).includes(response.id));
     const commonResponse = saved.length && saved.every(response => sameSavedResponse(response, saved[0])) ? saved[0] : undefined;
     const draft = drafts[group.id];
@@ -178,7 +190,7 @@ export function CompactClarifications({ runId, state, disabled, onSaved, onOpenC
           <p className="whitespace-pre-wrap text-pretty">{estimateOperatorText(publicSourceText(commonResponse.resolution.decision, ''))}</p>
           {commonResponse.resolution.action === 'proceed_with_conditions' && <p className="text-xs text-muted">Выбран рабочий способ. Оставшиеся неизвестные факты не подтверждены.</p>}
         </div>}
-        {commonResponse?.agent_basis && <p className="text-xs text-muted">{({ drawing: 'Подтверждено чертежом', reference: 'Справочный источник', assumption: commonResponse.resolution?.action === 'estimate_scenario' ? 'Сметное допущение' : 'Инженерное решение', unknown: 'Сведения не установлены' })[commonResponse.agent_basis]}</p>}
+        {commonResponse?.agent_basis && <p className="text-xs text-muted">{({ drawing: 'Источник ответа — чертёж', reference: 'Источник ответа — норматив или справочник', assumption: commonResponse.resolution?.action === 'estimate_scenario' ? 'Сметное допущение' : 'Инженерное решение', unknown: 'Сведения не установлены' })[commonResponse.agent_basis]}</p>}
         <label htmlFor={`${labelId}-answer`} className="sr-only">Ответ или пояснение к пропуску: {estimateOperatorText(group.question) ?? 'Требуется уточнение чертежа'}</label>
         <textarea ref={element => { answerFields.current[group.id] = element; }} id={`${labelId}-answer`} aria-label={`Ответ: ${estimateOperatorText(group.question) ?? 'Требуется уточнение чертежа'}`} aria-describedby={`${labelId}-help`} className={fields} rows={4} disabled={locked} value={draft?.answer ?? estimateOperatorText(publicSourceText(commonResponse?.answer ?? '', '')) ?? ''} onChange={event => setDrafts(current => ({ ...current, [group.id]: { ...(current[group.id] ?? snapshot(group)), answer: event.target.value } }))} />
         <p id={`${labelId}-help`} className="sr-only">Решение сохранится для всех источников этой строки. Для ответа нужен текст; пропустить можно без пояснения.</p>
@@ -197,6 +209,11 @@ export function CompactClarifications({ runId, state, disabled, onSaved, onOpenC
       <td data-label="Статус и действия">
       <div className="space-y-3">
       <p className="font-medium">{status}</p>
+      <div className="space-y-2" data-question-agent>
+        <Button variant="outline" size="sm" disabled={locked || !!draft || !!agentActive || !!agentBusy[group.id]} onClick={() => callAgent(group)} aria-label={`Вызвать агента: ${group.question}`}>{agentBusy[group.id] ? 'Отправка…' : agentActive ? job.status === 'queued' ? 'Агент в очереди…' : job.status === 'publishing' ? 'Сохранение ответа…' : 'Агент работает…' : 'Вызвать агента'}</Button>
+        {job && <p role="status" className={`text-xs ${job.status === 'failed' || job.status === 'stale' ? 'text-warning' : 'text-muted'}`}>{publicSourceText(job.message, 'Состояние вызова агента сохранено.')}{` · ${job.model_id} · ${job.reasoning_effort ?? 'по умолчанию'}`}</p>}
+        {agentActive && job.status !== 'publishing' && <Button variant="ghost" size="sm" disabled={!!agentBusy[group.id]} onClick={() => callAgent(group, job)} aria-label={`Отменить агента: ${group.question}`}>Отменить агента</Button>}
+      </div>
       {commonResponse?.status === 'skipped' && <p className="text-sm text-muted">Неизвестность сохранена.</p>}
       {!!saved.length && saved.length < group.sources.length && <p className="text-xs text-muted">Решение сохранено для {saved.length} из {group.sources.length} источников. Новые источники требуют явного решения.</p>}
       {draft && <p className="text-sm text-warning">Есть несохранённый ответ</p>}

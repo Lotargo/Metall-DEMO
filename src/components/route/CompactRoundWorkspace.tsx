@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { apiClient } from '@/api/client';
 import type { components } from '@/api/schema';
 import { useCompactRound } from '@/api/hooks/useCompactRound';
+import { questionAgentActive, useCompactClarifications } from '@/api/hooks/useCompactClarifications';
 import { useProcessingJournal } from '@/api/hooks/useProcessingJournal';
 import { useCancelRun, useRunSnapshot } from '@/api/hooks/useRuns';
 import { CompactMaterialEvidence, CompactPhysicalMaterialEvidence } from '@/components/route/CompactMaterialEvidence';
@@ -22,6 +23,9 @@ import { passportExplanation } from '@/utils/compactDrawingEvidence';
 import { publicSourceText } from '@/utils/publicSource';
 import { runDocumentLink } from '@/utils/runDocumentLinks';
 import { CompactClarifications } from '@/components/route/CompactClarifications';
+import { CompactRouteConfirmation } from '@/components/route/CompactRouteConfirmation';
+import { canCancelCompactRun, compactReviewTab } from '@/utils/compactRunControls';
+import { openClarificationCount } from '@/utils/clarificationGroups';
 import { CompactStockChoice, stockChoiceView } from '@/components/route/CompactStockChoice';
 import { CompactStockResult } from '@/components/route/CompactStockResult';
 import { CompactMaterialSupplySettings } from '@/components/route/CompactMaterialSupplySettings';
@@ -115,6 +119,19 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
   const [inlineDrawing, setInlineDrawing] = useState<HTMLDivElement | null>(null);
   const [tabsElement, setTabsElement] = useState<HTMLDivElement | null>(null);
   const value = query.data ?? state;
+  const clarifications = useCompactClarifications(runId);
+  const currentOpenQuestions = clarifications.data ? openClarificationCount(clarifications.data.questions, clarifications.data.tasks, clarifications.data.responses) : openQuestions;
+  const activeQuestionAgents = clarifications.data?.agent_jobs.filter(questionAgentActive).length ?? 0;
+  const answerRevision = clarifications.data?.revision;
+  useEffect(() => {
+    void queryClient.invalidateQueries({ queryKey: ['compact-clarifications', runId], exact: true });
+  }, [queryClient, runId, value.revision]);
+  useEffect(() => {
+    if (answerRevision !== undefined && answerRevision > value.revision) {
+      setCheckedRevision(null);
+      void queryClient.invalidateQueries({ queryKey: ['compact-round', runId], exact: true });
+    }
+  }, [answerRevision, value.revision, queryClient, runId]);
   const pageCount = value.image_artifact_id ? 1 : undefined;
   const cleanDraft = draft && value.reading ? restoreUnchangedEvidence(draft, value.reading, basisSourceEdited) as Reading : draft;
   const reading = draft ?? value.reading;
@@ -131,8 +148,10 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
   const rolesConfirmed = roleBasis !== null && confirmedRoleBasis === roleBasis;
   const hasEnvelope = !!reading && ((draft !== null && numericTarget !== null) || isRoundReading(reading) || (['diameter_mm', 'diameter_upper_deviation_mm', 'length_mm', 'length_upper_deviation_mm'] as const).some(key => reading.round_basis[key] != null));
   const processing = ['reading', 'checking', 'resolving', 'preliminary', 'detailing'].includes(value.status);
+  const reviewTab = compactReviewTab(value, currentOpenQuestions);
   const stage = processing ? journal.stage ?? (value.status === 'reading' && !value.image_artifact_id ? 'Подготовка чертежа' : stages[value.status])
-    : value.status === 'review' && value.route && !value.stock_proposal && !value.details.length ? 'Ожидается подтверждение маршрута' : stages[value.status];
+    : value.status === 'review' && reviewTab === 'questions' ? 'Ожидаются решения по вопросам'
+      : value.status === 'review' && value.route && !value.stock_proposal && !value.details.length ? 'Ожидается подтверждение маршрута' : stages[value.status];
   const startedAt = uploadStartedAt(runId, snapshot.data?.run.created_at);
   const stopped = value.status === 'cancelled';
   const selected = record(stockChoiceView(value).geometry);
@@ -269,6 +288,19 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
     }}>Редактировать</Button>;
   }
   const cancelProcessing = () => perform(() => cancel.mutateAsync({ runId, scope: 'family' }).then(() => ({})));
+  const confirmationControls = !!value.route?.operations.length && !value.detail_route_review && (!hasDetailedResult || restartDetails)
+    ? <CompactRouteConfirmation revision={value.revision} checkedRevision={checkedRevision} onCheckedRevision={setCheckedRevision}
+      decision={decision} onDecision={setDecision} disabled={processing || busy || dirty || stopped || !!value.calculation_pending || activeQuestionAgents > 0 || clarifications.isPending}
+      busy={busy} stockProposal={!!value.stock_proposal} restartDetails={restartDetails}
+      geometryIssue={value.geometry_issue} onReviewGeometry={() => setTab('passport')}
+      pendingAgents={activeQuestionAgents}
+      onConfirm={async () => {
+        const ok = await perform(() => apiClient.POST('/api/v1/runs/{run_id}/compact-round/confirm', {
+          params: { path: { run_id: runId } },
+          body: { expected_revision: checkedRevision ?? value.revision, confirm_inputs: true, accepted_limitations: decision, restart_details: restartDetails },
+        }));
+        if (ok) { setRestartDetails(false); setDecision(''); }
+      }} /> : null;
   function refreshWorkspace() {
     void query.refetch();
     void queryClient.invalidateQueries({ queryKey: ['compact-clarifications', runId], exact: true });
@@ -289,17 +321,17 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
         <WorkspaceDrawing artifactId={value.image_artifact_id} pending={processing} tabs={tabsElement}
           inlineTarget={inlineDrawing} tab={tab} visit={location.key} />
         <Button variant="outline" onClick={refreshWorkspace} disabled={busy}>Обновить</Button>
-        {processing && <Button variant="outline" loading={cancel.isPending} onClick={cancelProcessing}>Отменить обработку</Button>}
+        {canCancelCompactRun(value.status, value.calculation_pending) && <Button variant="outline" loading={cancel.isPending} onClick={cancelProcessing}>Отменить обработку</Button>}
       </div>
     </header>
     <div className="border-b border-line bg-surface px-4 sm:px-6">
       <CompactRecognitionProgress key={runId} state={value} journal={journal} uploadStart={startedAt}
-        onReview={() => setTab(value.route ? 'preliminary' : 'passport')}
+        onReview={() => setTab(reviewTab)}
         onCancel={cancelProcessing} cancelling={cancel.isPending} error={error} />
     </div>
     <section className="compact-work-area min-w-0 flex-1 px-4 pb-6 sm:px-6">
         <div ref={setTabsElement} className="compact-workspace-nav">
-          <Tabs id="compact-round-tabs" aria-label="Рабочие данные" layout="wrap" items={workspaceTabs.filter(item => !['estimate', 'full-route'].includes(item.id)).map(item => item.id === 'questions' ? { ...item, count: openQuestions ?? undefined } : item)} activeId={tab} onChange={setTab} />
+          <Tabs id="compact-round-tabs" aria-label="Рабочие данные" layout="wrap" items={workspaceTabs.filter(item => !['estimate', 'full-route'].includes(item.id)).map(item => item.id === 'questions' ? { ...item, count: currentOpenQuestions ?? undefined } : item)} activeId={tab} onChange={setTab} />
         </div>
         {(error || value.message && value.status !== 'ready' && !(quantityReview && value.status === 'review')) && <p role={error || value.status === 'failed' ? 'alert' : 'status'} className={`my-4 rounded-md p-3 text-sm ${error || value.status === 'failed' ? 'bg-warning-soft' : 'bg-surface-muted'}`}>{publicSourceText(error || value.message, 'Обработка требует проверки исходных данных.')}</p>}
         {query.error && <p role="alert" className="my-3 text-sm text-danger">Не удалось обновить состояние. {errorText(query.error)}</p>}
@@ -418,6 +450,8 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
           <h2 className="text-lg font-semibold">Уточнения</h2>
           <CompactClarifications runId={runId} state={value} disabled={busy || processing || stopped || dirty} onOpenCountChange={setOpenQuestions} onOpenContext={openContext} onEditNumericFact={editNumericFact} onSaved={() => { if (draft && !dirty) setDraft(null); setCheckedRevision(null); void query.refetch(); }} />
           {dirty && <p className="text-sm text-warning">Сначала сохраните или отмените изменения данных чертежа.</p>}
+          {value.launch_options.auto_resolve_questions === false && !stopped && <p className="text-sm text-muted">Этот запуск выполняется в ручном режиме. После ответов или пропусков подтвердите текущую карту, чтобы продолжить детализацию.</p>}
+          {confirmationControls}
         </WorkspacePanel>
         <WorkspacePanel id="preliminary" active={tab}>
           <h2 className="text-lg font-semibold">Предварительный маршрут</h2>
@@ -443,14 +477,7 @@ export function CompactRoundWorkspace({ runId, state }: { runId: string; state: 
             {typeof confirmation.accepted_limitations === 'string' && !!confirmation.accepted_limitations.trim() && <InfoBlock title="Сохранённый комментарий"><p className="mt-2 whitespace-pre-wrap">{confirmation.accepted_limitations}</p></InfoBlock>}
             <Button variant="outline" disabled={processing || busy || dirty || stopped} onClick={() => { setRestartDetails(current => !current); setCheckedRevision(null); }}>{restartDetails ? 'Отменить повторный запуск' : 'Повторить детализацию'}</Button>
           </section>}
-          {!!value.route?.operations.length && !value.detail_route_review && (!hasDetailedResult || restartDetails) && <div className="space-y-3 border-t border-line pt-5">
-            <p className="text-sm">Сохранённые ответы и пропуски войдут в подтверждение. Открытые вопросы сохраняют неизвестность и ограничивают зависимые расчёты.</p>
-            <label htmlFor="compact-decision" className="block text-sm font-medium">Комментарий к подтверждению (необязательно)</label><textarea id="compact-decision" className={fieldClass} rows={2} value={decision} onChange={e => setDecision(e.target.value)} />
-            <label className="flex items-start gap-3 text-sm"><input type="checkbox" className="mt-1" checked={checkedRevision === value.revision} onChange={e => setCheckedRevision(e.target.checked ? value.revision : null)} />Проверены паспорт, выбранная заготовка и эта редакция маршрута. Разрешаю детализацию.</label>
-            {restartDetails && <p className="text-sm text-warning">Будет выполнена новая модельная детализация. Прежний результат сохранится в истории.</p>}
-            <Button disabled={processing || busy || dirty || stopped || !!value.stock_proposal || checkedRevision !== value.revision} onClick={async () => { const ok = await perform(() => apiClient.POST('/api/v1/runs/{run_id}/compact-round/confirm', { params: { path: { run_id: runId } }, body: { expected_revision: checkedRevision ?? value.revision, confirm_inputs: true, accepted_limitations: decision, restart_details: restartDetails } })); if (ok) { setRestartDetails(false); setDecision(''); } }}>Подтвердить и рассчитать</Button>
-            {checkedRevision !== value.revision && <p className="text-xs text-muted">Для запуска подтвердите проверку текущих данных галочкой выше.</p>}
-          </div>}
+          {confirmationControls}
 
           </>}
           {value.stock_proposal && <p className="text-sm text-warning">Требуется решение по предложенной заготовке во вкладке «Заготовка».</p>}

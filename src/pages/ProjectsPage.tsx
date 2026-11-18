@@ -149,6 +149,7 @@ export const ProjectsPage: React.FC = () => {
 
   const handleTrashProject = async (projectId: number, event: React.MouseEvent) => {
     event.stopPropagation();
+    if (!confirm('Переместить проект в корзину?')) return;
     await trashProjectMutation.mutateAsync({ projectId });
   };
 

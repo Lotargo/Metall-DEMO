@@ -7,7 +7,7 @@ export interface ModalProps {
   onClose: () => void;
   title: React.ReactNode;
   description?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'screen';
   children: React.ReactNode;
   footer?: React.ReactNode;
 }

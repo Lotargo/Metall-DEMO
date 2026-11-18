@@ -5,7 +5,6 @@ import { useProcessingJournal } from '@/api/hooks/useProcessingJournal';
 import type { components } from '@/api/schema';
 import { WorkspaceDrawing } from '@/components/drawing/WorkspaceDrawing';
 import { runDocumentLink } from '@/utils/runDocumentLinks';
-import './CompactRoundWorkspace.css';
 import './run-documents.css';
 
 type State = components['schemas']['CompactState'];

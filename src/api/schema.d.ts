@@ -160,6 +160,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/settings/agents/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Roles */
+        get: operations["read_roles_api_v1_settings_agents_roles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/compact-round/clarifications/solve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Solve Question */
+        post: operations["solve_question_api_v1_runs__run_id__compact_round_clarifications_solve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/compact-round/clarifications/jobs/{job_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel Question */
+        post: operations["cancel_question_api_v1_runs__run_id__compact_round_clarifications_jobs__job_id__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/runs/{run_id}/compact-round": {
         parameters: {
             query?: never;
@@ -758,6 +809,23 @@ export interface paths {
         get: operations["read_bar_lengths_api_v1_calculation_bar_lengths_get"];
         /** Save Bar Lengths */
         put: operations["save_bar_lengths_api_v1_calculation_bar_lengths_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calculation/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Calculation Settings */
+        get: operations["read_calculation_settings_api_v1_calculation_settings_get"];
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -1367,6 +1435,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/equipment/passports/{machine_id}/availability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set Passport Availability */
+        put: operations["set_passport_availability_api_v1_equipment_passports__machine_id__availability_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/equipment/categories": {
         parameters: {
             query?: never;
@@ -1420,6 +1505,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/equipment-configurator/cam": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Read Cam Profiles
+         * @description Project the same saved catalogue into native CAM fields without mutation.
+         */
+        get: operations["read_cam_profiles_api_v1_equipment_configurator_cam_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/equipment-configurator/passports/{machine_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Save Passport Configuration */
+        put: operations["save_passport_configuration_api_v1_equipment_configurator_passports__machine_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/equipment-configurator/{machine_id}": {
         parameters: {
             query?: never;
@@ -1430,6 +1552,24 @@ export interface paths {
         get?: never;
         /** Update Configurator */
         put: operations["update_configurator_api_v1_equipment_configurator__machine_id__put"];
+        post?: never;
+        /** Delete Configuration */
+        delete: operations["delete_configuration_api_v1_equipment_configurator__machine_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/equipment-configurator/{machine_id}/availability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set Availability */
+        put: operations["set_availability_api_v1_equipment_configurator__machine_id__availability_put"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1448,6 +1588,227 @@ export interface paths {
         put?: never;
         /** Queue Recognition Workflow */
         post: operations["queue_recognition_workflow_api_v1_runs_recognition_start_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/volume-round": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Volume Round */
+        get: operations["read_volume_round_api_v1_runs__run_id__volume_round_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/volume-round/quantity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Update Volume Quantity */
+        post: operations["update_volume_quantity_api_v1_runs__run_id__volume_round_quantity_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/volume-round/basis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download Calculation Basis */
+        get: operations["download_calculation_basis_api_v1_runs__run_id__volume_round_basis_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/volume-round/view/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Volume Preview */
+        get: operations["volume_preview_api_v1_runs__run_id__volume_round_view__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/cad-route/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve Model */
+        post: operations["approve_model_api_v1_runs__run_id__cad_route_approve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/cad-route": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Cad Route */
+        get: operations["read_cad_route_api_v1_runs__run_id__cad_route_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/cad-route/view/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Cad Preview */
+        get: operations["cad_preview_api_v1_runs__run_id__cad_route_view__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/runs/{run_id}/cad-route/models/{model_revision}/view/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Cad Model Preview */
+        get: operations["cad_model_preview_api_v1_runs__run_id__cad_route_models__model_revision__view__name__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orchestrator/chat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Chat */
+        get: operations["read_chat_api_v1_orchestrator_chat_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orchestrator/context": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Context */
+        get: operations["read_context_api_v1_orchestrator_context_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orchestrator/commands": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Work Command */
+        post: operations["work_command_api_v1_orchestrator_commands_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orchestrator/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send Message */
+        post: operations["send_message_api_v1_orchestrator_messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orchestrator/requests/{request_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel Message */
+        post: operations["cancel_message_api_v1_orchestrator_requests__request_id__cancel_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1970,6 +2331,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/artifacts/{artifact_id}/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Artifact Preview */
+        get: operations["get_artifact_preview_api_v1_artifacts__artifact_id__preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/runs/{run_id}/family/events/stream": {
         parameters: {
             query?: never;
@@ -2262,6 +2640,20 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AgentRoleOption */
+        AgentRoleOption: {
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "reading" | "verify" | "verify_repair" | "clarifications" | "planning" | "detailing" | "geometry" | "passport_requirements" | "group_time" | "orchestrator" | "technology";
+            /** Title */
+            title: string;
+            /** Requires Images */
+            requires_images: boolean;
+            /** Fallback Role */
+            fallback_role?: ("reading" | "verify" | "verify_repair" | "clarifications" | "planning" | "detailing" | "geometry" | "passport_requirements" | "group_time" | "orchestrator" | "technology") | null;
+        };
         /**
          * AllowanceRuleParameters
          * @description Legacy radial/axial blank allowance.
@@ -2698,6 +3090,13 @@ export interface components {
             /** Evidence Refs */
             evidence_refs: components["schemas"]["EvidenceRef"][];
         };
+        /** AxialSourceGoal */
+        AxialSourceGoal: {
+            /** Start Diameter Mm */
+            start_diameter_mm: string;
+            /** Segments */
+            segments: components["schemas"]["ProfileSegmentGoal"][];
+        };
         /** BarLengthSettings */
         BarLengthSettings: {
             /** Lengths Mm */
@@ -2928,6 +3327,16 @@ export interface components {
          * @enum {string}
          */
         BlankType: "round_bar" | "tube" | "sheet" | "plate" | "square_bar" | "hex_bar" | "rectangular_bar" | "other";
+        /** BodyClipGoal */
+        BodyClipGoal: {
+            /**
+             * Normal
+             * @enum {string}
+             */
+            normal: "+x" | "-x" | "+y" | "-y" | "+z" | "-z";
+            /** Offset Mm */
+            offset_mm: string;
+        };
         /** Body_import_editable_table_csv_api_v1_nsi_editable_tables__table_key__import_csv_post */
         Body_import_editable_table_csv_api_v1_nsi_editable_tables__table_key__import_csv_post: {
             /** File */
@@ -2969,9 +3378,17 @@ export interface components {
             /**
              * Pipeline Mode
              * @default compact_round
-             * @constant
+             * @enum {string}
              */
-            pipeline_mode: "compact_round";
+            pipeline_mode: "compact_round" | "volume_round" | "cad_route";
+            /** Step */
+            step?: string | null;
+            /**
+             * Review Mode
+             * @default manual
+             * @enum {string}
+             */
+            review_mode: "manual" | "automatic";
             /** Verification Enabled */
             verification_enabled?: boolean | null;
             /** Auto Resolve Questions */
@@ -3002,6 +3419,34 @@ export interface components {
              */
             material_refs: string;
         };
+        /** Body_send_message_api_v1_orchestrator_messages_post */
+        Body_send_message_api_v1_orchestrator_messages_post: {
+            /** Request Id */
+            request_id: string;
+            /**
+             * Message
+             * @default
+             */
+            message: string;
+            /** Run Id */
+            run_id?: string | null;
+            /** Project Id */
+            project_id?: string | null;
+            /** Files */
+            files?: string[] | null;
+            /**
+             * Intent
+             * @default message
+             * @enum {string}
+             */
+            intent: "message" | "correct";
+            /** Issue Id */
+            issue_id?: string | null;
+            /** Issue Model Revision */
+            issue_model_revision?: number | null;
+            /** Issue Step Sha256 */
+            issue_step_sha256?: string | null;
+        };
         /** Body_validate_editable_table_csv_api_v1_nsi_editable_tables__table_key__validate_post */
         Body_validate_editable_table_csv_api_v1_nsi_editable_tables__table_key__validate_post: {
             /** File */
@@ -3019,7 +3464,10 @@ export interface components {
              * @enum {string}
              */
             kind: "cylinder";
-            /** Target Diameter Mm */
+            /**
+             * Target Diameter Mm
+             * @description Номинальный диаметр готовой поверхности из geometry.nominal_form_targets. Копируйте подтверждённый номинал точно; рабочую точку внутри допуска не выбирайте. Диаметр прутка и припуск до следующей обработки задаются отдельно.
+             */
             target_diameter_mm: string;
             /** Length Mm */
             length_mm: string;
@@ -3052,12 +3500,116 @@ export interface components {
              */
             family: "boring";
             /** Geometry */
-            geometry: components["schemas"]["BoreGoal"] | components["schemas"]["ConeGoal"] | components["schemas"]["GrooveGoal"] | components["schemas"]["ThreadGoal"] | components["schemas"]["ProfileGoal"];
+            geometry: components["schemas"]["BoreGoal"] | components["schemas"]["ConeGoal"] | components["schemas"]["GrooveGoal"] | components["schemas"]["ThreadGoal"] | components["schemas"]["ProfileGoal"] | components["schemas"]["TaperedThreadGoal"];
         };
         /** BulkTechnicalPropertiesRequest */
         BulkTechnicalPropertiesRequest: {
             /** Items */
             items?: components["schemas"]["MaterialTechnicalPropertyUpsert"][];
+        };
+        /** CAMMachineSetup */
+        "CAMMachineSetup-Input": {
+            /**
+             * Horizontal Rapid Mm Per Min
+             * @description FreeCAD ToolController.HorizRapid, mm/min. Not the maximum cutting feed.
+             */
+            horizontal_rapid_mm_per_min?: number | string | null;
+            /**
+             * Vertical Rapid Mm Per Min
+             * @description FreeCAD ToolController.VertRapid, mm/min.
+             */
+            vertical_rapid_mm_per_min?: number | string | null;
+            /**
+             * Safe Height Offset Mm
+             * @description FreeCAD SetupSheet.SafeHeightOffset, mm.
+             */
+            safe_height_offset_mm?: number | string | null;
+            /**
+             * Clearance Height Offset Mm
+             * @description FreeCAD SetupSheet.ClearanceHeightOffset, mm.
+             */
+            clearance_height_offset_mm?: number | string | null;
+            /**
+             * Source
+             * @default
+             */
+            source: string;
+        };
+        /** CAMMachineSetup */
+        "CAMMachineSetup-Output": {
+            /**
+             * Horizontal Rapid Mm Per Min
+             * @description FreeCAD ToolController.HorizRapid, mm/min. Not the maximum cutting feed.
+             */
+            horizontal_rapid_mm_per_min: string | null;
+            /**
+             * Vertical Rapid Mm Per Min
+             * @description FreeCAD ToolController.VertRapid, mm/min.
+             */
+            vertical_rapid_mm_per_min: string | null;
+            /**
+             * Safe Height Offset Mm
+             * @description FreeCAD SetupSheet.SafeHeightOffset, mm.
+             */
+            safe_height_offset_mm: string | null;
+            /**
+             * Clearance Height Offset Mm
+             * @description FreeCAD SetupSheet.ClearanceHeightOffset, mm.
+             */
+            clearance_height_offset_mm: string | null;
+            /**
+             * Source
+             * @default
+             */
+            source: string;
+        };
+        /** CAMToolSelection */
+        "CAMToolSelection-Input": {
+            /**
+             * Preset
+             * @description Native CAM ToolBit preset ID from the CAM catalogue, not a free-text tool description.
+             */
+            preset: string;
+            /**
+             * Parameters
+             * @description Native ToolBit parameter names and values, including their quantity units and enumeration choices.
+             */
+            parameters?: {
+                [key: string]: string | boolean | number;
+            };
+            /**
+             * Source
+             * @default
+             */
+            source: string;
+            /** Spindle Rpm */
+            spindle_rpm?: number | string | null;
+            /** Feed Mm Per Min */
+            feed_mm_per_min?: number | string | null;
+        };
+        /** CAMToolSelection */
+        "CAMToolSelection-Output": {
+            /**
+             * Preset
+             * @description Native CAM ToolBit preset ID from the CAM catalogue, not a free-text tool description.
+             */
+            preset: string;
+            /**
+             * Parameters
+             * @description Native ToolBit parameter names and values, including their quantity units and enumeration choices.
+             */
+            parameters: {
+                [key: string]: string | boolean;
+            };
+            /**
+             * Source
+             * @default
+             */
+            source: string;
+            /** Spindle Rpm */
+            spindle_rpm: string | null;
+            /** Feed Mm Per Min */
+            feed_mm_per_min: string | null;
         };
         /** CalculationCoverage */
         CalculationCoverage: {
@@ -3241,6 +3793,34 @@ export interface components {
             reference_needs: components["schemas"]["ReferenceNeed"][];
             /** Recommended Candidate Id */
             recommended_candidate_id?: string | null;
+        };
+        /** CalculationSettingsSection */
+        CalculationSettingsSection: {
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "rates" | "bar-lengths" | "cut-norms";
+            /** Title */
+            title: string;
+        };
+        /** CalculationSettingsView */
+        CalculationSettingsView: {
+            /** Sections */
+            sections: components["schemas"]["CalculationSettingsSection"][];
+            /** Rates */
+            rates: components["schemas"]["CalculationWorkRate"][];
+        };
+        /** CalculationWorkRate */
+        CalculationWorkRate: {
+            /**
+             * Category
+             * @enum {string}
+             */
+            category: "manual" | "inspection";
+            /** Title */
+            title: string;
+            profile: components["schemas"]["EstimateProfile"];
         };
         /** CalculationWorkflowResult */
         CalculationWorkflowResult: {
@@ -3492,6 +4072,19 @@ export interface components {
             angle?: string | null;
             /** Count */
             count?: number | null;
+        };
+        /** ChatAccepted */
+        ChatAccepted: {
+            /** Request Id */
+            request_id: string;
+            /** Chat Id */
+            chat_id: string;
+            /** Trace Run Id */
+            trace_run_id: string;
+            /** Replayed */
+            replayed: boolean;
+            /** Task Id */
+            task_id?: string | null;
         };
         /** ClarificationDependency */
         "ClarificationDependency-Input": {
@@ -3830,6 +4423,8 @@ export interface components {
             tasks: components["schemas"]["CompactClarificationTask"][];
             /** Previous Tasks */
             previous_tasks: components["schemas"]["CompactClarificationTask"][];
+            /** Agent Jobs */
+            agent_jobs: components["schemas"]["CompactQuestionAgentJob"][];
             previous_route?: components["schemas"]["CompactPreviousRouteClarifications"] | null;
         };
         /** CompactCommand */
@@ -4264,7 +4859,10 @@ export interface components {
             scope: ("all" | "sample") | null;
             /** Sample Quantity */
             sample_quantity: number | null;
-            /** Minutes */
+            /**
+             * Minutes
+             * @description Длительность приёмочного контроля: норматив, замер либо явно выбранная инженерная оценка с основанием в assumption. Известную оценку запиши здесь; без основания — null
+             */
             minutes: string | null;
             /** Time Basis */
             time_basis: ("per_inspected_piece" | "per_batch") | null;
@@ -4485,6 +5083,48 @@ export interface components {
             source: string;
             /** Changed Stock Fields */
             changed_stock_fields: string[];
+        };
+        /** CompactQuestionAgentJob */
+        CompactQuestionAgentJob: {
+            /** Id */
+            id: string;
+            /** Source Run Id */
+            source_run_id: string;
+            /** Question Ids */
+            question_ids: string[];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "running" | "publishing" | "completed" | "failed" | "stale" | "cancelled";
+            /** Model Id */
+            model_id: string;
+            /** Reasoning Effort */
+            reasoning_effort: string | null;
+            /** Base Revision */
+            base_revision: number;
+            /** Created At */
+            created_at: string;
+            /** Updated At */
+            updated_at: string;
+            /** Child Run Id */
+            child_run_id: string | null;
+            /** Artifact Id */
+            artifact_id: string | null;
+            /** Result Status */
+            result_status: ("answered" | "unresolved") | null;
+            /**
+             * Message
+             * @default
+             */
+            message: string;
+        };
+        /** CompactQuestionSolveCommand */
+        CompactQuestionSolveCommand: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Question Ids */
+            question_ids: string[];
         };
         /** CompactReading */
         "CompactReading-Input": {
@@ -4972,6 +5612,30 @@ export interface components {
             contracts: {
                 [key: string]: string;
             }[];
+            /** Passports */
+            passports: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * Passport Revision
+             * @default 1
+             */
+            passport_revision: number;
+            /**
+             * Time Operation Limit
+             * @default 2
+             */
+            time_operation_limit: number;
+            /**
+             * Time Operation Fields
+             * @default [
+             *       "title",
+             *       "material_scope",
+             *       "source",
+             *       "parameters"
+             *     ]
+             */
+            time_operation_fields: string[];
         };
         /** ConfiguredOperation */
         "ConfiguredOperation-Input": {
@@ -4993,6 +5657,7 @@ export interface components {
             geometry_defaults: {
                 [key: string]: number | string;
             };
+            cam_tool?: components["schemas"]["CAMToolSelection-Input"] | null;
         };
         /** ConfiguredOperation */
         "ConfiguredOperation-Output": {
@@ -5014,6 +5679,7 @@ export interface components {
             geometry_defaults: {
                 [key: string]: string;
             };
+            cam_tool: components["schemas"]["CAMToolSelection-Output"] | null;
         };
         /** ContourConfiguration */
         ContourConfiguration: {
@@ -5464,7 +6130,10 @@ export interface components {
              * @enum {string}
              */
             kind: "cylinder";
-            /** Target Diameter Mm */
+            /**
+             * Target Diameter Mm
+             * @description Номинальный диаметр готовой поверхности из geometry.nominal_form_targets. Копируйте подтверждённый номинал точно; рабочую точку внутри допуска не выбирайте. Диаметр прутка и припуск до следующей обработки задаются отдельно.
+             */
             target_diameter_mm: string;
             /** Length Mm */
             length_mm: string;
@@ -5475,6 +6144,12 @@ export interface components {
              * @default 0
              */
             remaining_radial_allowance_mm: string;
+            /**
+             * Subsequent Radial Change Mm
+             * @description Изменение наружного радиуса последующим процессом: + для слоя, - для полирования. Номинал цели не меняется; подготовка равна target_diameter_mm - 2×это поле.
+             * @default 0
+             */
+            subsequent_radial_change_mm: string;
         };
         /** CylinderSurface */
         CylinderSurface: {
@@ -5483,7 +6158,10 @@ export interface components {
              * @enum {string}
              */
             kind: "cylinder";
-            /** Diameter Mm */
+            /**
+             * Diameter Mm
+             * @description Фактический диаметр подготовки перед процессом, не номинал готовой поверхности
+             */
             diameter_mm: string;
             /** Length Mm */
             length_mm: string;
@@ -6172,7 +6850,7 @@ export interface components {
              */
             family: "drilling";
             /** Geometry */
-            geometry: components["schemas"]["HoleGoal"] | components["schemas"]["CenterGoal"] | components["schemas"]["TapGoal"] | components["schemas"]["RadialHoleGoal"];
+            geometry: components["schemas"]["HoleGoal"] | components["schemas"]["CenterGoal"] | components["schemas"]["TapGoal"] | components["schemas"]["RadialHoleGoal"] | components["schemas"]["LocalHoleGoal"] | components["schemas"]["TaperedThreadGoal"];
         };
         /** EccentricEnvelope */
         "EccentricEnvelope-Input": {
@@ -6550,6 +7228,13 @@ export interface components {
             reference_note?: string | null;
             effective_tolerance?: components["schemas"]["EffectiveTolerance"] | null;
         };
+        /** EquipmentAvailabilityWrite */
+        EquipmentAvailabilityWrite: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Enabled */
+            enabled: boolean;
+        };
         /** EquipmentCatalog */
         EquipmentCatalog: {
             /** Revision */
@@ -6585,12 +7270,18 @@ export interface components {
              * @enum {string}
              */
             speed_basis: "continuous" | "bounds" | "fixed" | "not_applicable";
-            /** Notes */
+            /**
+             * Notes
+             * @default
+             */
             notes: string;
+            /** Hourly Rate */
+            hourly_rate?: number | string | null;
             auxiliary: components["schemas"]["OperationNorm-Input"];
             setup: components["schemas"]["OperationNorm-Input"];
             /** Operations */
             operations: components["schemas"]["ConfiguredOperation-Input"][];
+            cam_setup?: components["schemas"]["CAMMachineSetup-Input"] | null;
         };
         /** EquipmentConfiguration */
         "EquipmentConfiguration-Output": {
@@ -6611,12 +7302,18 @@ export interface components {
              * @enum {string}
              */
             speed_basis: "continuous" | "bounds" | "fixed" | "not_applicable";
-            /** Notes */
+            /**
+             * Notes
+             * @default
+             */
             notes: string;
+            /** Hourly Rate */
+            hourly_rate: string | null;
             auxiliary: components["schemas"]["metall_mvp__domain__operation_tasks__OperationNorm-Output"];
             setup: components["schemas"]["metall_mvp__domain__operation_tasks__OperationNorm-Output"];
             /** Operations */
             operations: components["schemas"]["ConfiguredOperation-Output"][];
+            cam_setup: components["schemas"]["CAMMachineSetup-Output"] | null;
         };
         /** EstimateCandidate */
         EstimateCandidate: {
@@ -7583,6 +8280,18 @@ export interface components {
             /** Configuration Id */
             configuration_id: string | null;
         };
+        /** ExistingHoleGoal */
+        ExistingHoleGoal: {
+            /** Diameter Mm */
+            diameter_mm: string;
+            /** Full Depth Mm */
+            full_depth_mm: string;
+            /**
+             * Tip Length Mm
+             * @default 0
+             */
+            tip_length_mm: string;
+        };
         /**
          * ExtractedDocument
          * @description Machine-readable text and tables derived from one source document.
@@ -7691,6 +8400,13 @@ export interface components {
             inner_radius_mm: string;
             /** Outer Radius Mm */
             outer_radius_mm: string;
+            /**
+             * Side
+             * @description Торец исходного тела. Противоположные торцы — разные зоны; продолжение того же торца сохраняет кольцо и радиусы.
+             * @default left
+             * @enum {string}
+             */
+            side: "left" | "right";
         };
         /** FaceSectorGoal */
         FaceSectorGoal: {
@@ -7707,6 +8423,38 @@ export interface components {
             angle_deg: string;
             /** Depth Mm */
             depth_mm: string;
+        };
+        /** FaceSlotGoal */
+        FaceSlotGoal: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "face_slot";
+            /** Outer Diameter Mm */
+            outer_diameter_mm: string;
+            /**
+             * Inner Diameter Mm
+             * @default 0
+             */
+            inner_diameter_mm: string;
+            /** Available Depth Mm */
+            available_depth_mm: string;
+            /** Width Mm */
+            width_mm: string;
+            /** Depth Mm */
+            depth_mm: string;
+            /**
+             * Offset Mm
+             * @default 0
+             */
+            offset_mm: string;
+            /**
+             * Bottom Radius Mm
+             * @default 0
+             */
+            bottom_radius_mm: string;
+            source_profile: components["schemas"]["AxialSourceGoal"] | null;
         };
         /** FakeWorkflowRequest */
         FakeWorkflowRequest: {
@@ -8141,9 +8889,15 @@ export interface components {
              * @enum {string}
              */
             status: "confirmed" | "unknown" | "conflict";
-            /** Measurement Id */
+            /**
+             * Measurement Id
+             * @description Required for confirmed; null for unknown/conflict.
+             */
             measurement_id?: string | null;
-            /** Reason */
+            /**
+             * Reason
+             * @description Must be null for confirmed; a concrete reason is required for unknown/conflict. Reference applicability belongs to the measurement.
+             */
             reason?: string | null;
             /**
              * Related Row Indices
@@ -8310,12 +9064,21 @@ export interface components {
              * @constant
              */
             kind: "cylinder";
-            /** Target Diameter Mm */
+            /**
+             * Target Diameter Mm
+             * @description Номинальный диаметр готовой поверхности из geometry.nominal_form_targets. Копируйте подтверждённый номинал точно; рабочую точку внутри допуска не выбирайте. Диаметр прутка и припуск до следующей обработки задаются отдельно.
+             */
             target_diameter_mm: string;
             /** Length Mm */
             length_mm: string;
             /** Initial Diameter Mm */
             initial_diameter_mm: string | null;
+            /**
+             * Subsequent Radial Change Mm
+             * @description Изменение наружного радиуса следующим процессом; + слой, - полирование. Целевой номинал сохраняется точно.
+             * @default 0
+             */
+            subsequent_radial_change_mm: string;
         };
         /** GrindTask */
         GrindTask: {
@@ -8618,6 +9381,82 @@ export interface components {
             zone: "H" | "h" | "symmetric";
             /** It Grade */
             it_grade: number;
+        };
+        /** LocalBodyGoal */
+        LocalBodyGoal: {
+            /**
+             * Id
+             * @description Общий идентификатор тела для связанных отверстий
+             */
+            id: string;
+            /** Diameter Mm */
+            diameter_mm: string;
+            /**
+             * Length Mm
+             * @description Цилиндр по Z от 0 до длины, центр X=Y=0
+             */
+            length_mm: string;
+            /** Clips */
+            clips?: components["schemas"]["BodyClipGoal"][] | null;
+            source_profile: components["schemas"]["AxialSourceGoal"] | null;
+        };
+        /** LocalCavitySource */
+        LocalCavitySource: {
+            predecessor: components["schemas"]["FormPredecessor"] | null;
+            geometry: components["schemas"]["ExistingHoleGoal"] | null;
+            frame: components["schemas"]["LocalFrameGoal"] | null;
+            /** Source */
+            source: string;
+        };
+        /** LocalFrameGoal */
+        LocalFrameGoal: {
+            /**
+             * Axis
+             * @enum {string}
+             */
+            axis: "+x" | "-x" | "+y" | "-y" | "+z" | "-z" | "vector";
+            /** X Mm */
+            x_mm: string;
+            /** Y Mm */
+            y_mm: string;
+            /** Z Mm */
+            z_mm: string;
+            /** Direction X */
+            direction_x: string | null;
+            /** Direction Y */
+            direction_y: string | null;
+            /** Direction Z */
+            direction_z: string | null;
+        };
+        /** LocalHoleGoal */
+        LocalHoleGoal: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "local_hole";
+            body: components["schemas"]["LocalBodyGoal"];
+            frame: components["schemas"]["LocalFrameGoal"];
+            /**
+             * Diameter Mm
+             * @description Номинальный диаметр готовой поверхности из geometry.nominal_form_targets. Копируйте подтверждённый номинал точно; рабочую точку внутри допуска не выбирайте. Диаметр прутка и припуск до следующей обработки задаются отдельно.
+             */
+            diameter_mm: string;
+            /** Full Depth Mm */
+            full_depth_mm: string;
+            /**
+             * Bottom
+             * @default cone
+             * @enum {string}
+             */
+            bottom: "cone" | "flat";
+            /**
+             * End
+             * @enum {string}
+             */
+            end: "blind" | "through";
+            /** Existing Holes */
+            existing_holes: components["schemas"]["LocalCavitySource"][];
         };
         /** LocalReferenceDefinition */
         LocalReferenceDefinition: {
@@ -10276,7 +11115,7 @@ export interface components {
              */
             family: "milling";
             /** Geometry */
-            geometry: components["schemas"]["SlotGoal"] | components["schemas"]["FlatsGoal"] | components["schemas"]["FaceSectorGoal"];
+            geometry: components["schemas"]["SlotGoal"] | components["schemas"]["FlatsGoal"] | components["schemas"]["FaceSectorGoal"] | components["schemas"]["FaceSlotGoal"] | components["schemas"]["SectionProfileGoal"];
         };
         /** MillingLimits */
         MillingLimits: {
@@ -10293,6 +11132,26 @@ export interface components {
             envelope_z_mm?: string | null;
             /** Max Mass Kg */
             max_mass_kg?: string | null;
+        };
+        /** ModelApprovalResponse */
+        ModelApprovalResponse: {
+            /** State */
+            state: {
+                [key: string]: unknown;
+            };
+            /** Replayed */
+            replayed: boolean;
+        };
+        /** ModelApprovalWrite */
+        ModelApprovalWrite: {
+            /** Request Id */
+            request_id: string;
+            /** Expected Revision */
+            expected_revision: number;
+            /** Model Revision */
+            model_revision: number;
+            /** Step Sha256 */
+            step_sha256: string;
         };
         /** MoneyAmount */
         MoneyAmount: {
@@ -11580,6 +12439,21 @@ export interface components {
             /** Source */
             source: string;
         };
+        /** PassportConfigurationWrite */
+        PassportConfigurationWrite: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Expected Rate Version */
+            expected_rate_version: number;
+            /** Package */
+            package: {
+                [key: string]: unknown;
+            };
+            /** Hourly Rate */
+            hourly_rate?: number | string | null;
+            /** Configuration Id */
+            configuration_id?: string | null;
+        };
         /** PassportConflictAlternative */
         PassportConflictAlternative: {
             /** Raw Value */
@@ -12437,6 +13311,7 @@ export interface components {
             hole_diameter_mm: string;
             /**
              * Walls
+             * @description 1 — одна стенка полого тела; 2 — обе стенки либо сквозное сплошное тело. При inner_diameter_mm=0 требуется 2
              * @enum {integer}
              */
             walls: 1 | 2;
@@ -14274,7 +15149,7 @@ export interface components {
          * RunStatus
          * @enum {string}
          */
-        RunStatus: "queued" | "running" | "completed" | "needs_review" | "failed" | "cancelled";
+        RunStatus: "queued" | "running" | "waiting" | "completed" | "needs_review" | "failed" | "cancelled";
         /** RunTechnicalPropertiesResponse */
         RunTechnicalPropertiesResponse: {
             /** Run Id */
@@ -14340,6 +15215,53 @@ export interface components {
              */
             family: "sawing";
             geometry: components["schemas"]["SawGoal"];
+        };
+        /** SectionPathGoal */
+        SectionPathGoal: {
+            start: components["schemas"]["SectionPointGoal"];
+            /** Segments */
+            segments: components["schemas"]["SectionSegmentGoal"][];
+        };
+        /** SectionPointGoal */
+        SectionPointGoal: {
+            /** X Mm */
+            x_mm: string;
+            /** Y Mm */
+            y_mm: string;
+        };
+        /** SectionProfileGoal */
+        SectionProfileGoal: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "section_profile";
+            /** Initial Diameter Mm */
+            initial_diameter_mm: string | null;
+            /** Length Mm */
+            length_mm: string;
+            target: components["schemas"]["SectionPathGoal"];
+        };
+        /** SectionSegmentGoal */
+        SectionSegmentGoal: {
+            /** X Mm */
+            x_mm: string;
+            /** Y Mm */
+            y_mm: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "line" | "arc";
+            /** Center X Mm */
+            center_x_mm: string | null;
+            /** Center Y Mm */
+            center_y_mm: string | null;
+            /**
+             * Clockwise
+             * @default false
+             */
+            clockwise: boolean;
         };
         /**
          * SelectionOrigin
@@ -15563,6 +16485,50 @@ export interface components {
             /** Prepared Full Depth Mm */
             prepared_full_depth_mm: string | null;
         };
+        /** TaperedThreadGoal */
+        TaperedThreadGoal: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "tapered_thread";
+            /** Designation */
+            designation: string;
+            /**
+             * Profile Source
+             * @description Закреплённая строка норматива либо явно условный профиль; обозначение не заменяет численные входы
+             */
+            profile_source: string;
+            /** Reference Diameter Mm */
+            reference_diameter_mm: string;
+            /** Reference Z Mm */
+            reference_z_mm: string;
+            /** Diameter Taper Per Mm */
+            diameter_taper_per_mm: string;
+            /** Pitch Mm */
+            pitch_mm: string;
+            /** Length Mm */
+            length_mm: string;
+            /** Profile Height Mm */
+            profile_height_mm: string;
+            /** Root Width Mm */
+            root_width_mm: string;
+            /** Flank Angle Deg */
+            flank_angle_deg: string;
+            /** Phase Origin Mm */
+            phase_origin_mm: string;
+            /** Preparation Length Mm */
+            preparation_length_mm: string;
+            /**
+             * Preparation
+             * @enum {string}
+             */
+            preparation: "include" | "prepared";
+            /** Source Diameter Low Mm */
+            source_diameter_low_mm: string | null;
+            /** Source Diameter High Mm */
+            source_diameter_high_mm: string | null;
+        };
         /** TechnicalRequirement */
         TechnicalRequirement: {
             /** Id */
@@ -16194,7 +17160,7 @@ export interface components {
              */
             family: "turning";
             /** Geometry */
-            geometry: components["schemas"]["CylinderGoal"] | components["schemas"]["FaceGoal"] | components["schemas"]["GrooveGoal"] | components["schemas"]["ThreadGoal"] | components["schemas"]["ConeGoal"] | components["schemas"]["ProfileGoal"] | components["schemas"]["FaceRecessGoal"] | components["schemas"]["EccentricGoal"];
+            geometry: components["schemas"]["CylinderGoal"] | components["schemas"]["FaceGoal"] | components["schemas"]["GrooveGoal"] | components["schemas"]["ThreadGoal"] | components["schemas"]["ConeGoal"] | components["schemas"]["ProfileGoal"] | components["schemas"]["FaceRecessGoal"] | components["schemas"]["EccentricGoal"] | components["schemas"]["TaperedThreadGoal"];
         };
         /** TurningLimits */
         TurningLimits: {
@@ -16289,6 +17255,13 @@ export interface components {
          * @enum {string}
          */
         VerificationStatus: "unreviewed" | "operator_confirmed" | "operator_corrected";
+        /** VolumeQuantityWrite */
+        VolumeQuantityWrite: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Quantity */
+            quantity: number;
+        };
         /** WeldingRequirement */
         WeldingRequirement: {
             /**
@@ -16306,6 +17279,43 @@ export interface components {
             target_description?: string | null;
             /** Raw Text */
             raw_text: string;
+        };
+        /** WorkCommand */
+        WorkCommand: {
+            /** Request Id */
+            request_id: string;
+            /** Run Id */
+            run_id: string;
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "start" | "correct" | "cancel" | "continue" | "recalculate";
+            /**
+             * Origin
+             * @default ui
+             * @enum {string}
+             */
+            origin: "ui" | "agent";
+            /** Source Request Id */
+            source_request_id?: string | null;
+            /** Expected Revision */
+            expected_revision?: number | null;
+            /** Model Revision */
+            model_revision?: number | null;
+            /** Step Sha256 */
+            step_sha256?: string | null;
+            /**
+             * Note
+             * @default
+             */
+            note: string;
+            /** Attachment Ids */
+            attachment_ids?: string[] | null;
+            /** Task Id */
+            task_id?: string | null;
+            /** Quantity */
+            quantity?: number | null;
         };
         /** WorkDisposition */
         "WorkDisposition-Input": {
@@ -16795,6 +17805,104 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CodexModelOption"][];
+                };
+            };
+        };
+    };
+    read_roles_api_v1_settings_agents_roles_get: {
+        parameters: {
+            query?: {
+                pipeline_mode?: "cad_route" | "volume_round" | "compact_round";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentRoleOption"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    solve_question_api_v1_runs__run_id__compact_round_clarifications_solve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompactQuestionSolveCommand"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompactQuestionAgentJob"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_question_api_v1_runs__run_id__compact_round_clarifications_jobs__job_id__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompactQuestionAgentJob"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -18139,6 +19247,26 @@ export interface operations {
             };
         };
     };
+    read_calculation_settings_api_v1_calculation_settings_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CalculationSettingsView"];
+                };
+            };
+        };
+    };
     list_editable_tables_api_v1_nsi_editable_tables_get: {
         parameters: {
             query?: never;
@@ -19322,6 +20450,43 @@ export interface operations {
             };
         };
     };
+    set_passport_availability_api_v1_equipment_passports__machine_id__availability_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Operator"?: string;
+            };
+            path: {
+                machine_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EquipmentAvailabilityWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MachinePassportCatalog"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     create_category_api_v1_equipment_categories_post: {
         parameters: {
             query?: never;
@@ -19481,6 +20646,65 @@ export interface operations {
             };
         };
     };
+    read_cam_profiles_api_v1_equipment_configurator_cam_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    save_passport_configuration_api_v1_equipment_configurator_passports__machine_id__put: {
+        parameters: {
+            query?: never;
+            header: {
+                "X-Operator": string;
+            };
+            path: {
+                machine_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PassportConfigurationWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfiguratorView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     update_configurator_api_v1_equipment_configurator__machine_id__put: {
         parameters: {
             query?: never;
@@ -19495,6 +20719,78 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["ConfigurationWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EquipmentCatalog"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_configuration_api_v1_equipment_configurator__machine_id__delete: {
+        parameters: {
+            query: {
+                expected_revision: number;
+            };
+            header?: {
+                "X-Operator"?: string;
+            };
+            path: {
+                machine_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EquipmentCatalog"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_availability_api_v1_equipment_configurator__machine_id__availability_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Operator"?: string;
+            };
+            path: {
+                machine_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EquipmentAvailabilityWrite"];
             };
         };
         responses: {
@@ -19538,6 +20834,445 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["RecognitionAccepted"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_volume_round_api_v1_runs__run_id__volume_round_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    } | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_volume_quantity_api_v1_runs__run_id__volume_round_quantity_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VolumeQuantityWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    download_calculation_basis_api_v1_runs__run_id__volume_round_basis_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    volume_preview_api_v1_runs__run_id__volume_round_view__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    approve_model_api_v1_runs__run_id__cad_route_approve_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Operator"?: string;
+            };
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ModelApprovalWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelApprovalResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_cad_route_api_v1_runs__run_id__cad_route_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    } | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cad_preview_api_v1_runs__run_id__cad_route_view__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cad_model_preview_api_v1_runs__run_id__cad_route_models__model_revision__view__name__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                model_revision: number;
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_chat_api_v1_orchestrator_chat_get: {
+        parameters: {
+            query?: {
+                run_id?: string | null;
+                project_id?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_context_api_v1_orchestrator_context_get: {
+        parameters: {
+            query?: {
+                run_id?: string | null;
+                project_id?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    work_command_api_v1_orchestrator_commands_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Operator"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WorkCommand"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_message_api_v1_orchestrator_messages_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Operator"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_send_message_api_v1_orchestrator_messages_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatAccepted"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_message_api_v1_orchestrator_requests__request_id__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */
@@ -20610,6 +22345,58 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
                 };
+            };
+        };
+    };
+    get_artifact_preview_api_v1_artifacts__artifact_id__preview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                artifact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Drawing preview; the first PDF page is rendered only on request */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "image/png": unknown;
+                    "image/jpeg": unknown;
+                    "image/webp": unknown;
+                };
+            };
+            /** @description Artifact not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Artifact unavailable or checksum mismatch */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unsupported drawing format */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description PDF preview could not be rendered */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

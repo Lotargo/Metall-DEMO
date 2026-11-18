@@ -1,8 +1,21 @@
-export const DEMO_RUN_ID = '7ea4be93-9a2b-4c9b-b50a-6943cf9048a0';
+export const DEMO_RUN_ID = '6c64f6c9-b4ec-416e-983d-80c2106e60dd';
 export const DEMO_RUN_PATH = `/runs/${DEMO_RUN_ID}`;
 export const demoAsset = (file: string) => `${import.meta.env.BASE_URL}${file.replace(/^\//, '')}`;
-export const DEMO_STORAGE = 'metall-demo.responses.v1';
+export const DEMO_STORAGE = 'metall-demo.responses.v2';
 export const DEMO_READ_ONLY = 'В демо показан сохранённый расчёт. Изменение инженерных данных и новый пересчёт доступны в полной версии Metall.';
 export function demoNotice(message: string) {
   window.dispatchEvent(new CustomEvent('metall-demo:notice', { detail: message }));
 }
+
+let assets: Record<string, string> = {};
+export function registerDemoAssets(value: Record<string, string>) { assets = value; }
+export function demoFileFor(url: string): string | undefined {
+  const path = url.split('?')[0];
+  const file = assets[path];
+  return file ? demoAsset(file) : undefined;
+}
+export function demoDocumentLink(url: string) {
+  if (url.startsWith('/api/')) return demoFileFor(url);
+  return url.startsWith('/runs/') ? `#${url}` : url;
+}
+export function demoModelSource(revision: number) { return demoAsset(`models/shaft-v${revision}/`); }
